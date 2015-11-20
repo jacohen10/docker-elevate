@@ -4,4 +4,7 @@ class WelcomeController < ApplicationController
       @customer = current_user.customers[0]
     end
   end
+
+  def new_restaurant
+  end
 end
