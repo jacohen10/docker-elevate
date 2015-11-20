@@ -9,7 +9,9 @@
 
   <% if current_user %>
   <%= link_to "Edit", edit_customer_path(@customer), :class => "btn btn-default"%>
+  <% if current_user.role == "admin"%>
   <%= link_to "Delete", customer_path(@customer), :class => "btn btn-default", method: :delete%>
+  <%end%>
   <%end%>
 
   <h3>Restaurants</h3>
@@ -20,10 +22,10 @@
       <%=restaurant.name%>
       <%= form_for [@customer,@meal] do |f| %>
       <select name="food_item">
-         <%= restaurant.menus.each do |menu|  %>
-         <option value="<%= menu.name %>"><%=menu.name %></option>
-         <%end%>
-       </select>
+        <%= restaurant.menus.each do |menu|  %>
+        <option value="<%= menu.name %>"><%=menu.name %></option>
+        <%end%>
+      </select>
       <%= hidden_field_tag :restaurant_id, restaurant.id %>
       <%= hidden_field_tag :status, "open" %>
       <%= f.submit "Add meal"%>

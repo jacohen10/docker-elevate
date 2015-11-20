@@ -8,8 +8,13 @@
 <%= f.text_field :email %>
 <%= f.label :year %>
 <%= f.select :year, options_for_select([['2nd Year', 2], ['3rd Year', 3], ['4th Year', 4]]) %>
+<% if current_user.role == "admin"%>
 <%= f.label :plan %>
 <%= f.text_field :plan %>
+<%else%>
+<p>Plan selected: <%=@customer.plan%></p>
+<%end%>
+
 <%= f.submit%>
 <%end%>
 </div>

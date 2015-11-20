@@ -10,7 +10,7 @@ class Ability
       elsif user.role == "restaurant"
         can [:update, :read], [Restaurant, Meal]
       elsif user.role == "customer"
-        can [:update, :read], [Customer]
+        can [:update, :read, :create], [Customer]
         can [:update, :read, :create], [Meal]
       else
         can :read, :all

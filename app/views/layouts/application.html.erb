@@ -26,9 +26,20 @@
           <% if can? :update, Restaurant %>
           <li><%= link_to "Restaurants", restaurants_path%></li>
           <%end%>
-          <% if can? :update, Customer %>
+          <% if current_user %>
+          <% if current_user.role == "admin"%>
           <li><%= link_to "Customers", customers_path%></li>
+
+
+
+
+          <% elsif current_user.role == "customer"%>
+          <% if current_user.customers.count >0%>
+          <li><%= link_to "Customer profile", user_customer_path(current_user, @customer)%></li>
           <%end%>
+          <%end%>
+          <%end%>
+
           <% if current_user %>
             <li><%= link_to 'Signout', destroy_user_session_path, :method => :delete %></li>
           <% else %>

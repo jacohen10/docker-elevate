@@ -20,8 +20,13 @@ class CustomersController < ApplicationController
   end
 
   def create
-    @customer = Customer.create(customer_params)
-    redirect_to customers_path
+    @customer = current_user.customers.create(customer_params)
+
+    if current_user.role == "admin"
+      redirect_to customers_path
+    elsif current_user.role == "customer"
+      redirect_to user_customer_path(current_user, @customer)
+    end
   end
 
   def edit

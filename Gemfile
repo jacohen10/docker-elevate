@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+gem 'pry'
 gem 'cancancan', '~> 1.10'
 gem 'bootstrap-sass'
 gem 'devise'
