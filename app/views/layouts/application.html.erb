@@ -35,7 +35,7 @@
 
           <% elsif current_user.role == "customer"%>
           <% if current_user.customers.count >0%>
-          <li><%= link_to "Customer profile", user_customer_path(current_user, @customer)%></li>
+          <li><%= link_to "Profile", user_customer_path(current_user, @customer)%></li>
           <%end%>
           <%end%>
           <%end%>
