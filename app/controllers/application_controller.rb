@@ -4,6 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   include CanCan::ControllerAdditions
 
-
+  def after_sign_in_path_for(resource)
+    if current_user.role === "customer"
+      user_customer_path(current_user, current_user.customers[0].id)
+    elsif current_user.role === "restaurant"
+      user_restaurant_path(current_user, current_user.restaurants[0].id)
+    else
+      super
+    end
+  end
 
 end

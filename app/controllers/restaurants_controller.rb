@@ -12,8 +12,8 @@ class RestaurantsController < ApplicationController
   def index
     if current_user.role == "admin"
       @restaurants = Restaurant.all
-    elsif current_user.role == "customer"
-      @restaurant = current_user.restaurants.create(restaurant_params)
+    # elsif current_user.role == "customer"
+    #   @restaurant = current_user.restaurants.create(restaurant_params)
     end
 
 
