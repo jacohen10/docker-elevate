@@ -8,7 +8,9 @@ class Ability
       if user.role == "admin"
         can :manage, :all
       elsif user.role == "restaurant"
-        can [:update, :read], [Restaurant, Meal]
+        can [:update, :read], [Meal]
+        can [:create, :update, :read], [Restaurant]
+        can :manage, [Menu]
       elsif user.role == "customer"
         can [:update, :read, :create], [Customer]
         can [:update, :read, :create], [Meal]

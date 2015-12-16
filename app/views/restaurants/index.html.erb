@@ -1,4 +1,5 @@
 <div class="jumbotron vertical-center">
+<% if current_user.role == "admin"%>
   <h2>Restaurants <%= link_to "(+)", new_restaurant_path %></h2>
 
   <ul>
@@ -9,3 +10,4 @@
     <%end%>
   </ul>
 </div>
+<%end%>

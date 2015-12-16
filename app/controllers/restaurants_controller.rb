@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
-before_action :set_restaurant, only: [:show,:edit,:update,:destroy,:subtract]
-before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-load_and_authorize_resource
+  before_action :set_restaurant, only: [:show,:edit,:update,:destroy]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   def status_close
     @meal = Meal.find(params[:meal_id])
@@ -10,14 +10,23 @@ load_and_authorize_resource
   end
 
   def index
-    @restaurants = Restaurant.all
+    if current_user.role == "admin"
+      @restaurants = Restaurant.all
+    elsif current_user.role == "customer"
+      @restaurant = current_user.restaurants.create(restaurant_params)
+    end
+
+
+
   end
 
   def show
-    @customers = Customer.all
-    @meal = Meal.new
-    @meals = @restaurant.meals.all
-    @menus = @restaurant.menus.all
+    if current_user
+      @customers = Customer.all
+      @meal = Meal.new
+      @meals = @restaurant.meals.all
+      @menus = @restaurant.menus.all
+    end
   end
 
   def new
@@ -25,8 +34,8 @@ load_and_authorize_resource
   end
 
   def create
-    @restaurant = Restaurant.create(restaurant_params)
-    redirect_to restaurants_path
+    @restaurant = current_user.restaurants.create(restaurant_params)
+    redirect_to user_restaurant_path(current_user, @restaurant)
   end
 
   def edit
@@ -41,12 +50,6 @@ load_and_authorize_resource
     @restaurant.destroy
     redirect_to restaurants_path
   end
-
-  # def subtract
-  #   @customer = Customer.find(params[:id])
-  #   @customer.update_attributes(plan: (@customer.plan - 1))
-  #   redirect_to restaurant_path(@restaurant)
-  # end
 
   private
   def restaurant_params

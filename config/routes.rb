@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   end
   resources :users do
     resources :customers
+    resources :restaurants
   end
 
 end
