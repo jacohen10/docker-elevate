@@ -13,9 +13,19 @@
  *= require_tree .
  *= require_self
  */
+$navbar-default-bg: #18519A;
+$navbar-default-link-color: white;
+$navbar-height: 75px;
 
+$border-radius-base: 0;
 
-$jumbotron-bg: #167786;
+body {
+  background-color: black;
+  background: black;
+}
+
+$jumbotron-bg: #F5F5F5;
+
 .jumbotron {
   width: 80%;
   text-align: center;
@@ -43,6 +53,53 @@ $jumbotron-bg: #167786;
 
 .jumbotron a:active {
   color: white;
+}
+
+// customer show page
+
+.mealPlan {
+  background: white;
+  width: 50%;
+  margin: auto;
+  border-radius: 5px;
+  padding: 1%;
+  font-weight: bold;
+  background: #18519A;
+}
+
+.mealPlan li {
+  color: white;
+}
+
+.restaurant {
+  background: #18519A;
+  width: 60%;
+  margin: auto;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.restaurant h3 {
+  color: white;
+}
+
+.restaurant select {
+-webkit-appearance: menulist-button;
+  height: 30px;
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+
+$btn-font-weight: bold;
+
+#newmeal {
+  margin-bottom: 5px;
+}
+
+// meals
+tbody tr th {
+  text-align: center;
 }
 
 @import "bootstrap"

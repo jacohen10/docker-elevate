@@ -1,53 +1,74 @@
 <% if current_user%>
 <div class="jumbotron vertical-center">
-  <h2><%=@customer.name %></h2>
-  <ul>
-    <li>Year: <%=@customer.year %></li>
-    <li>Email: <%=@customer.email %></li>
-    <li>Plan selected: <%=@customer.plan %></li>
-    <li>Meals remaining: <%=@meals_remaining %></li>
-  </ul>
+  <h2>
+    <%=@customer.name %>
+    <% if current_user %>
+    <%= link_to "Edit", edit_customer_path(@customer), :class => "btn btn-default"%>
+    <%end%>
+  </h2>
 
-  <% if current_user %>
-  <%= link_to "Edit", edit_customer_path(@customer), :class => "btn btn-default"%>
+  <div class="mealPlan">
+    <ul>
+      <li>Plan selected: <%=@customer.plan %></li>
+      <li>Meals remaining: <%=@meals_remaining %></li>
+    </ul>
+  </div>
+
   <% if current_user.role == "admin"%>
   <%= link_to "Delete", customer_path(@customer), :class => "btn btn-default", method: :delete%>
   <%end%>
-  <%end%>
 
-  <h3>Restaurants</h3>
+  <h3>Restaurants:</h3>
   <%if @meals_remaining > 0%>
-  <ul>
-    <%@restaurants.each do |restaurant| %>
-    <li>
-      <%=restaurant.name%>
-      <%= form_for [@customer,@meal] do |f| %>
-      <select name="food_item">
-        <%= restaurant.menus.each do |menu|  %>
-        <option value="<%= menu.name %>"><%=menu.name %></option>
-        <%end%>
-      </select>
-      <%= hidden_field_tag :restaurant_id, restaurant.id %>
-      <%= hidden_field_tag :status, "open" %>
-      <%= f.submit "Add meal"%>
-      <%end%>
-      <%end%>
-    </li>
-  </ul>
+  <%@restaurants.each do |restaurant| %>
+  <div class="restaurant">
+    <h3><%=restaurant.name%></h3>
+    <div class="container">
+      <div class="row">
+        <%= form_for [@customer,@meal] do |f| %>
+
+        <div class="col-xs-12 col-md-6-offset-1">
+          <select name="food_item">
+            <%= restaurant.menus.each do |menu|  %>
+
+            <option value="<%= menu.name %>"><%=menu.name %></option>
+            <%end%>
+          </select>
+        </div>
+        <div class="col-xs-12 col-md-12">
+          <%= hidden_field_tag :restaurant_id, restaurant.id %>
+          <%= hidden_field_tag :status, "open" %>
+          <%= f.submit "Add meal", :class => "btn btn-default" %>
+        </div>
+      </div>
+    </div>
+    <%end%>
+  </div>
+  <%end%>
   <%else%>
   <%="You're out of meals, please purchase more in order to continue"%>
   <%end%>
-  <h3>Meals</h3>
-  <ul>
-    <%@meals.each do |meal| %>
-    <li>
-      <%=Restaurant.find(meal.restaurant_id).name%>
-      <%=meal.food_item%>
-      <%=meal.created_at.strftime("%B %d, %Y %I:%M%p")%>
-      <%=meal.status%>
-    </li>
-    <%end%>
-  </ul>
-</div>
+  <h3>Meals:</h3>
+
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <th>Restaurant</th>
+      <th>Meal</th>
+      <th>Date/Time</th>
+      <th>Status</th>
+
+      <%@meals.each do |meal| %>
+
+      <tr>
+        <td><%=Restaurant.find(meal.restaurant_id).name%></td>
+        <td><%=meal.food_item%></td>
+        <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
+        <td><%=meal.status%></td>
+      </tr>
+
+      <%end%>
+    </table>
+  </div>
 </div>
 <%end%>
