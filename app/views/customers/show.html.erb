@@ -38,37 +38,39 @@
         <div class="col-xs-12 col-md-12">
           <%= hidden_field_tag :restaurant_id, restaurant.id %>
           <%= hidden_field_tag :status, "open" %>
-          <%= f.submit "Add meal", :class => "btn btn-default" %>
+          <div id="submit_btn">
+            <%= f.submit "Add meal", class: "btn btn-primary" %>
         </div>
       </div>
     </div>
+  </div>
+  <%end%>
+</div>
+<%end%>
+<%else%>
+<%="You're out of meals, please purchase more in order to continue"%>
+<%end%>
+<h3>Meals:</h3>
+
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <th>Restaurant</th>
+    <th>Meal</th>
+    <th>Date/Time</th>
+    <th>Status</th>
+
+    <%@meals.each do |meal| %>
+
+    <tr>
+      <td><%=Restaurant.find(meal.restaurant_id).name%></td>
+      <td><%=meal.food_item%></td>
+      <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
+      <td><%=meal.status%></td>
+    </tr>
+
     <%end%>
-  </div>
-  <%end%>
-  <%else%>
-  <%="You're out of meals, please purchase more in order to continue"%>
-  <%end%>
-  <h3>Meals:</h3>
-
-
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <th>Restaurant</th>
-      <th>Meal</th>
-      <th>Date/Time</th>
-      <th>Status</th>
-
-      <%@meals.each do |meal| %>
-
-      <tr>
-        <td><%=Restaurant.find(meal.restaurant_id).name%></td>
-        <td><%=meal.food_item%></td>
-        <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
-        <td><%=meal.status%></td>
-      </tr>
-
-      <%end%>
-    </table>
-  </div>
+  </table>
+</div>
 </div>
 <%end%>

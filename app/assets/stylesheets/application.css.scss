@@ -24,7 +24,7 @@ body {
   background: black;
 }
 
-$jumbotron-bg: #F5F5F5;
+$jumbotron-bg: white;
 
 .jumbotron {
   width: 80%;
@@ -64,24 +64,21 @@ $jumbotron-bg: #F5F5F5;
   border-radius: 5px;
   padding: 1%;
   font-weight: bold;
-  background: #18519A;
+
 }
 
-.mealPlan li {
-  color: white;
-}
 
 .restaurant {
-  background: #18519A;
+  background: #eeeeee;
   width: 60%;
   margin: auto;
-  border-radius: 5px;
-  padding: 5px;
   margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 3px;
 }
 
 .restaurant h3 {
-  color: white;
+  color: black;
 }
 
 .restaurant select {
@@ -89,6 +86,10 @@ $jumbotron-bg: #F5F5F5;
   height: 30px;
   margin-bottom: 3px;
   font-weight: bold;
+}
+
+#submit_btn .btn {
+  border-radius: 4px;
 }
 
 $btn-font-weight: bold;
