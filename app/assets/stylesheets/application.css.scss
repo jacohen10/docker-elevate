@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
 $navbar-default-bg: #18519A;
 $navbar-default-link-color: white;
 $navbar-height: 75px;
@@ -104,4 +105,4 @@ tbody tr th {
   text-align: center;
 }
 
-@import "bootstrap"
+@import "bootstrap";
