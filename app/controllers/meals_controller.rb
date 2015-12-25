@@ -13,10 +13,10 @@ class MealsController < ApplicationController
   end
 
   def create
-    @restaurant = Restaurant.find(params[:restaurant_id])
+    # @restaurant = Restaurant.find(params[:restaurant_id])
     @customer = Customer.find(params[:customer_id])
-    @customer.meals.create(restaurant_id: params[:restaurant_id], status: params[:status], food_item: params[:food_item])
-    redirect_to customer_path(@customer)
+    @customer.meals.create(meal_params)
+    redirect_to user_customer_path(current_user,@customer)
   end
 
   def edit
@@ -32,6 +32,6 @@ class MealsController < ApplicationController
 
   private
   def meal_params
-    params.require(:meal).permit(:restaurant_id,:status,:food_item)
+    params.require(:meal).permit(:restaurant_id,:status,:food_item,:comment)
   end
 end

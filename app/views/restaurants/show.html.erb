@@ -6,27 +6,24 @@
     <li>Phone: <%=@restaurant.phone %></li>
     <li><%= link_to "View Menu", restaurant_menus_path(@restaurant), :class => "btn btn-default"%></li>
   </ul>
-
   <%= link_to "Edit", edit_restaurant_path(@restaurant), :class => "btn btn-default"%>
   <%= link_to "Delete", restaurant_path(@restaurant),:class => "btn btn-default", method: :delete%>
-
   <h3>Meals</h3>
   <ul>
     <%@meals.each do |meal| %>
-    <%if meal.status == "open" %>
-    <li>
-      <%=Restaurant.find(meal.restaurant_id).name%>
-      <%=Customer.find(meal.customer_id).name%>
-      <%=meal.food_item%>
-      <%= form_for [@restaurant, meal] do |f| %>
-      <%= hidden_field_tag :meal_id, meal.id %>
-      <%= hidden_field_tag :status, "closed" %>
-      <%= f.submit "Confirm meal"%>
+      <%if meal.status == "open" %>
+        <li>
+          <%=Restaurant.find(meal.restaurant_id).name%>
+          <%=Customer.find(meal.customer_id).name%>
+          <%=meal.food_item%>
+          <%=meal.comment%>
+          <%= form_for [@restaurant, meal] do |f| %>
+            <%= hidden_field_tag :meal_id, meal.id %>
+            <%= hidden_field_tag :status, "closed" %>
+            <%= f.submit "Confirm meal"%>
+          <%end%>
+        </li>
       <%end%>
-
-
-    </li>
-    <%end%>
     <%end%>
   </ul>
 </div>
