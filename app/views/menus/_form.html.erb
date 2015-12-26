@@ -5,8 +5,10 @@
     <%= f.text_field :name%>
   </div>
   <div class="form-group">
-    <%= f.label :meal_type %>
-    <%= f.text_field :meal_type%>
+    <%= f.label :meal_type, 'Lunch', value: 'lunch' %>
+    <%= f.radio_button :meal_type,'Lunch',value: 'lunch' %>
+    <%= f.label :meal_type, 'Dinner', value: 'dinner' %>
+    <%= f.radio_button :meal_type, 'Dinner',value: 'dinner', checked: true %>
   </div>
   <div class="form-group">
     <%= f.label :details %>

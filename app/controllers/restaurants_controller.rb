@@ -24,7 +24,7 @@ class RestaurantsController < ApplicationController
     if current_user
       @customers = Customer.all
       @meal = Meal.new
-      @meals = @restaurant.meals.all
+      @meals = @restaurant.meals.all.order(created_at: :asc)
       @menus = @restaurant.menus.all
     end
   end

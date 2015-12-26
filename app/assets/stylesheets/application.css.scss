@@ -65,13 +65,10 @@ $jumbotron-bg: white;
   border-radius: 5px;
   padding: 1%;
   font-weight: bold;
-
 }
-
 
 .restaurant {
   background: #eeeeee;
-
   margin: auto;
   margin-bottom: 5px;
   padding: 5px;
@@ -103,6 +100,15 @@ $btn-font-weight: bold;
 // meals
 tbody tr th {
   text-align: center;
+}
+
+// alert
+.notice {
+  color: #31708f;
+  background: #d9edf7;
+  border-color: #bce8f1;
+  border-radius: 4px;
+  padding: 15px;
 }
 
 @import "bootstrap";

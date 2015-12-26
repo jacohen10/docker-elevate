@@ -13,9 +13,11 @@ class MealsController < ApplicationController
   end
 
   def create
-    # @restaurant = Restaurant.find(params[:restaurant_id])
+
     @customer = Customer.find(params[:customer_id])
-    @customer.meals.create(meal_params)
+    @meal = @customer.meals.create(meal_params)
+    @restaurant = Restaurant.find(@meal.restaurant_id)
+    flash[:notice] = "#{@customer.name} your meal has been submitted. Waiting for #{@restaurant.name} to confirm!"
     redirect_to user_customer_path(current_user,@customer)
   end
 

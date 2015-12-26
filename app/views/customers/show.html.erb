@@ -12,6 +12,9 @@
         <li>Meals remaining: <%=@meals_remaining %></li>
       </ul>
     </div>
+    <% flash.each do |type, message| %>
+      <p class="<%= type %>"><%= message %></p>
+    <% end %>
     <% if current_user.role == "admin"%>
       <%= link_to "Delete", customer_path(@customer), :class => "btn btn-default", method: :delete%>
     <%end%>
@@ -29,7 +32,6 @@
                 <div class="col-xs-12 col-md-12">
                   <%= f.text_field :comment, placeholder: "meal requests..." %>
                   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
-
                   <div class="order_ahead">
                     <%= f.label :order_ahead, 'Swipe', value: 'swipe' %>
                     <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
