@@ -1,0 +1,17 @@
+<div class="jumbotron vertical-center">
+  <h2>Business Hours <%= link_to "(+)", new_restaurant_open_time_path(@restaurant) %></h2>
+  <table class="table">
+    <th>Day</th>
+    <th>Opening Time</th>
+    <th>Closing Time</th>
+    <%@open_times.each do |open_time| %>
+      <tr>
+        <td><%=open_time.day%></td>
+        <td><%=open_time.opening.strftime("%I:%M%p")%></td>
+        <td><%=open_time.closing.strftime("%I:%M%p")%></td>
+        <td><%=link_to "Edit", edit_restaurant_open_time_path(@restaurant, open_time), class: "btn btn-default" %></td>
+        <td><%= link_to "Delete", restaurant_open_time_path(@restaurant, open_time),class: "btn btn-default", method: :delete%></td>
+      </tr>
+    <%end%>
+  </table>
+</div>

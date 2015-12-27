@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   root to: 'welcome#index'
   resources :restaurants do
     resources :menus
+    resources :open_times
     resources :meals
   end
   resources :customers do
