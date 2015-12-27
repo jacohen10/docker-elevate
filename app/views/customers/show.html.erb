@@ -1,7 +1,7 @@
 <% if current_user%>
   <div class="jumbotron vertical-center">
     <h2>
-      <%=@customer.name %>
+      <%=@customer.name%>
       <% if current_user %>
         <%= link_to "Edit", edit_customer_path(@customer), class:  "btn btn-default"%>
       <%end%>
@@ -21,6 +21,9 @@
     <h3>Restaurants:</h3>
     <%if @meals_remaining > 0 && @customer.verification === "true"%>
       <%@restaurants.each do |restaurant| %>
+      <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===1 && ((restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%H.%M") < Time.now.strftime("%H.%M")) && (restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%H.%M") > Time.now.strftime("%H.%M")) )   ) %>
+
+      <!-- && ()(restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing > Time.now)))  -->
         <div class="restaurant">
           <h3><%=restaurant.name%></h3>
           <div class="container">
@@ -47,6 +50,7 @@
             </div>
           </div>
         </div>
+      <%end%>
       <%end%>
     <%else%>
       <%="You're out of meals, please purchase more in order to continue"%>

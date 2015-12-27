@@ -2,6 +2,7 @@
   <h2><%=@restaurant.name %> <%= link_to "Edit", edit_restaurant_path(@restaurant), class: "btn btn-default"%></h2>
   <ul>
     <li><%= link_to "Menu", restaurant_menus_path(@restaurant), class: "btn btn-default"%></li>
+    <li><%= link_to "Business Hours", restaurant_open_times_path(@restaurant), class: "btn btn-default"%></li>
   </ul>
   <% if current_user.role == "admin"%>
     <%= link_to "Delete", restaurant_path(@restaurant),class: "btn btn-default", method: :delete%>
