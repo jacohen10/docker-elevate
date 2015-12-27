@@ -44,8 +44,8 @@ class CustomersController < ApplicationController
   end
 
   def update
+    @customer.update(customer_params)
     if current_user.role === "customer"
-      @customer.update(customer_params)
       redirect_to customer_path(@customer)
     else
       redirect_to customers_path
