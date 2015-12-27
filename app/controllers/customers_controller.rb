@@ -4,7 +4,12 @@ class CustomersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @customers = Customer.all
+    if current_user.role === "admin"
+      @customers = Customer.all
+    else
+      redirect_to '/'
+    end
+
   end
 
   def show
@@ -39,8 +44,12 @@ class CustomersController < ApplicationController
   end
 
   def update
+    if current_user.role === "customer"
       @customer.update(customer_params)
       redirect_to customer_path(@customer)
+    else
+      redirect_to customers_path
+    end
   end
 
   def destroy
@@ -58,13 +67,13 @@ class CustomersController < ApplicationController
 
   private
   def customer_params
-    params.require(:customer).permit(:name,:year,:email,:plan)
+    params.require(:customer).permit(:name,:year,:email,:plan,:verification)
   end
 
   def set_customer
-    if current_user.role == "admin"
+    if current_user.role === "admin"
       @customer = Customer.find(params[:id])
-    elsif current_user.role == "customer"
+    elsif current_user.role === "customer"
       @customer = current_user.customers.find(params[:id])
     end
   end
