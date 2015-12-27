@@ -1,11 +1,19 @@
 <div class="jumbotron vertical-center">
   <h2>Customers <% if current_user.role == "admin"%><%= link_to "(+)", new_customer_path %><%end%></h2>
+<table class="table">
+  <th>Customer</th>
+  <th>Verification Status</th>
+  <th>Verify</th>
   <%@customers.each do |customer| %>
-    <%=link_to customer.name, customer_path(customer) %>
-    <%=customer.verification %>
-    <%= form_for [customer] do |f| %>
-      <%= f.hidden_field :verification, value: "true" %>
-      <%= f.submit "Approve"%>
-    <%end%>
+    <tr>
+      <td><%=link_to customer.name, customer_path(customer) %></td>
+      <td><%=customer.verification %></td>
+      <td><%= form_for [customer] do |f| %>
+        <%= f.hidden_field :verification, value: "true" %>
+        <%= f.submit "Approve"%>
+        <%end%>
+      </td>
+    </tr>
   <%end%>
+  </table>
 </div>
