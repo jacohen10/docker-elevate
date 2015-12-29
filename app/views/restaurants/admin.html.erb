@@ -20,11 +20,11 @@
             <td><%=meal.payment%></td>
             <%if current_user.role === "admin"%>
               <%if current_user.role === "admin"%>
-                <td>  <%= form_tag complete_restaurant_meals_path(), method: :put do %>
+                <td>  <%= form_for [@restaurant, meal] do |f| %>
                     <%= hidden_field_tag :meal_id, meal.id %>
                     <%= hidden_field_tag :status, meal.status %>
                     <%= hidden_field_tag :payment, false %>
-                    <%= check_box_tag :payment[], true, checked = false, {class: "unpaid"}%>
+                    <%= check_box_tag :payment, true, checked = false, {class: "unpaid"}%>
                     <%= f.submit "Meal Paid"%>
                   </td>
                 </tr>
@@ -34,6 +34,13 @@
         <%end%>
       <%end%>
     <%end%>
+    <th></th>
+    <th></th>
+    <th> </th>
+    <th></th>
+    <th></th>
+    <th>Meals unpaid: <%=@unpaid_meals%></th>
+    <th>Amount owed: <%=number_to_currency(@amount_owed)%></th>
   </table>
   <h3>Paid Meals</h3>
   <table class="table">

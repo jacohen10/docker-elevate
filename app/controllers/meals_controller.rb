@@ -16,8 +16,13 @@ class MealsController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     @meal = @customer.meals.create(meal_params)
     @restaurant = Restaurant.find(@meal.restaurant_id)
-    flash[:notice] = "#{@customer.name} your meal has been submitted. Waiting for #{@restaurant.name} to confirm! Your meal should be ready for pickup at #{(@meal.created_at + 25.minutes).strftime("%I:%M%p")}"
+    if @meal.order_ahead === "order_ahead"
+      flash[:notice] = "#{@customer.name}, your meal has been submitted. Waiting for #{@restaurant.name} to confirm! Your meal should be ready for pickup at #{(@meal.created_at + 25.minutes).strftime("%I:%M%p")}"
+    elsif @meal.order_ahead === "swipe"
+      flash[:notice] = "#{@customer.name}, enjoy your #{@meal.food_item}!"  
+    end
     redirect_to user_customer_path(current_user,@customer)
+
   end
 
   def edit
@@ -41,9 +46,9 @@ class MealsController < ApplicationController
   end
 
   def complete
-    session[:return_to] ||= request.referer
-    # TODO mark selected meals as Paid
-    redirect_to session.delete(:return_to)
+    # session[:return_to] ||= request.referer
+    #
+    # redirect_to session.delete(:return_to)
   end
 
   private

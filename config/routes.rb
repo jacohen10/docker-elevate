@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   get 'welcome/index'
   get 'welcome/new_restaurant'
-  get '/restaurants/:id/admin', to: 'restaurants#admin'
+
 
   devise_for :users, controllers: { registrations: "registrations" }
   root to: 'welcome#index'
   resources :restaurants do
+    member do
+      get 'admin'
+    end
     resources :menus
     resources :open_times
     resources :meals, collection: {complete: :put}

@@ -15,7 +15,7 @@
     <% flash.each do |type, message| %>
       <p class="<%= type %>"><%= message %></p>
     <% end %>
-    <% if current_user.role == "admin"%>
+    <% if current_user.role === "admin"%>
       <%= link_to "Delete", customer_path(@customer), class: "btn btn-default", method: :delete%>
     <%end%>
     <h3>Restaurants:</h3>
@@ -24,6 +24,7 @@
       <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===1 && ((restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%H.%M") < Time.now.strftime("%H.%M")) && (restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%H.%M") > Time.now.strftime("%H.%M")) )   ) %>
         <div class="restaurant">
           <h3><%=restaurant.name%></h3>
+          <p>Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
           <div class="container">
             <div class="row">
               <%= form_for [@customer,@meal] do |f| %>
@@ -53,6 +54,20 @@
     <%else%>
       <%="You're out of meals, please purchase more in order to continue"%>
     <%end%>
+
+    <h3>Closed Restaurants:</h3>
+    <%@restaurants.each do |restaurant| %>
+    <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===0 || ((restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%H.%M") > Time.now.strftime("%H.%M")) || (restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%H.%M") < Time.now.strftime("%H.%M")) )   ) %>
+      <div class="restaurant">
+        <%if restaurant.open_times.find_by(day:Time.now.strftime("%A")).nil?%>
+        <p><%=restaurant.name %>: Closed Today</p>
+        <%elsif restaurant.open_times.find_by(day:Time.now.strftime("%A"))%>
+        <p><%=restaurant.name %> Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
+        <%end%>
+      </div>
+    <%end%>
+    <%end%>
+
     <h3>Meals:</h3>
     <div class="table-responsive">
       <table class="table table-striped">
@@ -60,6 +75,7 @@
         <th>Status</th>
         <th>Restaurant</th>
         <th>Meal</th>
+        <th>Type</th>
         <th>Cancel if open</th>
         <%@meals.each do |meal| %>
           <tr>
@@ -67,10 +83,19 @@
             <td><%=meal.status%></td>
             <td><%=Restaurant.find(meal.restaurant_id).name%></td>
             <td><%=meal.food_item%></td>
+            <td>
+              <% if meal.order_ahead === "swipe"%>
+              Swipe
+              <% elsif meal.order_ahead === "order_ahead"%>
+              Ordered Ahead
+              <%end%>
+            </td>
             <% if meal.status === "open"%>
             <td>
                 <%= link_to "Cancel", customer_meal_path(@customer, meal), class: "btn btn-default", method: :delete%>
             </td>
+            <% else%>
+            <td></td>
             <%end%>
           </tr>
         <%end%>
