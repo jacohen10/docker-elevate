@@ -1,23 +1,16 @@
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant, only: [:show,:edit,:update,:destroy]
+  before_action :set_restaurant, only: [:admin,:show,:edit,:update,:destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   load_and_authorize_resource
-
-  def status_close
-    @meal = Meal.find(params[:meal_id])
-    @meal.status = "closed"
-    redirect_to restaurant_path(@restaurant)
-  end
 
   def index
     if current_user.role == "admin"
       @restaurants = Restaurant.all
-    # elsif current_user.role == "customer"
-    #   @restaurant = current_user.restaurants.create(restaurant_params)
     end
+  end
 
-
-
+  def admin
+    @meals = @restaurant.meals.all.order(created_at: :asc)
   end
 
   def show

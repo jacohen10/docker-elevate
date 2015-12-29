@@ -29,6 +29,7 @@
             <td><%=meal.status%></td>
             <td>  <%= form_for [@restaurant, meal] do |f| %>
                 <%= hidden_field_tag :meal_id, meal.id %>
+                <%= hidden_field_tag :payment, meal.payment %>
                 <%= hidden_field_tag :status, "closed" %>
                 <%= f.submit "Confirm meal"%>
               <%end%>
@@ -64,6 +65,7 @@
             <td><%=meal.status%></td>
             <td>  <%= form_for [@restaurant, meal] do |f| %>
                 <%= hidden_field_tag :meal_id, meal.id %>
+                <%= hidden_field_tag :payment, meal.payment %>
                 <%if meal.status === "open"%>
                 <%= hidden_field_tag :status, "cooking" %>
                 <%= f.submit "Order Received"%>

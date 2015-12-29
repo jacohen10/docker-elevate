@@ -15,3 +15,24 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(document).ready(function() {
+  $('#selectAll').click(function() {
+     if (this.checked) {
+         $('.unpaid:checkbox').each(function() {
+             this.checked = true;
+         });
+     } else {
+        $('.unpaid:checkbox').each(function() {
+             this.checked = false;
+         });
+     }
+  });
+  //
+  // $('#payAll').click(function() {
+  //        $(':submit').each(function() {
+  //         this.trigger "submit"
+  //        });
+  //    });
+
+});
