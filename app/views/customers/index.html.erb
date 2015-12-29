@@ -2,11 +2,17 @@
   <h2>Customers <% if current_user.role == "admin"%><%= link_to "(+)", new_customer_path %><%end%></h2>
 <table class="table">
   <th>Customer</th>
+  <th>Email</th>
+  <th>Meal Plan</th>
+  <th>Meals Remaining</th>
   <th>Verification Status</th>
   <th>Verify</th>
   <%@customers.each do |customer| %>
     <tr>
       <td><%=link_to customer.name, customer_path(customer) %></td>
+      <td><%=User.find(customer.user_id).email %></td>
+      <td><%=customer.plan %></td>
+      <td><%=((customer.plan)-customer.meals.where(status: "closed").count) %></td>
       <td><%=customer.verification %></td>
       <td><%= form_for [customer] do |f| %>
         <%= f.hidden_field :verification, value: "true" %>

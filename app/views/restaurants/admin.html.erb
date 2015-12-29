@@ -7,7 +7,9 @@
     <th>Received</th>
     <th>Status</th>
     <th>Paid?</th>
-    <th><input type="checkbox" id="selectAll" value="selectAll"> Select All <button type="button" id="payAll" name="button">Pay all</button></th>
+    <%if current_user.role === "admin"%>
+      <th><input type="checkbox" id="selectAll" value="selectAll"> Select All <button type="button" id="payAll" name="button">Pay all</button></th>
+    <%end%>
     <%@meals.each do |meal| %>
       <%if meal.status === "closed"%>
         <%if meal.payment === false%>
@@ -19,26 +21,27 @@
             <td><%=meal.status%></td>
             <td><%=meal.payment%></td>
             <%if current_user.role === "admin"%>
-              <%if current_user.role === "admin"%>
-                <td>  <%= form_for [@restaurant, meal] do |f| %>
-                    <%= hidden_field_tag :meal_id, meal.id %>
-                    <%= hidden_field_tag :status, meal.status %>
-                    <%= hidden_field_tag :payment, false %>
-                    <%= check_box_tag :payment, true, checked = false, {class: "unpaid"}%>
-                    <%= f.submit "Meal Paid"%>
-                  </td>
-                </tr>
-              <%end%>
+              <td>  <%= form_for [@restaurant, meal] do |f| %>
+                  <%= hidden_field_tag :meal_id, meal.id %>
+                  <%= hidden_field_tag :status, meal.status %>
+                  <%= hidden_field_tag :payment, false %>
+                  <%= check_box_tag :payment, true, checked = false, {class: "unpaid"}%>
+                  <%= f.submit "Meal Paid"%>
+                </td>
+
             <%end%>
           <%end%>
         <%end%>
       <%end%>
     <%end%>
+    </tr>
     <th></th>
     <th></th>
-    <th> </th>
     <th></th>
     <th></th>
+    <%if current_user.role === "admin"%>
+    <th></th>
+    <%end%>
     <th>Meals unpaid: <%=@unpaid_meals%></th>
     <th>Amount owed: <%=number_to_currency(@amount_owed)%></th>
   </table>
@@ -61,19 +64,7 @@
             <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
             <td><%=meal.status%></td>
             <td><%=meal.payment%></td>
-            <%if current_user.role === "admin"%>
-              <%if current_user.role === "admin"%>
-                <td>  <%= form_for [@restaurant, meal] do |f| %>
-                    <%= hidden_field_tag :meal_id, meal.id %>
-                    <%= hidden_field_tag :status, meal.status %>
-                    <%= hidden_field_tag :payment, false %>
-                    <%= check_box_tag :payment%>
-                    <%= f.submit "Meal Paid"%>
-                  </td>
-                </tr>
-              <%end%>
-            <%end%>
-          <%end%>
+            
         <%end%>
       <%end%>
     <%end%>

@@ -4,7 +4,7 @@ class OpenTimesController < ApplicationController
 
 
   def index
-    @open_times = @restaurant.open_times(created_at: :asc)
+      @open_times = @restaurant.open_times
   end
 
   def new
@@ -41,7 +41,7 @@ class OpenTimesController < ApplicationController
   def set_open_time
     if current_user.role === "admin"
       @restaurant = Restaurant.find(params[:restaurant_id])
-    elsif current_user.role === "customer"
+    elsif current_user.role === "restaurant"
       @restaurant = current_user.restaurants.find(params[:restaurant_id])
     end
   end

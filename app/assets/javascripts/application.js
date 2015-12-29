@@ -28,11 +28,20 @@ $(document).ready(function() {
          });
      }
   });
-  //
+
   // $('#payAll').click(function() {
-  //        $(':submit').each(function() {
-  //         this.trigger "submit"
-  //        });
+  //        $(':submit').submit();
   //    });
+
+     $("#payAll").click(function() {
+       console.log("works");
+       $('.edit_meal').each(function() {
+         console.log(this);
+            $(this).submit();
+        });
+
+
+
+});
 
 });
