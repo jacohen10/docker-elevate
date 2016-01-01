@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
@@ -33,15 +34,12 @@ $(document).ready(function() {
   //        $(':submit').submit();
   //    });
 
-     $("#payAll").click(function() {
-       console.log("works");
-       $('.edit_meal').each(function() {
-         console.log(this);
-            $(this).submit();
-        });
-
-
-
-});
+    //  $("#payAll").click(function() {
+    //    console.log("works");
+    //    $('.edit_meal').each(function() {
+    //      console.log(this);
+    //         $(this).submit();
+    //     });
+    //   });
 
 });

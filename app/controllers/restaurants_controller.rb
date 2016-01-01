@@ -10,9 +10,10 @@ class RestaurantsController < ApplicationController
   end
 
   def admin
+    @unpaid_meals = @restaurant.meals.where(status: "closed", payment: false)
     @meals = @restaurant.meals.all.order(created_at: :asc)
-    @unpaid_meals = @restaurant.meals.where(payment: false).count
-    @amount_owed = (@unpaid_meals * 8.70)
+    @unpaid_meal_count = @unpaid_meals.count
+    @amount_owed = (@unpaid_meal_count * 8.70)
   end
 
   def show

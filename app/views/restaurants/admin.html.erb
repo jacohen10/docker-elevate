@@ -10,39 +10,34 @@
     <%if current_user.role === "admin"%>
       <th><input type="checkbox" id="selectAll" value="selectAll"> Select All <button type="button" id="payAll" name="button">Pay all</button></th>
     <%end%>
-    <%@meals.each do |meal| %>
-      <%if meal.status === "closed"%>
-        <%if meal.payment === false%>
-          <tr>
-            <td><%=Customer.find(meal.customer_id).name%></td>
-            <td><%=meal.food_item%></td>
-            <td><%=meal.comment%></td>
-            <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
-            <td><%=meal.status%></td>
-            <td><%=meal.payment%></td>
-            <%if current_user.role === "admin"%>
-              <td>  <%= form_for [@restaurant, meal] do |f| %>
-                  <%= hidden_field_tag :meal_id, meal.id %>
-                  <%= hidden_field_tag :status, meal.status %>
-                  <%= hidden_field_tag :payment, false %>
-                  <%= check_box_tag :payment, true, checked = false, {class: "unpaid"}%>
-                  <%= f.submit "Meal Paid"%>
-                </td>
-
-            <%end%>
+    <%@unpaid_meals.each_with_index do |meal, index| %>
+      <tr>
+        <td><%=Customer.find(meal.customer_id).name%></td>
+        <td><%=meal.food_item%></td>
+        <td><%=meal.comment%></td>
+        <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
+        <td><%=meal.status%></td>
+        <td><%=meal.payment%></td>
+        <%if current_user.role === "admin"%>
+          <td>  <%= form_for [@restaurant, meal] do |f| %>
+              <%= hidden_field_tag :meal_id, meal.id %>
+              <%= hidden_field_tag :status, meal.status %>
+              <%= hidden_field_tag :payment, false %>
+              <%= check_box_tag :payment, true, checked = false, {class: "unpaid"}%>
+              <%= f.submit "Meal Paid", id: ("submit"+index.to_s)%>
+            </td>
           <%end%>
         <%end%>
       <%end%>
-    <%end%>
     </tr>
     <th></th>
     <th></th>
     <th></th>
     <th></th>
     <%if current_user.role === "admin"%>
-    <th></th>
+      <th></th>
     <%end%>
-    <th>Meals unpaid: <%=@unpaid_meals%></th>
+    <th>Meals unpaid: <%=@unpaid_meal_count%></th>
     <th>Amount owed: <%=number_to_currency(@amount_owed)%></th>
   </table>
   <h3>Paid Meals</h3>
@@ -64,9 +59,8 @@
             <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
             <td><%=meal.status%></td>
             <td><%=meal.payment%></td>
-            
+          <%end%>
         <%end%>
       <%end%>
-    <%end%>
-  </table>
-</div>
+    </table>
+  </div>
