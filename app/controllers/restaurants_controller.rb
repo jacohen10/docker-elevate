@@ -35,11 +35,21 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
+    @unpaid_meals = @restaurant.meals.where(status: "closed", payment: false)
+
+    @unpaid_meals.update_all({payment: true}, )
   end
 
   def update
-    @restaurant.update(restaurant_params)
-    redirect_to restaurant_path(@restaurant)
+    @unpaid_meals = @restaurant.meals.where(status: "closed", payment: false)
+
+    respond_to do |format|
+      if @restaurant.update(restaurant_params)
+      format.html {redirect_to restaurant_path(@restaurant)}
+      else
+        format.html {render action: "edit"}
+      end
+    end
   end
 
   def destroy
@@ -49,7 +59,7 @@ class RestaurantsController < ApplicationController
 
   private
   def restaurant_params
-    params.require(:restaurant).permit(:name,:contact,:email,:phone,:menu)
+    params.require(:restaurant).permit(:name,:contact,:email,:phone,:menu, meals_attributes: [:id,:payment])
   end
 
   def set_restaurant
