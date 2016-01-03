@@ -35,21 +35,14 @@ class RestaurantsController < ApplicationController
   end
 
   def edit
-    @unpaid_meals = @restaurant.meals.where(status: "closed", payment: false)
-
-    @unpaid_meals.update_all({payment: true}, )
   end
 
   def update
+    session[:return_to] ||= request.referer
     @unpaid_meals = @restaurant.meals.where(status: "closed", payment: false)
 
-    respond_to do |format|
-      if @restaurant.update(restaurant_params)
-      format.html {redirect_to restaurant_path(@restaurant)}
-      else
-        format.html {render action: "edit"}
-      end
-    end
+    @restaurant.update(restaurant_params)
+    redirect_to session.delete(:return_to)
   end
 
   def destroy

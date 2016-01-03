@@ -8,10 +8,10 @@
     <th>Status</th>
     <th>Paid?</th>
     <%if current_user.role === "admin"%>
-      <th>Mark as Paid</th>
+      <th>Select All<input type="checkbox" id="selectAll" value="selectAll"></th>
     <%end%>
     <%if current_user.role === "admin"%>
-      <%= form_for @restaurant, id: 'edit_form' do |f| %>
+      <%= form_for @restaurant do |f| %>
         <%= f.fields_for :meals, @unpaid_meals do |t| %>
           <tr>
             <td><%= t.label Customer.find(t.object.customer_id).name %></td>
@@ -22,7 +22,9 @@
             <%= hidden_field_tag :payment, false %>
             <td>  <%= check_box_tag :payment, true, checked = false, {class: "unpaid"}%></td>
           </tr>
+
         <% end %>
+
         <th></th>
         <th></th>
         <%if current_user.role === "admin"%>
@@ -30,7 +32,7 @@
         <%end%>
         <th>Meals unpaid: <%=@unpaid_meal_count%></th>
         <th>Amount owed: <%=number_to_currency(@amount_owed)%></th>
-        <th>Select All<input type="checkbox" id="selectAll" value="selectAll"> <%= f.submit "Meals Paid"%></th>
+        <th>  <%= f.submit "Meals Paid"%></th>
       </table>
     </div>
     <%end%>
