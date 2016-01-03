@@ -17,6 +17,7 @@ class MealsController < ApplicationController
     @meal = @customer.meals.create(meal_params)
     @restaurant = Restaurant.find(@meal.restaurant_id)
     if @meal.order_ahead === "order_ahead"
+      UserMailer.order_ahead_email(User.find(@restaurant.user_id), @customer, @meal).deliver_now
       flash[:notice] = "#{@customer.name}, your meal has been submitted. Waiting for #{@restaurant.name} to confirm! Your meal should be ready for pickup at #{(@meal.created_at + 25.minutes).strftime("%I:%M%p")}"
     elsif @meal.order_ahead === "swipe"
       flash[:notice] = "#{@customer.name}, enjoy your #{@meal.food_item}!"

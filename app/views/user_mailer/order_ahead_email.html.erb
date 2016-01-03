@@ -1,0 +1,6 @@
+<p>
+  <%=@customer.name %> has just ordered the following meal in the app: <%=@meal.food_item %>. Please mark the meal as received.
+</p>
+<p>
+  Customer pickup time: <%=(@meal.created_at + 25.minutes).strftime("%I:%M%p")%>
+</p>
