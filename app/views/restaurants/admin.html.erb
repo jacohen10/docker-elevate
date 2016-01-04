@@ -1,5 +1,8 @@
 <div class="jumbotron vertical-center">
   <h3>Unpaid Meals</h3>
+    <%if current_user.role === "admin"%>
+      <%= form_for @restaurant do |f| %>
+
   <div class="table-responsive">
   <table class="table">
     <th>Customer</th>
@@ -10,20 +13,17 @@
     <%if current_user.role === "admin"%>
       <th>Select All<input type="checkbox" id="selectAll" value="selectAll"></th>
     <%end%>
-    <%if current_user.role === "admin"%>
-      <%= form_for @restaurant do |f| %>
-        <%= f.fields_for :meals, @unpaid_meals do |t| %>
+  <%= f.fields_for :meals, @unpaid_meals do |t| %>
           <tr>
             <td><%= t.label Customer.find(t.object.customer_id).name %></td>
             <td>  <%= t.label t.object.food_item %></td>
             <td>  <%= t.label t.object.created_at.strftime("%m/%d/%y %I:%M%p") %></td>
             <td>  <%= t.label t.object.status %></td>
             <td>  <%= t.label t.object.payment %></td>
-            <%= hidden_field_tag :payment, false %>
-            <td>  <%= check_box_tag :payment, true, checked = false, {class: "unpaid"}%></td>
+            <td>  <%= t.check_box :payment, checked: false, class: "unpaid" %></td>
           </tr>
 
-        <% end %>
+<% end %>
 
         <th></th>
         <th></th>
@@ -35,6 +35,7 @@
         <th>  <%= f.submit "Meals Paid"%></th>
       </table>
     </div>
+
     <%end%>
   <%end%>
   <h3>Paid Meals</h3>
