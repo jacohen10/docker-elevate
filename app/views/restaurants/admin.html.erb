@@ -1,44 +1,43 @@
 <div class="jumbotron vertical-center">
   <h3>Unpaid Meals</h3>
-
-      <%= form_for @restaurant do |f| %>
-
-  <div class="table-responsive">
-  <table class="table">
-    <th>Customer</th>
-    <th>Meal</th>
-    <th>Received</th>
-    <th>Status</th>
-    <th>Paid?</th>
-    <%if current_user.role === "admin"%>
-      <th>Select All<input type="checkbox" id="selectAll" value="selectAll"></th>
-    <%end%>
-  <%= f.fields_for :meals, @unpaid_meals do |t| %>
+  <%= form_for @restaurant do |f| %>
+    <div class="table-responsive">
+      <table class="table">
+        <th>Customer</th>
+        <th>Meal</th>
+        <th>Received</th>
+        <th>Status</th>
+        <th>Paid?</th>
+        <%if current_user.role === "admin"%>
+          <th>Select All<input type="checkbox" id="selectAll" value="selectAll"></th>
+        <%end%>
+        <%= f.fields_for :meals, @unpaid_meals do |t| %>
           <tr>
             <td><%= t.label Customer.find(t.object.customer_id).name %></td>
             <td>  <%= t.label t.object.food_item %></td>
             <td>  <%= t.label t.object.created_at.strftime("%m/%d/%y %I:%M%p") %></td>
             <td>  <%= t.label t.object.status %></td>
             <td>  <%= t.label t.object.payment %></td>
-              <%if current_user.role === "admin"%>
-            <td>  <%= t.check_box :payment, checked: false, class: "unpaid" %></td>
+            <%if current_user.role === "admin"%>
+              <td>  <%= t.check_box :payment, checked: false, class: "unpaid" %></td>
             <% end %>
           </tr>
 
-
-
-        <th></th>
-        <th></th>
-        <%if current_user.role === "admin"%>
+          <%end%>
             <th></th>
-        <%end%>
-        <th>Meals unpaid: <%=@unpaid_meal_count%></th>
-        <th>Amount owed: <%=number_to_currency(@amount_owed)%></th>
-        <th>  <%= f.submit "Meals Paid"%></th>
-      </table>
-    </div>
+            <th></th>
+            <%if current_user.role === "admin"%>
+              <th></th>
+            <%end%>
+            <th>Meals unpaid: <%=@unpaid_meal_count%></th>
+            <th>Amount owed: <%=number_to_currency(@amount_owed)%></th>
 
-    <%end%>
+            <th> <%if current_user.role === "admin"%> <%= f.submit "Meals Paid"%><%end%></th>
+
+        </table>
+
+      </div>
+
   <%end%>
   <h3>Paid Meals</h3>
   <table class="table">
