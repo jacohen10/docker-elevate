@@ -1,6 +1,6 @@
 <div class="jumbotron vertical-center">
   <h3>Unpaid Meals</h3>
-    <%if current_user.role === "admin"%>
+
       <%= form_for @restaurant do |f| %>
 
   <div class="table-responsive">
@@ -20,10 +20,12 @@
             <td>  <%= t.label t.object.created_at.strftime("%m/%d/%y %I:%M%p") %></td>
             <td>  <%= t.label t.object.status %></td>
             <td>  <%= t.label t.object.payment %></td>
+              <%if current_user.role === "admin"%>
             <td>  <%= t.check_box :payment, checked: false, class: "unpaid" %></td>
+            <% end %>
           </tr>
 
-<% end %>
+
 
         <th></th>
         <th></th>
@@ -39,7 +41,6 @@
     <%end%>
   <%end%>
   <h3>Paid Meals</h3>
-  <div class="table-responsive">
   <table class="table">
     <th>Customer</th>
     <th>Meal</th>
@@ -62,5 +63,4 @@
         <%end%>
       <%end%>
     </table>
-  </div>
   </div>
