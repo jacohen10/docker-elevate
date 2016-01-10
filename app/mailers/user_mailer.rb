@@ -8,6 +8,6 @@ class UserMailer < ApplicationMailer
     @user = restaurant
     @customer = customer
     @meal = meal
-    mail to: restaurant.email, subject: "Advance Order " + Time.now.strftime("%I:%M%p %A %m/%d/%y ")
+    mail to: restaurant.email, subject: "Advance #order " + Time.now.strftime("%I:%M%p %A %m/%d/%y ")
   end
 end
