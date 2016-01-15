@@ -23,7 +23,7 @@
       <%@restaurants.each do |restaurant| %>
         <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===1 && ((restaurant.open_times.where(day:Time.now.strftime("%A"))[0].opening.strftime("%H.%M") < Time.now.strftime("%H.%M")) && (restaurant.open_times.where(day:Time.now.strftime("%A"))[0].closing.strftime("%H.%M") > Time.now.strftime("%H.%M")) )  )%>
           <div class="restaurant">
-            <h3><%=restaurant.name%></h3> <a  href="tel:<%=restaurant.phone%>"><%=restaurant.phone%></a>
+            <h3><%=restaurant.name%></h3>Tap # to call <a  href="tel:<%=restaurant.phone%>"><%=restaurant.phone%></a>
             <div class="phone">
 
             </div>
