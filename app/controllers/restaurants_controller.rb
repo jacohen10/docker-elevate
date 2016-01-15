@@ -52,7 +52,7 @@ class RestaurantsController < ApplicationController
 
   private
   def restaurant_params
-    params.require(:restaurant).permit(:name,:contact,:email,:phone,:menu, meals_attributes: [:id,:payment])
+    params.require(:restaurant).permit(:name,:contact,:email,:phone,:menu,:order_ahead, meals_attributes: [:id,:payment])
   end
 
   def set_restaurant

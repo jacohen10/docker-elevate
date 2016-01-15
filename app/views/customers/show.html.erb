@@ -21,53 +21,53 @@
     <h3>Restaurants:</h3>
     <%if @meals_remaining > 0 && @customer.verification === "true"%>
       <%@restaurants.each do |restaurant| %>
-      <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===1 && ((restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%H.%M") < Time.now.strftime("%H.%M")) && (restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%H.%M") > Time.now.strftime("%H.%M")) )   ) %>
-        <div class="restaurant">
-          <h3><%=restaurant.name%></h3>
-          <p>Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
-          <div class="container">
-            <div class="row">
-              <%= form_for [@customer,@meal] do |f| %>
-                <div class="col-xs-12 col-md-6-offset-1">
-                  <%=f.collection_select(:food_item,restaurant.menus.all, :name, :name) %>
-                </div>
-                <div class="col-xs-12 col-md-12">
-                  <%= f.text_field :comment, placeholder: "meal requests..." %>
-                  <%= f.hidden_field :restaurant_id, value: restaurant.id %>
-                  <div class="order_ahead">
-                    <%= f.label :order_ahead, 'Swipe', value: 'swipe' %>
-                    <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
-                    <%= f.label :order_ahead, 'Order Ahead', value: 'order_ahead' %>
-                    <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
-                    <%= f.hidden_field :status, value: "open" %>
+        <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===1 && ((restaurant.open_times.where(day:Time.now.strftime("%A"))[0].opening.strftime("%H.%M") < Time.now.strftime("%H.%M")) && (restaurant.open_times.where(day:Time.now.strftime("%A"))[0].closing.strftime("%H.%M") > Time.now.strftime("%H.%M")) )  )%>
+          <div class="restaurant">
+            <h3><%=restaurant.name%></h3>
+            <p>Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
+            <div class="container">
+              <div class="row">
+                <%= form_for [@customer,@meal] do |f| %>
+                  <div class="col-xs-12 col-md-6-offset-1">
+                    <%=f.collection_select(:food_item,restaurant.menus.all, :name, :name) %>
                   </div>
-                  <div id="submit_btn">
-                    <%= f.submit "Add meal", class: "btn btn-primary" %>
+                  <div class="col-xs-12 col-md-12">
+                    <%= f.text_field :comment, placeholder: "meal requests..." %>
+                    <%= f.hidden_field :restaurant_id, value: restaurant.id %>
+                    <div class="order_ahead">
+                      <%= f.label :order_ahead, 'Swipe', value: 'swipe' %>
+                      <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
+                      <%if restaurant.order_ahead === true%>
+                      <%= f.label :order_ahead, 'Order Ahead', value: 'order_ahead' %>
+                      <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
+                      <%end%>
+                      <%= f.hidden_field :status, value: "open" %>
+                    </div>
+                    <div id="submit_btn">
+                      <%= f.submit "Add meal", class: "btn btn-primary" %>
+                    </div>
                   </div>
-                </div>
-              <%end%>
+                <%end%>
+              </div>
             </div>
           </div>
-        </div>
-      <%end%>
+        <%end%>
       <%end%>
     <%else%>
       <%="You're out of meals, please purchase more in order to continue"%>
     <%end%>
-
     <h3>Closed Restaurants:</h3>
     <%@restaurants.each do |restaurant| %>
-    <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===0 || ((restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%H.%M") > Time.now.strftime("%H.%M")) || (restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%H.%M") < Time.now.strftime("%H.%M")) )   ) %>
-      <div class="restaurant">
-        <%if restaurant.open_times.find_by(day:Time.now.strftime("%A")).nil?%>
-        <p><%=restaurant.name %>: Closed Today</p>
-        <%elsif restaurant.open_times.find_by(day:Time.now.strftime("%A"))%>
-        <p><%=restaurant.name %> Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
-        <%end%>
-      </div>
+      <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===0 || ((restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%H.%M") > Time.now.strftime("%H.%M")) || (restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%H.%M") < Time.now.strftime("%H.%M")) )   ) %>
+        <div class="restaurant">
+          <%if restaurant.open_times.find_by(day:Time.now.strftime("%A")).nil?%>
+            <p><%=restaurant.name %>: Closed Today</p>
+          <%elsif restaurant.open_times.find_by(day:Time.now.strftime("%A"))%>
+            <p><%=restaurant.name %> Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
+          <%end%>
+        </div>
+      <%end%>
     <%end%>
-    <%end%>
-
     <h3>Meals:</h3>
     <div class="table-responsive">
       <table class="table table-striped">
@@ -85,17 +85,17 @@
             <td><%=meal.food_item%></td>
             <td>
               <% if meal.order_ahead === "swipe"%>
-              Swipe
+                Swipe
               <% elsif meal.order_ahead === "order_ahead"%>
-              Ordered Ahead
+                Ordered Ahead
               <%end%>
             </td>
             <% if meal.status === "open"%>
-            <td>
+              <td>
                 <%= link_to "Cancel", customer_meal_path(@customer, meal), class: "btn btn-default", method: :delete%>
-            </td>
+              </td>
             <% else%>
-            <td></td>
+              <td></td>
             <%end%>
           </tr>
         <%end%>
@@ -103,11 +103,10 @@
     </div>
   </div>
 <%end%>
-
 <script>
-$(document).ready(function(){
-  if (<%=@meals_remaining <= 5%>) {
-  $(".meals_remaining").css("color", "red");
-  }
-});
+  $(document).ready(function(){
+    if (<%=@meals_remaining <= 5%>) {
+    $(".meals_remaining").css("color", "red");
+    }
+  });
 </script>
