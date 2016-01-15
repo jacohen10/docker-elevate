@@ -30,6 +30,10 @@ $(document).ready(function() {
      }
   });
 
+
+  $('#meal_submit_form').submit(function() {
+  return confirm('Are you sure?');
+});
   // $('#payAll').click(function() {
   //        $(':submit').submit();
   //    });

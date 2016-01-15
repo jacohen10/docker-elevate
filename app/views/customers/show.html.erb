@@ -23,7 +23,10 @@
       <%@restaurants.each do |restaurant| %>
         <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===1 && ((restaurant.open_times.where(day:Time.now.strftime("%A"))[0].opening.strftime("%H.%M") < Time.now.strftime("%H.%M")) && (restaurant.open_times.where(day:Time.now.strftime("%A"))[0].closing.strftime("%H.%M") > Time.now.strftime("%H.%M")) )  )%>
           <div class="restaurant">
-            <h3><%=restaurant.name%></h3>
+            <h3><%=restaurant.name%></h3> <a  href="tel:<%=restaurant.phone%>"><%=restaurant.phone%></a>
+            <div class="phone">
+
+            </div>
             <p>Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
             <div class="container">
               <div class="row">
@@ -35,16 +38,17 @@
                     <%= f.text_field :comment, placeholder: "meal requests..." %>
                     <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                     <div class="order_ahead">
-                      <%= f.label :order_ahead, 'Swipe', value: 'swipe' %>
+                      <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
                       <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
                       <%if restaurant.order_ahead === true%>
-                      <%= f.label :order_ahead, 'Order Ahead', value: 'order_ahead' %>
+                      <%= f.label :order_ahead, 'Order take-out for pick up', value: 'order_ahead' %>
                       <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
                       <%end%>
                       <%= f.hidden_field :status, value: "open" %>
+
                     </div>
                     <div id="submit_btn">
-                      <%= f.submit "Add meal", class: "btn btn-primary" %>
+                      <%= f.submit "Submit meal", class: "btn btn-primary", data: { confirm: 'Are you sure you want to submit this meal?' } %>
                     </div>
                   </div>
                 <%end%>
@@ -61,7 +65,7 @@
       <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===0 || ((restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%H.%M") > Time.now.strftime("%H.%M")) || (restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%H.%M") < Time.now.strftime("%H.%M")) )   ) %>
         <div class="restaurant">
           <%if restaurant.open_times.find_by(day:Time.now.strftime("%A")).nil?%>
-            <p><%=restaurant.name %>: Closed Today</p>
+            <p><%=restaurant.name %>: Unavailable Right Now</p>
           <%elsif restaurant.open_times.find_by(day:Time.now.strftime("%A"))%>
             <p><%=restaurant.name %> Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
           <%end%>
@@ -76,7 +80,9 @@
         <th>Restaurant</th>
         <th>Meal</th>
         <th>Type</th>
+        <%if current_user.role === "admin"%>
         <th>Cancel if open</th>
+        <%end%>
         <%@meals.each do |meal| %>
           <tr>
             <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
@@ -85,17 +91,15 @@
             <td><%=meal.food_item%></td>
             <td>
               <% if meal.order_ahead === "swipe"%>
-                Swipe
+                In Restaurant
               <% elsif meal.order_ahead === "order_ahead"%>
                 Ordered Ahead
               <%end%>
             </td>
-            <% if meal.status === "open"%>
+            <% if current_user.role === "admin"%>
               <td>
                 <%= link_to "Cancel", customer_meal_path(@customer, meal), class: "btn btn-default", method: :delete%>
               </td>
-            <% else%>
-              <td></td>
             <%end%>
           </tr>
         <%end%>
