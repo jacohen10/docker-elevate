@@ -1,4 +1,26 @@
 <div class="jumbotron vertical-center">
+  <div id="admin_meals">
+    <table class="table">
+          <th>Meals Paid Current Month</th>
+          <th>Meals Paid 1st Half of Current Month</th>
+          <th>Meals Paid 2nd Half of Current Month</th>
+          <th>Last Month's Paid Meals</th>
+          <th>Meals Paid 1st Half of Last Month</th>
+          <th>Meals Paid 2nd Half of Last Month</th>
+          <th>Total Meals Paid</th>
+            <tr>
+              <td><%=@meals_current_month%></td>
+              <td><%=@first_half_current_month%></td>
+              <td><%=@second_half_current_month%></td>
+              <td><%=@meals_previous_month%></td>
+              <td><%=@first_half_previous_month%></td>
+              <td><%=@second_half_previous_month%></td>
+              <td><%=@paid_meals%></td>
+            </tr>
+    </table>
+
+  </div>
+<h3>Meal Info</h3>
   <h3>Unpaid Meals</h3>
   <%= form_for @restaurant do |f| %>
     <div class="table-responsive">
