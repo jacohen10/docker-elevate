@@ -14,12 +14,12 @@ class CustomersController < ApplicationController
 
   def show
 
-  
+
     @restaurants = Restaurant.all
     @meal = Meal.new
     @meals = @customer.meals.all.order(created_at: :desc)
     @plan = @customer.plan
-    @meals_remaining = ((@customer.plan)-@customer.meals.where(status: "closed").count)
+    @meals_remaining = ((@customer.plan)-@customer.meals.count)
   end
 
   def new
