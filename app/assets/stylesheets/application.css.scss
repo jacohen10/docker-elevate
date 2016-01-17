@@ -87,6 +87,10 @@ $jumbotron-bg: white;
   font-size: 16px;
 }
 
+#hours p {
+  margin: 0 0 3px 0;
+}
+
 #submit_btn .btn {
   border-radius: 4px;
 }
@@ -124,8 +128,27 @@ tbody tr th {
 }
 
 .scroll_to_menu {
-  background: white;
-  border-radius: 3px;
+  background: #f8f8f8;
+  border-radius: 4px;
+  width: 35%;
+  padding: 2px;
+  margin: auto;
+  color: #333333;
+  border: solid #333333 1px;
+}
+
+.phone {
+  background: #f8f8f8;
+  border-radius: 4px;
+  width: 50%;
+  padding: 2px;
+  margin: auto;
+  margin-bottom: 2px;
+  border: solid #333333 1px;
+}
+
+.phone a {
+
 }
 
 @import "bootstrap";

@@ -23,11 +23,19 @@
       <%@restaurants.each do |restaurant| %>
         <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===1 && ((restaurant.open_times.where(day:Time.now.strftime("%A"))[0].opening.strftime("%H.%M") < Time.now.strftime("%H.%M")) && (restaurant.open_times.where(day:Time.now.strftime("%A"))[0].closing.strftime("%H.%M") > Time.now.strftime("%H.%M")) )  )%>
           <div class="restaurant">
-            <h3><%=restaurant.name%></h3>Tap # to call <a  href="tel:<%=restaurant.phone%>"><%=restaurant.phone%></a>
+            <h3><%=restaurant.name%></h3>
+            <div class="phone">
+               <a  href="tel:<%=restaurant.phone%>">Tap to call: <%=restaurant.phone%></a>
+            </div>
+
+
             <div class="scroll_to_menu">
             <a href="#menu">Click for full menu</a>
             </div>
-            <p>Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
+            <div id="hours">
+              <p>Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
+            </div>
+
             <div class="container">
               <div class="row">
                 <%= form_for [@customer,@meal] do |f| %>
@@ -41,7 +49,7 @@
                       <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
                       <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
                       <%if restaurant.order_ahead === true%>
-                      <%= f.label :order_ahead, 'Order take-out for pick up', value: 'order_ahead' %>
+                      <%= f.label :order_ahead, 'Order in advance', value: 'order_ahead' %>
                       <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
                       <%end%>
                       <%= f.hidden_field :status, value: "open" %>
