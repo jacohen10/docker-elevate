@@ -135,6 +135,7 @@ tbody tr th {
   margin: auto;
   color: #333333;
   border: solid #333333 1px;
+  margin-bottom: 2px;
 }
 
 .phone {
@@ -147,5 +148,8 @@ tbody tr th {
   border: solid #333333 1px;
 }
 
+#hours p{
+  font-size: 1.2em;
+}
 
 @import "bootstrap";

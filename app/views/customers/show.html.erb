@@ -24,16 +24,14 @@
         <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===1 && ((restaurant.open_times.where(day:Time.now.strftime("%A"))[0].opening.strftime("%H.%M") < Time.now.strftime("%H.%M")) && (restaurant.open_times.where(day:Time.now.strftime("%A"))[0].closing.strftime("%H.%M") > Time.now.strftime("%H.%M")) )  )%>
           <div class="restaurant">
             <h3><%=restaurant.name%></h3>
-            <div class="phone">
-               <a  href="tel:<%=restaurant.phone%>">Tap to call: <%=restaurant.phone%></a>
-            </div>
-
-
-            <div class="scroll_to_menu">
-            <a href="#menu">Click for full menu</a>
-            </div>
-            <div id="hours">
+            <div id="hours" >
               <p>Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
+            </div>
+            <div class="phone">
+              <a  href="tel:<%=restaurant.phone%>">Tap to call: <%=restaurant.phone%></a>
+            </div>
+            <div class="scroll_to_menu">
+              <a href="#menu">Click for full menu</a>
             </div>
 
             <div class="container">
@@ -41,23 +39,20 @@
                 <%= form_for [@customer,@meal] do |f| %>
                   <div class="col-xs-12 col-md-6-offset-1">
                     <%=f.collection_select(:food_item,restaurant.menus.all, :name, :name) %>
+                  <%= f.text_field :comment, placeholder: "meal requests..." %>
+                  <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                   </div>
-                  <div class="col-xs-12 col-md-12">
-                    <%= f.text_field :comment, placeholder: "meal requests..." %>
-                    <%= f.hidden_field :restaurant_id, value: restaurant.id %>
-                    <div class="order_ahead">
-                      <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
-                      <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
-                      <%if restaurant.order_ahead === true%>
+                  <div class="order_ahead col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
+                    <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
+                    <%if restaurant.order_ahead === true%>
                       <%= f.label :order_ahead, 'Order in advance', value: 'order_ahead' %>
                       <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
-                      <%end%>
-                      <%= f.hidden_field :status, value: "open" %>
-
-                    </div>
-                    <div id="submit_btn">
-                      <%= f.submit "Submit meal", class: "btn btn-primary", data: { confirm: 'Are you sure you want to submit this meal?' } %>
-                    </div>
+                    <%end%>
+                  </div>
+                  <%= f.hidden_field :status, value: "open" %>
+                  <div id="submit_btn">
+                    <%= f.submit "Submit meal", class: "btn btn-primary", data: { confirm: 'Are you sure you want to submit this meal?' } %>
                   </div>
                 <%end%>
               </div>
@@ -89,7 +84,7 @@
         <th>Meal</th>
         <th>Type</th>
         <%if current_user.role === "admin"%>
-        <th>Cancel if open</th>
+          <th>Cancel if open</th>
         <%end%>
         <%@meals.each do |meal| %>
           <tr>
@@ -124,14 +119,14 @@
       </div>
       <div class="restaurant_menus">
         <%@restaurants.each do |restaurant| %>
-        <div class="restaurant_menu" id="<%=restaurant.name.delete(?').tr(' ','')%>_menu">
-          <h3><%=restaurant.name%><a name="<%=restaurant.name%>"></a></h3>
-          <%restaurant.menus.each do |meal| %>
-          <ul>
-            <li><%=meal.name%>: <%=meal.details%></li>
-          </ul>
+          <div class="restaurant_menu" id="<%=restaurant.name.delete(?').tr(' ','')%>_menu">
+            <h3><%=restaurant.name%><a name="<%=restaurant.name%>"></a></h3>
+            <%restaurant.menus.each do |meal| %>
+              <ul>
+                <li><%=meal.name%>: <%=meal.details%></li>
+              </ul>
             <%end%>
-        </div>
+          </div>
         <%end%>
       </div>
     </div>
@@ -139,36 +134,33 @@
 <%end%>
 <script>
   $(document).ready(function(){
-    if (<%=@meals_remaining <= 5%>) {
-    $(".meals_remaining").css("color", "red");
-    }
+      if (<%=@meals_remaining <= 5%>) {
+      $(".meals_remaining").css("color", "red");
+      }
 
-    $('.menu_header a').click(function(e) {
-      e.preventDefault()
-      var restaurant_name = $(this).text().replace(/\s+/g, '').replace(/['"]+/g, '');
-      $(".restaurant_menu").hide()
-      $("#" + restaurant_name +"_menu").show()
-      console.log(restaurant_name);
+      $('.menu_header a').click(function(e) {
+        e.preventDefault()
+        var restaurant_name = $(this).text().replace(/\s+/g, '').replace(/['"]+/g, '');
+        $(".restaurant_menu").hide()
+        $("#" + restaurant_name +"_menu").show()
+        console.log(restaurant_name);
+      });
+
+      $("a[href='#menu']").click(function() {
+        var restaurant_name = $(this).parent().parent().children().eq(0).text().replace(/\s+/g, '').replace(/['"]+/g, '')
+        $(".restaurant_menu").hide()
+        $("#" + restaurant_name +"_menu").show()
+      });
+
+      $("a[href='#top']").click(function() {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+      });
+
+      $("a[href='#menu']").click(function() {
+        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+        return false;
+      });
+
     });
-
-    $("a[href='#menu']").click(function() {
-      var restaurant_name = $(this).parent().parent().children().eq(0).text().replace(/\s+/g, '').replace(/['"]+/g, '')
-      $(".restaurant_menu").hide()
-      $("#" + restaurant_name +"_menu").show()
-    });
-
-    $("a[href='#top']").click(function() {
-      $("html, body").animate({ scrollTop: 0 }, "slow");
-      return false;
-    });
-
-    $("a[href='#menu']").click(function() {
-      $("html, body").animate({ scrollTop: $(document).height() }, "slow");
-      return false;
-    });
-
-  });
-
-
-
 </script>
