@@ -28,7 +28,7 @@ body {
 $jumbotron-bg: white;
 
 .jumbotron {
-  width: 80%;
+  width: 85%;
   text-align: center;
   margin: 0 auto;
   border-radius: 6px;
@@ -77,6 +77,7 @@ $jumbotron-bg: white;
 
 .restaurant h3 {
   color: black;
+  margin: 5px 0 5px 0;
 }
 
 .restaurant select {
@@ -89,6 +90,7 @@ $jumbotron-bg: white;
 
 #hours p {
   margin: 0 0 3px 0;
+  font-size: 1.2em;
 }
 
 #submit_btn .btn {
@@ -115,6 +117,7 @@ tbody tr th {
   padding: 15px;
 }
 
+
 .restaurant_menu {
   display: none;
   background: #eeeeee;
@@ -127,29 +130,33 @@ tbody tr th {
   margin-left: 15px;
 }
 
-.scroll_to_menu {
+#scroll_to_menu {
   background: #f8f8f8;
   border-radius: 4px;
-  width: 50%;
-  padding: 2px;
   margin: auto;
   color: #333333;
   border: solid #333333 1px;
   margin-bottom: 2px;
 }
 
-.phone {
+#phone {
   background: #f8f8f8;
   border-radius: 4px;
-  width: 70%;
-  padding: 2px;
-  margin: auto;
-  margin-bottom: 2px;
   border: solid #333333 1px;
+  margin-bottom: 2px;
 }
 
-#hours p{
-  font-size: 1.2em;
+#back_to_top {
+  background: #f8f8f8;
+  border-radius: 4px;
+  border: solid #333333 1px;
+  margin: 0 0 5px 0;
+}
+
+
+
+.restaurant_menus {
+  margin: 10px 0 0 0;
 }
 
 @import "bootstrap";

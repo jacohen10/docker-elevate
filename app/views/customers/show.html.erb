@@ -27,11 +27,11 @@
             <div id="hours" >
               <p>Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
             </div>
-            <div class="phone">
-              <a  href="tel:<%=restaurant.phone%>">Tap to call: <%=restaurant.phone%></a>
+            <div id="phone" class="btn btn-primary">
+              <a  href="tel:<%=restaurant.phone%>">Call: <%=restaurant.phone%></a>
             </div>
-            <div class="scroll_to_menu">
-              <a href="#menu">Click for full menu</a>
+            <div id="scroll_to_menu" class="btn btn-primary">
+              <a href="#menu">Full menu</a>
             </div>
 
             <div class="container">
@@ -42,9 +42,11 @@
                   <%= f.text_field :comment, placeholder: "meal requests..." %>
                   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                   </div>
-                  <div class="order_ahead col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="order_ahead col-xs-12 col-sm-12">
                     <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
                     <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
+                  </div>
+                  <div class="order_ahead col-xs-12 col-sm-12">
                     <%if restaurant.order_ahead === true%>
                       <%= f.label :order_ahead, 'Order in advance', value: 'order_ahead' %>
                       <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
@@ -108,19 +110,24 @@
         <%end%>
       </table>
     </div>
-    <div class="menu">
       <div class="menu_header">
-        <a name="menu"></a>
-        <h3>Full Menus</h3>
-        <p><a href="#top">Back to restaurants</a></p>
-        <%@restaurants.each do |restaurant| %>
-          <a href="#<%=restaurant.name.delete(?').tr(' ','')%>" ><%=restaurant.name%></a>
-        <%end%>
+        <h3>Full Menus:</h3>
+        <div id="back_to_top" class="btn btn-primary">
+          <a href="#top">Back to restaurants</a>
+        </div>
+        <div class="col-xs-12">
+        </div>
+          <%@restaurants.each do |restaurant| %>
+          <div class="menu-titles col-xs-3 col-sm-3">
+            <a href="#<%=restaurant.name.delete(?').tr(' ','')%>" ><%=restaurant.name%></a>
+              </div>
+          <%end%>
       </div>
-      <div class="restaurant_menus">
+      <div class="restaurant_menus col-xs-12">
         <%@restaurants.each do |restaurant| %>
           <div class="restaurant_menu" id="<%=restaurant.name.delete(?').tr(' ','')%>_menu">
             <h3><%=restaurant.name%><a name="<%=restaurant.name%>"></a></h3>
+            <a name="menu"></a>
             <%restaurant.menus.each do |meal| %>
               <ul>
                 <li><%=meal.name%>: <%=meal.details%></li>
@@ -129,7 +136,7 @@
           </div>
         <%end%>
       </div>
-    </div>
+
   </div>
 <%end%>
 <script>
@@ -143,7 +150,6 @@
         var restaurant_name = $(this).text().replace(/\s+/g, '').replace(/['"]+/g, '');
         $(".restaurant_menu").hide()
         $("#" + restaurant_name +"_menu").show()
-        console.log(restaurant_name);
       });
 
       $("a[href='#menu']").click(function() {
