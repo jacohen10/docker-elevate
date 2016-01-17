@@ -34,7 +34,12 @@ class MealsController < ApplicationController
     session[:return_to] ||= request.referer
     @restaurant = Restaurant.find(params[:restaurant_id])
     @meal = Meal.find(params[:meal_id])
+    @customer = Customer.find(@meal.customer_id)
+    @user = User.find(@customer.user_id)
     @meal.update(status: params[:status], payment: params[:payment])
+    if @meal.status === "cooking"
+      UserMailer.order_ahead_customer(@user, @restaurant, @customer, @meal).deliver_now
+    end
     redirect_to session.delete(:return_to)
   end
 

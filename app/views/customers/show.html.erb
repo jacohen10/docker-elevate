@@ -24,8 +24,8 @@
         <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===1 && ((restaurant.open_times.where(day:Time.now.strftime("%A"))[0].opening.strftime("%H.%M") < Time.now.strftime("%H.%M")) && (restaurant.open_times.where(day:Time.now.strftime("%A"))[0].closing.strftime("%H.%M") > Time.now.strftime("%H.%M")) )  )%>
           <div class="restaurant">
             <h3><%=restaurant.name%></h3>Tap # to call <a  href="tel:<%=restaurant.phone%>"><%=restaurant.phone%></a>
-            <div class="phone">
-
+            <div class="scroll_to_menu">
+            <a href="#menu">Click for full menu</a>
             </div>
             <p>Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
             <div class="container">
@@ -105,6 +105,28 @@
         <%end%>
       </table>
     </div>
+    <div class="menu">
+      <div class="menu_header">
+        <a name="menu"></a>
+        <h3>Full Menus</h3>
+        <p><a href="#top">Back to restaurants</a></p>
+        <%@restaurants.each do |restaurant| %>
+          <a href="#<%=restaurant.name.delete(?').tr(' ','')%>" ><%=restaurant.name%></a>
+        <%end%>
+      </div>
+      <div class="restaurant_menus">
+        <%@restaurants.each do |restaurant| %>
+        <div class="restaurant_menu" id="<%=restaurant.name.delete(?').tr(' ','')%>_menu">
+          <h3><%=restaurant.name%><a name="<%=restaurant.name%>"></a></h3>
+          <%restaurant.menus.each do |meal| %>
+          <ul>
+            <li><%=meal.name%>: <%=meal.details%></li>
+          </ul>
+            <%end%>
+        </div>
+        <%end%>
+      </div>
+    </div>
   </div>
 <%end%>
 <script>
@@ -112,5 +134,33 @@
     if (<%=@meals_remaining <= 5%>) {
     $(".meals_remaining").css("color", "red");
     }
+
+    $('.menu_header a').click(function(e) {
+      e.preventDefault()
+      var restaurant_name = $(this).text().replace(/\s+/g, '').replace(/['"]+/g, '');
+      $(".restaurant_menu").hide()
+      $("#" + restaurant_name +"_menu").show()
+      console.log(restaurant_name);
+    });
+
+    $("a[href='#menu']").click(function() {
+      var restaurant_name = $(this).parent().parent().children().eq(0).text().replace(/\s+/g, '').replace(/['"]+/g, '')
+      $(".restaurant_menu").hide()
+      $("#" + restaurant_name +"_menu").show()
+    });
+
+    $("a[href='#top']").click(function() {
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      return false;
+    });
+
+    $("a[href='#menu']").click(function() {
+      $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+      return false;
+    });
+
   });
+
+
+
 </script>

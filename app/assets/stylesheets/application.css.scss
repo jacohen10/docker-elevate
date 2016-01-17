@@ -111,6 +111,21 @@ tbody tr th {
   padding: 15px;
 }
 
+.restaurant_menu {
+  display: none;
+  background: #eeeeee;
+  padding: 5px;
+  border-radius: 3px;
+}
 
+.restaurant_menu li {
+  text-align: left;
+  margin-left: 15px;
+}
+
+.scroll_to_menu {
+  background: white;
+  border-radius: 3px;
+}
 
 @import "bootstrap";
