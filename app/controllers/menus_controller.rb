@@ -8,38 +8,41 @@ class MenusController < ApplicationController
   end
 
   def new
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @menu = @restaurant.menus.new
+    @category = Category.find(params[:category_id])
+    @menu = @Category.menus.new
   end
 
   def create
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @restaurant.menus.create(menu_params)
-    redirect_to restaurant_menus_path(@restaurant)
+    @category = Category.find(params[:category_id])
+    @category.menus.create(menu_params)
+    redirect_to restaurant_categories_path(@restaurant)
   end
 
   def edit
     @restaurant = Restaurant.find(params[:restaurant_id])
+    @category = Category.find(params[:category_id])
     @menu = @restaurant.menus.find(params[:id])
   end
 
   def update
     @restaurant = Restaurant.find(params[:restaurant_id])
+    @category = Category.find(params[:category_id])
     @menu = @restaurant.menus.find(params[:id])
     @menu.update(menu_params)
 
-    redirect_to restaurant_menus_path(@restaurant)
+    redirect_to restaurant_categories_path(@restaurant)
   end
 
   def destroy
     @restaurant = Restaurant.find(params[:restaurant_id])
     @menu = @restaurant.menus.find(params[:id])
     @menu.destroy
-    redirect_to restaurant_menus_path(@restaurant)
+    redirect_to restaurant_categories_path(@restaurant)
   end
 
   private
   def menu_params
-    params.require(:menu).permit(:name,:meal_type,:details)
+    params.require(:menu).permit(:name,:meal_type,:details, :restaurant_id)
   end
 end

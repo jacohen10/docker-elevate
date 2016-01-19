@@ -10,12 +10,17 @@ Rails.application.routes.draw do
       get 'admin'
     end
     resources :menus
+    resources :categories do
+      resources :menus
+    end
     resources :open_times
     resources :meals, collection: {complete: :put}
   end
+
   resources :customers do
     resources :meals
   end
+
   resources :users do
     resources :customers
     resources :restaurants

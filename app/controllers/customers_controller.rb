@@ -13,8 +13,6 @@ class CustomersController < ApplicationController
   end
 
   def show
-
-
     @restaurants = Restaurant.all
     @meal = Meal.new
     @meals = @customer.meals.all.order(created_at: :desc)

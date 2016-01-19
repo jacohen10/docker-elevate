@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160115154940) do
+ActiveRecord::Schema.define(version: 20160119004421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string  "name"
+    t.integer "restaurant_id"
+    t.string  "comment"
+  end
+
+  add_index "categories", ["restaurant_id"], name: "index_categories_on_restaurant_id", using: :btree
 
   create_table "customers", force: :cascade do |t|
     t.string   "name"
@@ -50,8 +58,10 @@ ActiveRecord::Schema.define(version: 20160115154940) do
     t.string  "meal_type"
     t.string  "details"
     t.integer "restaurant_id"
+    t.integer "category_id"
   end
 
+  add_index "menus", ["category_id"], name: "index_menus_on_category_id", using: :btree
   add_index "menus", ["restaurant_id"], name: "index_menus_on_restaurant_id", using: :btree
 
   create_table "open_times", force: :cascade do |t|
@@ -96,9 +106,11 @@ ActiveRecord::Schema.define(version: 20160115154940) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "categories", "restaurants"
   add_foreign_key "customers", "users"
   add_foreign_key "meals", "customers"
   add_foreign_key "meals", "restaurants"
+  add_foreign_key "menus", "categories"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "open_times", "restaurants"
   add_foreign_key "restaurants", "users"

@@ -31,19 +31,14 @@ $(document).ready(function() {
   });
 
 
-  $('#meal_submit_form').submit(function() {
-  return confirm('Are you sure?');
-});
-  // $('#payAll').click(function() {
-  //        $(':submit').submit();
-  //    });
 
-    //  $("#payAll").click(function() {
-    //    console.log("works");
-    //    $('.edit_meal').each(function() {
-    //      console.log(this);
-    //         $(this).submit();
-    //     });
-    //   });
+  $('#meal_submit_form').submit(function() {
+    return confirm('Are you sure?');
+  });
+
+  $('#menu_form').click(function(e) {
+    e.preventDefault();
+    $(".new_menu").show();
+  });
 
 });

@@ -38,7 +38,11 @@
               <div class="row">
                 <%= form_for [@customer,@meal] do |f| %>
                   <div class="col-xs-12 col-md-6-offset-1">
-                    <%=f.collection_select(:food_item,restaurant.menus.all, :name, :name) %>
+
+                    <%#=f.grouped_collection_select(:food_item, restaurant.categories.all, restaurant.categories.collect{|c| c.menus}.collect {|m| m.collect{|mi| [ mi.name, mi.id ] } }, :name, :id, :name) %>
+                    <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :name, :name) %>
+                    <%#= f.select(:food_item, option_groups_from_collection_for_select(restaurant.categories, :menus, :name, :name, :name)) %>
+                    <%#=f.collection_select(:food_item,restaurant.menus.all, :name, :name) %>
                   <%= f.text_field :comment, placeholder: "meal requests..." %>
                   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                   </div>
@@ -126,11 +130,14 @@
       <div class="restaurant_menus col-xs-12">
         <%@restaurants.each do |restaurant| %>
           <div class="restaurant_menu" id="<%=restaurant.name.delete(?').tr(' ','')%>_menu">
-            <h3><%=restaurant.name%><a name="<%=restaurant.name%>"></a></h3>
             <a name="menu"></a>
-            <%restaurant.menus.each do |meal| %>
+            <h3><%=restaurant.name%><a name="<%=restaurant.name%>"></a></h3>
+            <%restaurant.categories.each do |category| %>
               <ul>
-                <li><%=meal.name%>: <%=meal.details%></li>
+                <h4><%=category.name%>: <%=category.comment%></h4>
+                <%category.menus.each do |menu| %>
+                <li><%=menu.name%>: <%=menu.details%></li>
+                <%end%>
               </ul>
             <%end%>
           </div>

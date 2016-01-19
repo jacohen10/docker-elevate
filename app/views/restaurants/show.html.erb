@@ -1,7 +1,7 @@
 <div class="jumbotron vertical-center">
   <h2><%=@restaurant.name %> <%= link_to "Edit", edit_restaurant_path(@restaurant), class: "btn btn-default"%></h2>
   <ul>
-    <li><%= link_to "Menu", restaurant_menus_path(@restaurant), class: "btn btn-default"%></li>
+    <li><%= link_to "Menu", restaurant_categories_path(@restaurant), class: "btn btn-default"%></li>
     <li><%= link_to "Business Hours", restaurant_open_times_path(@restaurant), class: "btn btn-default"%></li>
     <li><%= link_to "Admin", admin_restaurant_path(@restaurant), class: "btn btn-default"%></li>
   </ul>

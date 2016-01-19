@@ -1,0 +1,31 @@
+<div class="jumbotron vertical-center">
+  <h2>Categories <%= link_to "(+)", new_restaurant_category_path(@restaurant) %></h2>
+  <ul>
+    <%@categories.each do |category| %>
+      <h3>
+        <%=category.name%> Menu Options (<%=category.comment%>)
+        <%=link_to "Edit", edit_restaurant_category_path(@restaurant, category),class:"btn btn-default" %>
+        <%=link_to "Add Menu Options", "#", id:"menu_form", class:"btn btn-default" %>
+      </h3>
+      <%category.menus.each do |menu| %>
+        <li>
+          <%=menu.name%>: <%=menu.details%>
+          <%=link_to "Edit", edit_restaurant_category_menu_path(@restaurant, category, menu),class:"btn btn-default" %>
+          <%= link_to "Delete", restaurant_category_menu_path(@restaurant, category, menu),class: "btn btn-default", method: :delete%>
+        </li>
+      <%end%>
+      <%= form_for [@restaurant, category, @menu], html: {id:category.id} do |f| %>
+        <div class="form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name%>
+          <%= f.hidden_field :restaurant_id, value: @restaurant.id %>
+        </div>
+        <div class="form-group">
+          <%= f.label :details %>
+          <%= f.text_field :details %>
+        </div>
+        <%= f.submit%>
+      <%end%>
+    <%end%>
+  </ul>
+</div>
