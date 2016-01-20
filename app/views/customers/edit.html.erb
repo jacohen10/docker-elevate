@@ -7,7 +7,7 @@
 <%= f.label :phone %>
 <%= f.text_field :phone %>
 <%= f.label :year %>
-<%= f.select :year, options_for_select([['1st Year', 1],['2nd Year', 2], ['3rd Year', 3], ['4th Year', 4]]) %>
+<%= f.select :year, options_for_select([['1st Year', 1.to_i], ['2nd Year', 2.to_i], ['3rd Year', 3], ['4th Year', 4]], selected: @customer.year) %>
 <% if current_user.role == "admin"%>
 <%= f.label :plan %>
 <%= f.text_field :plan %>
