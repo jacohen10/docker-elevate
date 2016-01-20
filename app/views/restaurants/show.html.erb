@@ -8,12 +8,50 @@
   <% if current_user.role == "admin"%>
     <%= link_to "Delete", restaurant_path(@restaurant),class: "btn btn-default", method: :delete%>
   <%end%>
+
+    <h3>Take Out Meals Ordered Ahead</h3>
+    <div class="table-responsive">
+      <table class="table">
+        <th>Customer</th>
+        <th>Meal (Requests)</th>
+        <th>Received</th>
+        <th>Pickup Time</th>
+        <th>Status</th>
+        <th>confirm</th>
+        <%@meals.each do |meal| %>
+          <%if meal.status === "open" || meal.status === "cooking"%>
+            <%if meal.order_ahead === "order_ahead"%>
+              <tr>
+                <td><%=Customer.find(meal.customer_id).name%></td>
+                <td><%=meal.food_item%> (<%=meal.comment%>)</td>
+                <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
+                <td><%=(meal.created_at + 25.minutes).strftime("%m/%d/%y %I:%M%p")%></td>
+                <td><%=meal.status%></td>
+                <td>  <%= form_for [@restaurant, meal] do |f| %>
+                    <%= hidden_field_tag :meal_id, meal.id %>
+                    <%= hidden_field_tag :payment, meal.payment %>
+                    <%if meal.status === "open"%>
+                      <%= hidden_field_tag :status, "cooking" %>
+                      <%= f.submit "Order Received"%>
+                    <%elsif meal.status === "cooking"%>
+                      <%= hidden_field_tag :status, "closed" %>
+                      <%= f.submit "Order Completed"%>
+                    <%end%>
+                  <%end%>
+                </td>
+              </tr>
+
+          <%end%>
+        <%end%>
+      <%end%>
+    </table>
+    </div>
+
   <h3>In Restaurant Meal Orders</h3>
   <div class="table-responsive">
     <table class="table">
       <th>Customer</th>
-      <th>Meal</th>
-      <th>Meal requests</th>
+      <th>Meal (Requests)</th>
       <th>Received</th>
       <th>Status</th>
       <th>confirm</th>
@@ -22,8 +60,7 @@
           <%if meal.order_ahead == "swipe" %>
             <tr>
               <td><%=Customer.find(meal.customer_id).name%></td>
-              <td><%=meal.food_item%></td>
-              <td><%=meal.comment%></td>
+              <td><%=meal.food_item%> (<%=meal.comment%>)</td>
               <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
               <td><%=meal.status%></td>
               <td>  <%= form_for [@restaurant, meal] do |f| %>
@@ -39,43 +76,5 @@
       <%end%>
     </table>
   </div>
-  <h3>Meals Ordered Ahead</h3>
-  <div class="table-responsive">
-    <table class="table">
-      <th>Customer</th>
-      <th>Meal</th>
-      <th>Meal requests</th>
-      <th>Received</th>
-      <th>Pickup Time</th>
-      <th>Status</th>
-      <th>confirm</th>
-      <%@meals.each do |meal| %>
-        <%if meal.status === "open" || meal.status === "cooking"%>
-          <%if meal.order_ahead === "order_ahead"%>
-            <tr>
-              <td><%=Customer.find(meal.customer_id).name%></td>
-              <td><%=meal.food_item%></td>
-              <td><%=meal.comment%></td>
-              <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
-              <td><%=(meal.created_at + 25.minutes).strftime("%m/%d/%y %I:%M%p")%></td>
-              <td><%=meal.status%></td>
-              <td>  <%= form_for [@restaurant, meal] do |f| %>
-                  <%= hidden_field_tag :meal_id, meal.id %>
-                  <%= hidden_field_tag :payment, meal.payment %>
-                  <%if meal.status === "open"%>
-                    <%= hidden_field_tag :status, "cooking" %>
-                    <%= f.submit "Order Received"%>
-                  <%elsif meal.status === "cooking"%>
-                    <%= hidden_field_tag :status, "closed" %>
-                    <%= f.submit "Order Completed"%>
-                  <%end%>
-                <%end%>
-              </td>
-            </tr>
-          </div>
-        <%end%>
-      <%end%>
-    <%end%>
-  </table>
-</div>
+
 </div>
