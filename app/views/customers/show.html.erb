@@ -38,11 +38,7 @@
               <div class="row">
                 <%= form_for [@customer,@meal] do |f| %>
                   <div class="col-xs-12 col-md-6-offset-1">
-
-                    <%#=f.grouped_collection_select(:food_item, restaurant.categories.all, restaurant.categories.collect{|c| c.menus}.collect {|m| m.collect{|mi| [ mi.name, mi.id ] } }, :name, :id, :name) %>
-                    <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :name, :name) %>
-                    <%#= f.select(:food_item, option_groups_from_collection_for_select(restaurant.categories, :menus, :name, :name, :name)) %>
-                    <%#=f.collection_select(:food_item,restaurant.menus.all, :name, :name) %>
+                  <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :name, :name) %>
                   <%= f.text_field :comment, placeholder: "meal requests..." %>
                   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                   </div>
@@ -123,20 +119,20 @@
         </div>
           <%@restaurants.each do |restaurant| %>
           <div class="menu-titles col-xs-3 col-sm-3">
-            <a href="#<%=restaurant.name.delete(?').tr(' ','')%>" ><%=restaurant.name%></a>
+            <a href="#<%=restaurant.name.delete(?').tr(' ','').delete('()')%>" ><%=restaurant.name%></a>
               </div>
           <%end%>
       </div>
       <div class="restaurant_menus col-xs-12">
         <%@restaurants.each do |restaurant| %>
-          <div class="restaurant_menu" id="<%=restaurant.name.delete(?').tr(' ','')%>_menu">
+          <div class="restaurant_menu" id="<%=restaurant.name.delete(?').tr(' ','').delete('()')%>_menu">
             <a name="menu"></a>
             <h3><%=restaurant.name%><a name="<%=restaurant.name%>"></a></h3>
             <%restaurant.categories.each do |category| %>
               <ul>
                 <h4><%=category.name%>: <%=category.comment%></h4>
                 <%category.menus.each do |menu| %>
-                <li><%=menu.name%>: <%=menu.details%></li>
+                <li> <span class="full_menu_food_item"><%=menu.name%>:</span> <%=menu.details%></li>
                 <%end%>
               </ul>
             <%end%>
@@ -154,13 +150,13 @@
 
       $('.menu_header a').click(function(e) {
         e.preventDefault()
-        var restaurant_name = $(this).text().replace(/\s+/g, '').replace(/['"]+/g, '');
+        var restaurant_name = $(this).text().replace(/\s+/g, '').replace(/['"]+/g, '').replace(/[{()}]/g, '');
         $(".restaurant_menu").hide()
         $("#" + restaurant_name +"_menu").show()
       });
 
       $("a[href='#menu']").click(function() {
-        var restaurant_name = $(this).parent().parent().children().eq(0).text().replace(/\s+/g, '').replace(/['"]+/g, '')
+        var restaurant_name = $(this).parent().parent().children().eq(0).text().replace(/\s+/g, '').replace(/['"]+/g, '').replace(/[{()}]/g, '')
         $(".restaurant_menu").hide()
         $("#" + restaurant_name +"_menu").show()
       });
