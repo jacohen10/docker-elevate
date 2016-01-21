@@ -25,7 +25,7 @@
           <div class="restaurant">
             <h3><%=restaurant.name%></h3>
             <div id="hours" >
-              <p>Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
+              <p>Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%l:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%l:%M%p")%></p>
             </div>
             <div id="phone" class="btn btn-primary">
               <a  href="tel:<%=restaurant.phone%>">Call: <%=restaurant.phone%></a>
@@ -72,7 +72,7 @@
           <%if restaurant.open_times.find_by(day:Time.now.strftime("%A")).nil?%>
             <p><%=restaurant.name %>: Unavailable Right Now</p>
           <%elsif restaurant.open_times.find_by(day:Time.now.strftime("%A"))%>
-            <p><%=restaurant.name %> Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%I:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%I:%M%p")%></p>
+            <p><%=restaurant.name %> Today's Hours: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%l:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%l:%M%p")%></p>
           <%end%>
         </div>
       <%end%>
@@ -90,7 +90,7 @@
         <%end%>
         <%@meals.each do |meal| %>
           <tr>
-            <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
+            <td><%=meal.created_at.strftime("%-m/%e/%y %l:%M%p")%></td>
             <td><%=meal.status%></td>
             <td><%=Restaurant.find(meal.restaurant_id).name%></td>
             <td><%=meal.food_item%></td>
@@ -118,7 +118,7 @@
         <div class="col-xs-12">
         </div>
           <%@restaurants.each do |restaurant| %>
-          <div class="menu-titles col-xs-3 col-sm-3">
+          <div class="menu_titles col-xs-4 col-sm-4">
             <a href="#<%=restaurant.name.delete(?').tr(' ','').delete('()')%>" ><%=restaurant.name%></a>
               </div>
           <%end%>

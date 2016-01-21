@@ -24,8 +24,8 @@
               <tr>
                 <td><%=Customer.find(meal.customer_id).name%></td>
                 <td><%=meal.food_item%> (<%=meal.comment%>)</td>
-                <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
-                <td><%=(meal.created_at + 25.minutes).strftime("%m/%d/%y %I:%M%p")%></td>
+                <td><%=meal.created_at.strftime("%-m/%d/%y %l:%M%p")%></td>
+                <td><%=(meal.created_at + 25.minutes).strftime("%-m/%d/%y %l:%M%p")%></td>
                 <td><%=meal.status%></td>
                 <td>  <%= form_for [@restaurant, meal] do |f| %>
                     <%= hidden_field_tag :meal_id, meal.id %>
