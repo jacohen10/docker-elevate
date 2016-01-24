@@ -6,7 +6,7 @@
     <li><%= link_to "Admin", admin_restaurant_path(@restaurant), class: "btn btn-default"%></li>
   </ul>
   <% if current_user.role == "admin"%>
-    <%= link_to "Delete", restaurant_path(@restaurant),class: "btn btn-default", method: :delete%>
+    <%= link_to "Delete", restaurant_path(@restaurant),class: "btn btn-default", data: { confirm: 'Are you sure you want to submit this meal?' }, method: :delete%>
   <%end%>
 
     <h3>Take Out Meals Ordered Ahead</h3>
