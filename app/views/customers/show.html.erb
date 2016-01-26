@@ -62,6 +62,8 @@
           </div>
         <%end%>
       <%end%>
+    <%elsif @customer.verification === nil%>
+    <%="You're account hasn't been verified yet. Please email us and we'll get you set up right away!"%>
     <%else%>
       <%="You're out of meals, please purchase more in order to continue"%>
     <%end%>
