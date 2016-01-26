@@ -6,6 +6,7 @@ class RestaurantsController < ApplicationController
   def index
     if current_user.role == "admin"
       @restaurants = Restaurant.all
+      @meals = Meal.all.count
     end
   end
 

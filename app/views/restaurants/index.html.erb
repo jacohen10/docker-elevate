@@ -1,13 +1,28 @@
 <div class="jumbotron vertical-center">
 <% if current_user.role == "admin"%>
   <h2>Restaurants <%= link_to "(+)", new_restaurant_path %></h2>
-
-  <ul>
+<table class="table">
+  <th>Restaurant</th>
+  <th>Total Meals</th>
+  <th>Meals Today</th>
+  <th>Meals Yesterday</th>
+  <th>Meals Past Week</th>
     <%@restaurants.each do |restaurant| %>
-    <li>
-      <%=link_to restaurant.name, restaurant_path(restaurant) %>
-    </li>
+    <tr>
+      <td><%=link_to restaurant.name, restaurant_path(restaurant) %></td>
+      <td><%=restaurant.meals.all.count %></td>
+      <td><%=restaurant.meals.where("DATE(created_at) = ?", Date.today).count %></td>
+      <td><%=restaurant.meals.where("DATE(created_at) = ?", Date.today-1).count %></td>
+      <td><%=restaurant.meals.where("created_at >= ?", 1.week.ago.utc).count %></td>
+    </tr>
     <%end%>
-  </ul>
+  <th></th>
+  <th>Total Meals: <%=@meals%> </th>
+  <th></th>
+  <th></th>
+  <th></th>
+
+
+  </table>
 </div>
 <%end%>
