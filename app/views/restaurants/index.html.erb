@@ -13,7 +13,7 @@
       <td><%=restaurant.meals.all.count %></td>
       <td><%=restaurant.meals.where("DATE(created_at) = ?", Date.today).count %></td>
       <td><%=restaurant.meals.where("DATE(created_at) = ?", Date.today-1).count %></td>
-      <td><%=restaurant.meals.where("created_at >= ?", 1.week.ago.utc).count %></td>
+      <td><%=restaurant.meals.where("created_at >= ?", 1.week.ago).count %></td>
     </tr>
     <%end%>
   <th></th>
