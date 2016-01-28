@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Response>
-    <Say voice="woman">Please work Josh</Say>
+    <Say voice="woman">This is Elevate alerting you of an advance order for take-out. Please go to the Elevate app and confirm the meal so the customer knows you received the meal. Thanks so much! Again, this is Elevate alerting you of an advance order for take-out. Please go to the app and confirm the meal so the customer knows you received the meal.</Say>
 </Response>

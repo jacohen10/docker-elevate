@@ -19,8 +19,8 @@ class Meal < ActiveRecord::Base
     )
   end
 
-  def send_call
-    client_number = "7578488208"
+  def send_call(phone)
+    client_number = phone
 
     twilio_sid = ENV["TWILIO_SID"]
     twilio_token = ENV["TWILIO_TOKEN"]
@@ -28,11 +28,15 @@ class Meal < ActiveRecord::Base
 
     @twilio_client = Twilio::REST::Client.new(twilio_sid, twilio_token)
 
-    @twilio_client.account.calls.create(
+    @twilio_client.account.calls.create({
      from: "+1#{twilio_phone_number}",
      to: client_number,
-     url: "http://localhost:3000/meals/call.xml"
-    )
+     url: "http://app.elevatemealplan.com/meals/call.xml",
+     :method => 'GET',
+  	 :fallback_method => 'GET',
+  	 :status_callback_method => 'GET',
+  	 :record => 'false'
+    })
   end
 
 

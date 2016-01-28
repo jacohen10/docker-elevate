@@ -15,12 +15,10 @@ class MealsController < ApplicationController
   def create
     @customer = Customer.find(params[:customer_id])
     @meal = @customer.meals.create(meal_params)
-
-    @meal.send_call
     @restaurant = Restaurant.find(@meal.restaurant_id)
     if @meal.order_ahead === "order_ahead"
       UserMailer.order_ahead_email(User.find(@restaurant.user_id), @customer, @meal).deliver_now
-
+      @meal.send_call(@restaurant.phone)
       flash[:notice] = "#{@customer.name}, your meal has been submitted. Waiting for #{@restaurant.name} to confirm! Your meal should be ready for pickup at #{(@meal.created_at + 25.minutes).strftime("%I:%M%p")}. Please call #{@restaurant.name} if you don’t receive an email confirmation within 10 minutes (check your ‘update’s’ folder in gmail)."
     elsif @meal.order_ahead === "swipe"
       flash[:notice] = "#{@customer.name}, enjoy your #{@meal.food_item}! If dining in please remember to tip your waiter."
