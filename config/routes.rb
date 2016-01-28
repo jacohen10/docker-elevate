@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'meals/call'
   get 'welcome/index'
   get 'welcome/new_restaurant'
 
