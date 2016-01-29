@@ -4,7 +4,7 @@ class OpenTimesController < ApplicationController
 
 
   def index
-      @open_times = @restaurant.open_times
+      @open_times = @restaurant.open_times.order(created_at: :asc)
   end
 
   def new

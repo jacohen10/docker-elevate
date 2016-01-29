@@ -7,9 +7,9 @@
     <th>Edit Time</th>
     <th>Delete Time</th>
 
-    <%@open_times.each do |open_time| %>
+    <%@open_times.each_with_index do |open_time, index| %>
       <tr>
-        <td><%=open_time.day%></td>
+        <td><%=open_time.day%>(<%=index%>)</td>
         <td><%=open_time.opening.strftime("%I:%M%p")%></td>
         <td><%=open_time.closing.strftime("%I:%M%p")%></td>
         <td><%=link_to "Edit", edit_restaurant_open_time_path(@restaurant, open_time), class: "btn btn-default" %></td>
