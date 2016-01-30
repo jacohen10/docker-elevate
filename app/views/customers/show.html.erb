@@ -119,7 +119,7 @@
     <h3>Closed Restaurants:</h3>
     <%@restaurants.each do |restaurant| %>
       <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===0 || ((restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%H.%M") >= Time.now.strftime("%H.%M")) || (restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%H.%M") < Time.now.strftime("%H.%M")) )   ) %>
-        <div class="restaurant">
+        <div id="closed_restaurants">
           <%if restaurant.open_times.find_by(day:Time.now.strftime("%A")).nil?%>
             <p><%=restaurant.name %>: Unavailable Right Now</p>
           <%elsif restaurant.open_times.find_by(day:Time.now.strftime("%A"))%>

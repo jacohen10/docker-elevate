@@ -103,6 +103,21 @@ $btn-font-weight: bold;
   margin-bottom: 5px;
 }
 
+// closed restaurants
+#closed_restaurants {
+  background: #eeeeee;
+  margin: auto;
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 15px;
+}
+
+#closed_restaurants p {
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
 // meals
 tbody tr th {
   text-align: center;
