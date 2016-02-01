@@ -26,6 +26,7 @@
   <%= form_for @restaurant do |f| %>
     <div class="table-responsive">
       <table class="table">
+        <th>Meal#</th>
         <th>Customer</th>
         <th>Meal</th>
         <th>Received</th>
@@ -36,6 +37,7 @@
         <%end%>
         <%= f.fields_for :meals, @unpaid_meals do |t| %>
           <tr>
+            <td>#<%=t.label t.object.id%></td>
             <td><%= t.label Customer.find(t.object.customer_id).name %></td>
             <td>  <%= t.label t.object.food_item %></td>
             <td>  <%= t.label t.object.created_at.strftime("%m/%d/%y %I:%M%p") %></td>
@@ -47,6 +49,7 @@
           </tr>
 
           <%end%>
+            <th></th>
             <th></th>
             <th></th>
             <%if current_user.role === "admin"%>
@@ -64,6 +67,7 @@
   <%end%>
   <h3>Paid Meals</h3>
   <table class="table">
+    <th>Meal#</th>
     <th>Customer</th>
     <th>Meal</th>
     <th>Meal requests</th>
@@ -75,6 +79,7 @@
       <%if meal.status === "closed"%>
         <%if meal.payment === true%>
           <tr>
+            <td><%=meal.id%></td>
             <td><%=Customer.find(meal.customer_id).name%></td>
             <td><%=meal.food_item%></td>
             <td><%=meal.comment%></td>

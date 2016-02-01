@@ -136,6 +136,7 @@
     <h3>Meals:</h3>
     <div class="table-responsive">
       <table class="table table-striped">
+        <th>Meal #</th>
         <th>Date/Time</th>
         <th>Status</th>
         <th>Restaurant</th>
@@ -146,6 +147,7 @@
         <%end%>
         <%@meals.each do |meal| %>
           <tr>
+            <td><%=meal.id%></td>
             <td><%=meal.created_at.strftime("%-m/%e/%y %l:%M%p")%></td>
             <td><%=meal.status%></td>
             <td><%=Restaurant.find(meal.restaurant_id).name%></td>

@@ -12,6 +12,7 @@
     <h3>Take Out Meals Ordered Ahead</h3>
     <div class="table-responsive">
       <table class="table">
+        <th>Meal#</th>
         <th>Customer</th>
         <th>Meal (Requests)</th>
         <th>Received</th>
@@ -22,6 +23,7 @@
           <%if meal.status === "open" || meal.status === "cooking"%>
             <%if meal.order_ahead === "order_ahead"%>
               <tr>
+                <td>#<%=meal.id%></td>
                 <td><%=Customer.find(meal.customer_id).name%></td>
                 <td><%=meal.food_item%> (<%=meal.comment%>)</td>
                 <td><%=meal.created_at.strftime("%-m/%d/%y %l:%M%p")%></td>
@@ -50,6 +52,7 @@
   <h3>In Restaurant Meal Orders</h3>
   <div class="table-responsive">
     <table class="table">
+      <th>Meal#</th>
       <th>Customer</th>
       <th>Meal (Requests)</th>
       <th>Received</th>
@@ -59,6 +62,7 @@
         <%if meal.status == "open" %>
           <%if meal.order_ahead == "swipe" %>
             <tr>
+              <td>#<%=meal.id%></td>
               <td><%=Customer.find(meal.customer_id).name%></td>
               <td><%=meal.food_item%> (<%=meal.comment%>)</td>
               <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
