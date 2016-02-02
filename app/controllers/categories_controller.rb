@@ -6,6 +6,7 @@ class CategoriesController < ApplicationController
     @restaurant = Restaurant.find(params[:restaurant_id])
     @categories = @restaurant.categories
     @menu = Menu.new
+    @side = Side.new
   end
 
   def new

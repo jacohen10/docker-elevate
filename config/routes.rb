@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resources :menus
     resources :categories do
       resources :menus
+      resources :sides
     end
     resources :open_times
     resources :meals, collection: {complete: :put}

@@ -49,6 +49,9 @@
                   <%= f.text_field :comment, placeholder: "meal requests..." %>
                   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                   </div>
+                  <div class="col-xs-12 col-md-6-offset-1">
+                  <%= f.grouped_collection_select(:side, restaurant.categories, :sides, :name, :id, :side_item) %>
+                  </div>
                   <div class="order_ahead col-xs-12 col-sm-12">
                     <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
                     <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>

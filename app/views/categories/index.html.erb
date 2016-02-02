@@ -1,22 +1,46 @@
 <div class="jumbotron vertical-center">
   <h2>Categories <%= link_to "(+)", new_restaurant_category_path(@restaurant) %></h2>
-  <ul>
+
+<!-- Categories -->
+
     <%@categories.each do |category| %>
       <h3>
+        <div class="col-md-12">
         <%=category.name%> Menu Options (<%=category.comment%>)
         <%=link_to "Edit", edit_restaurant_category_path(@restaurant, category),class:"btn btn-default" %>
-        <%=link_to "Add Menu Options", "#", id:"menu_form", class:"btn btn-default" %>
+      </div>
       </h3>
+<!-- Menus -->
+      <div class="col-md-6">
+        <h3>Main Entrees</h3>
       <%category.menus.each do |menu| %>
+        <ul>
         <li>
           <%=menu.name%>: <%=menu.details%>
           <%=link_to "Edit", edit_restaurant_category_menu_path(@restaurant, category, menu),class:"btn btn-default" %>
           <%= link_to "Delete", restaurant_category_menu_path(@restaurant, category, menu),class: "btn btn-default", method: :delete%>
         </li>
+          </ul>
       <%end%>
+    </div>
+<!-- Sides -->
+      <div class="col-md-6">
+        <h3>Sides</h3>
+      <%category.sides.each do |side| %>
+        <li>
+          <%=side.side_item%>: <%=side.details%>
+          <%=link_to "Edit", edit_restaurant_category_menu_path(@restaurant, category, side),class:"btn btn-default" %>
+          <%= link_to "Delete", restaurant_category_menu_path(@restaurant, category, side),class: "btn btn-default", method: :delete%>
+        </li>
+      <%end%>
+    </div>
+    <div class="col-md-12">
+    </div>
+<!-- Menus Form-->
+      <div class="col-md-6">
       <%= form_for [@restaurant, category, @menu], html: {id:category.id} do |f| %>
         <div class="form-group">
-          <%= f.label :name %>
+          <%= f.label "Entree" %>
           <%= f.text_field :name, maxlength: 30%>
           <%= f.hidden_field :restaurant_id, value: @restaurant.id %>
         </div>
@@ -26,6 +50,22 @@
         </div>
         <%= f.submit%>
       <%end%>
+    </div>
+<!-- Sides Form-->
+    <div class="col-md-6">
+      <%= form_for [@restaurant, category, @side], html: {id:category.id} do |f| %>
+        <div class="form-group">
+          <%= f.label :side_item %>
+          <%= f.text_field :side_item, maxlength: 30%>
+          <%= f.hidden_field :restaurant_id, value: @restaurant.id %>
+        </div>
+        <div class="form-group">
+          <%= f.label :details %>
+          <%= f.text_field :details %>
+        </div>
+        <%= f.submit%>
+      <%end%>
+      </div>
     <%end%>
-  </ul>
+
 </div>
