@@ -5,6 +5,17 @@ class MenusController < ApplicationController
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
     @menus = @restaurant.menus
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @menus }
+
+     end
+  end
+
+  def show
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @menu = @restaurant.menus.find(params[:id])
+    render json: @menu
   end
 
   def new

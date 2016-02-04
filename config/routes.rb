@@ -19,6 +19,11 @@ Rails.application.routes.draw do
     resources :meals, collection: {complete: :put}
   end
 
+  resources :categories do
+    resources :menus
+    resources :sides
+  end
+  
   resources :customers do
     resources :meals
   end

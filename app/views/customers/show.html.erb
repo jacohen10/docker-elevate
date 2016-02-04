@@ -46,13 +46,14 @@
                 <%= form_for [@customer,@meal], html: {id: "#{restaurant.id}"} do |f| %>
                   <div class="col-xs-12 col-md-6-offset-1">
                   <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :id, :name) %>
+                  <%= f.select(:side, {},{}, {id:(restaurant.id.to_s + "sides")} )%>
                   <%= f.text_field :comment, placeholder: "meal requests..." %>
                   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                   </div>
 
-                  <div class="col-xs-12 col-md-6-offset-1" class="#{restaurant.id}-sides">
-                    <select name="meal[side]" id="#{restaurant.id}-sides">
-                  </div>
+
+
+
 
 
                   <div class="order_ahead col-xs-12 col-sm-12">
@@ -252,17 +253,63 @@
       //    }
       // });
 
-      var menus = []
-
+      // var locations = {}
+      //
+      // $(".new_meal #meal_side").each(function(){
+      //   var test = $(this).closest("form").attr('id')
+      //   locations[test] = $('optgroup').each(function() {
+      //     locations[test][this.label] = $(this).find('option').map(function() {
+      //       return $(this).text();
+      //     }).get();
+      //   });
+      //
+      // })
+      // console.log(locations);
 
       $(".new_meal #meal_food_item").change(function(){
-        var selected = $(':selected', this);
-        var category = selected.closest('optgroup').attr('label')
-        var restaurant = $(this).closest("form").attr('id');
+        var entree_id = $(this).val()
+        var restaurant_id = $(this).closest("form").attr('id');
 
-        console.log(cat_id);
         var form = $(this).parent().parent().eq(0)
-        var id_value_string = $(this).val();
+        var selected = $(':selected', this);
+        $.ajax({
+          dataType: "json",
+          cache: false,
+          url: '/restaurants/'+restaurant_id+'/'+'menus/'+ entree_id,
+          timeout: 2000,
+          error: function(XMLHttpRequest, errorTextStatus, error){
+            alert("Failed to submit : "+ errorTextStatus+" ;"+error);
+          },
+          success: function(data){
+            var category_id = data.category_id;
+            console.log($(restaurant_id+"sides"));
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: '/categories/'+ category_id + '/sides/',
+                timeout: 2000,
+                error: function(XMLHttpRequest, errorTextStatus, error){
+                  alert("Failed to submit : "+ errorTextStatus+" ;"+error);
+                },
+                success: function(side_data){
+                  // Clear all options from sub category select
+                  $("#"+ restaurant_id+"sides option").remove();
+                  //put in a empty default line
+                  var row = "<option value=\"" + "" + "\">" + "" + "</option>";
+                  $(row).appendTo("#"+restaurant_id+"sides");
+                  // Fill sub category select
+                  $.each(side_data, function(i, j){
+                    console.log(j.id);
+                    console.log(j.side_item);
+                    row = "<option value=\"" + j.id + "\">" + j.side_item + "</option>";
+                    $(row).appendTo("#"+restaurant_id+"sides");
+                  });
+                }
+              });
+
+            }
+          })
+        });
 
         // if (id_value_string === "") {
         //   // if the id is empty remove all the sub_selection options from being selectable and do not do any ajax
@@ -294,7 +341,7 @@
         //     }
         //   });
         // }
-      });
+      // });
 
 
     });

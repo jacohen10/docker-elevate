@@ -10,7 +10,11 @@ class SidesController < ApplicationController
   def index
     @category = Category.find(params[:category_id])
     @sides = @category.sides
-    render json: @sides
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @sides }
+
+     end
   end
 
   def new
