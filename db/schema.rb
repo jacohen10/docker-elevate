@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160129184814) do
+ActiveRecord::Schema.define(version: 20160204172705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20160129184814) do
     t.string   "order_ahead"
     t.string   "comment"
     t.boolean  "payment",       default: false
+    t.string   "side"
   end
 
   add_index "meals", ["customer_id"], name: "index_meals_on_customer_id", using: :btree
@@ -97,13 +98,24 @@ ActiveRecord::Schema.define(version: 20160129184814) do
     t.string   "email"
     t.string   "phone"
     t.string   "menu"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "user_id"
-    t.boolean  "order_ahead", default: false
+    t.boolean  "order_ahead",           default: false
+    t.boolean  "in_restaurant_payment", default: true
   end
 
   add_index "restaurants", ["user_id"], name: "index_restaurants_on_user_id", using: :btree
+
+  create_table "sides", force: :cascade do |t|
+    t.string  "side_item",     default: "none"
+    t.string  "details"
+    t.integer "category_id"
+    t.integer "restaurant_id"
+  end
+
+  add_index "sides", ["category_id"], name: "index_sides_on_category_id", using: :btree
+  add_index "sides", ["restaurant_id"], name: "index_sides_on_restaurant_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -132,4 +144,6 @@ ActiveRecord::Schema.define(version: 20160129184814) do
   add_foreign_key "menus", "restaurants"
   add_foreign_key "open_times", "restaurants"
   add_foreign_key "restaurants", "users"
+  add_foreign_key "sides", "categories"
+  add_foreign_key "sides", "restaurants"
 end
