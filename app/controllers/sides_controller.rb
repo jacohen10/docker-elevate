@@ -1,10 +1,16 @@
 class SidesController < ApplicationController
   load_and_authorize_resource
 
-
+  def for_sectionid
+    @subsections = SubSection.find( :all, :conditions => [" category_id = ?", params[:id]]  ).sort_by{ |k| k['name'] }
+    respond_to do |format|
+      format.json  { render :json => @subsections }
+    end
+  end
   def index
-    @restaurant = Restaurant.find(params[:restaurant_id])
-    @sides = @restaurant.sides
+    @category = Category.find(params[:category_id])
+    @sides = @category.sides
+    render json: @sides
   end
 
   def new
