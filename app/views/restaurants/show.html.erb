@@ -25,11 +25,14 @@
               <tr>
                 <td>#<%=meal.id%></td>
                 <td><%=Customer.find(meal.customer_id).name%></td>
-                <td><%=Menu.find(meal.food_item).name%>
+                <td>
+                  <%if Menu.exists?(meal.food_item) %>
+                  <%=Menu.find(meal.food_item).name%>
+                  <%end%>
                   <%if meal.side !=nil && meal.side != "" && Side.exists?(meal.side) %>
                   (<%=Side.find(meal.side).side_item%>)
                   <%end%>
-                </td>  
+                </td>
                 <td><%=meal.comment%></td>
                 <td><%=meal.created_at.strftime("%-m/%d/%y %l:%M%p")%></td>
                 <td><%=(meal.created_at + 25.minutes).strftime("%-m/%d/%y %l:%M%p")%></td>
@@ -70,8 +73,10 @@
             <tr>
               <td>#<%=meal.id%></td>
               <td><%=Customer.find(meal.customer_id).name%></td>
-              <td><%=Menu.find(meal.food_item).name%>
-
+              <td>
+                <%if Menu.exists?(meal.food_item) %>
+                <%=Menu.find(meal.food_item).name%>
+                <%end%>
                 <%if meal.side !=nil && meal.side != "" && Side.exists?(meal.side) %>
                 (<%=Side.find(meal.side).side_item%>)
                 <%end%>
