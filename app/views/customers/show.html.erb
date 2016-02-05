@@ -262,8 +262,7 @@
                   // Clear all options from sub category select
                   $("#"+ restaurant_id+"sides option").remove();
                   //put in a empty default line
-                  var row = "<option value=\"" + "" + "\">" + "" + "</option>";
-                  $(row).appendTo("#"+restaurant_id+"sides");
+                  
                   // Fill sub category select
                   $.each(side_data, function(i, j){
                     row = "<option value=\"" + j.id + "\">" + j.side_item + "</option>";
