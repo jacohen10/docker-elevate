@@ -155,7 +155,12 @@
             <td><%=meal.created_at.strftime("%-m/%e/%y %l:%M%p")%></td>
             <td><%=meal.status%></td>
             <td><%=Restaurant.find(meal.restaurant_id).name%></td>
-            <td><%=Restaurant.find(meal.restaurant_id).menus.find(meal.food_item).name%></td>
+            <td>
+              <%if Menu.exists?(meal.food_item) %>
+              <%=Menu.find(meal.food_item).name%>
+              <%end%>
+
+            </td>
             <td>
               <% if meal.order_ahead === "swipe"%>
                 In Restaurant
@@ -262,7 +267,7 @@
                   // Clear all options from sub category select
                   $("#"+ restaurant_id+"sides option").remove();
                   //put in a empty default line
-                  
+
                   // Fill sub category select
                   $.each(side_data, function(i, j){
                     row = "<option value=\"" + j.id + "\">" + j.side_item + "</option>";
