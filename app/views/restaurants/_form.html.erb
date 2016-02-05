@@ -19,9 +19,11 @@
   <div class="form-group">
   <td>  <%= f.label "Check and click update to accept advance orders"  %></td>
   <%= f.check_box :order_ahead %>
-
-
   </div>
+    <div class="form-group">
+    <td>  <%= f.label "Check and click update to accept in-restaurant orders"  %></td>
+    <%= f.check_box :in_restaurant_payment %>
+    </div>
   <%= f.submit%>
   </form>
   <%end%>

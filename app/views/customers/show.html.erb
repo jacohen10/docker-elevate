@@ -51,8 +51,10 @@
                   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                   </div>
                   <div class="order_ahead col-xs-12 col-sm-12">
-                    <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
-                    <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
+                    <%if restaurant.in_restaurant_payment === true%>
+                      <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
+                      <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
+                    <%end%>
                   </div>
                   <div class="order_ahead col-xs-12 col-sm-12">
                     <%if restaurant.order_ahead === true%>
