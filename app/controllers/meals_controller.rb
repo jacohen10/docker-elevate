@@ -16,12 +16,15 @@ class MealsController < ApplicationController
     @customer = Customer.find(params[:customer_id])
     @meal = @customer.meals.create(meal_params)
     @restaurant = Restaurant.find(@meal.restaurant_id)
+    @entree = @restaurant.menus.find(@meal.food_item)
+    @side = Side.find(@meal.side)
+
     if @meal.order_ahead === "order_ahead"
-      UserMailer.order_ahead_email(User.find(@restaurant.user_id), @customer, @meal).deliver_now
+      UserMailer.order_ahead_email(User.find(@restaurant.user_id), @customer, @meal, @entree, @side).deliver_now
       @meal.send_call(@restaurant.phone)
       flash[:notice] = "#{@customer.name}, your meal has been submitted. Waiting for #{@restaurant.name} to confirm! Your meal should be ready for pickup at #{(@meal.created_at + 25.minutes).strftime("%I:%M%p")}. Please call #{@restaurant.name} if you don’t receive an email confirmation within 10 minutes (check your ‘update’s’ folder in gmail)."
     elsif @meal.order_ahead === "swipe"
-      flash[:notice] = "#{@customer.name}, enjoy your #{@meal.food_item}! If dining in please remember to tip your waiter."
+      flash[:notice] = "#{@customer.name}, enjoy your #{@entree.name}! If dining in please remember to tip your waiter."
     end
     redirect_to user_customer_path(current_user,@customer)
 
@@ -37,9 +40,10 @@ class MealsController < ApplicationController
     @meal = Meal.find(params[:meal_id])
     @customer = Customer.find(@meal.customer_id)
     @user = User.find(@customer.user_id)
+    @entree = @restaurant.menus.find(@meal.food_item)
     @meal.update(status: params[:status], payment: params[:payment])
     if @meal.status === "cooking"
-      UserMailer.order_ahead_customer(@user, @restaurant, @customer, @meal).deliver_now
+      UserMailer.order_ahead_customer(@user, @restaurant, @customer, @entree).deliver_now
     end
     redirect_to session.delete(:return_to)
   end

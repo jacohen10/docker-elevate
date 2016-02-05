@@ -50,12 +50,6 @@
                   <%= f.text_field :comment, placeholder: "meal requests..." %>
                   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                   </div>
-
-
-
-
-
-
                   <div class="order_ahead col-xs-12 col-sm-12">
                     <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
                     <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
@@ -94,6 +88,7 @@
                 <%= form_for [@customer,@meal] do |f| %>
                   <div class="col-xs-12 col-md-6-offset-1">
                   <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :name, :name) %>
+                  <%= f.select(:side, {},{}, {id:(restaurant.id.to_s + "sides")} )%>
                   <%= f.text_field :comment, placeholder: "meal requests..." %>
                   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                   </div>
@@ -158,7 +153,13 @@
             <td><%=meal.created_at.strftime("%-m/%e/%y %l:%M%p")%></td>
             <td><%=meal.status%></td>
             <td><%=Restaurant.find(meal.restaurant_id).name%></td>
-            <td><%=meal.food_item%></td>
+            <td>
+              <%if meal.food_item.class === String %>
+              <%=meal.food_item%>
+              <%else%>
+                <%=Restaurant.find(meal.restaurant_id).menus.find(meal.food_item).name%>
+              <%end%>
+            </td>
             <td>
               <% if meal.order_ahead === "swipe"%>
                 In Restaurant
@@ -237,35 +238,6 @@
       });
 
 
-
-
-      // $(".new_meal #meal_food_item").on('change', function() {
-      //   var restaurant = $(this).parent().parent().eq(0)
-      //   var sides = $(restaurant).find("#meal_side").html()
-      //   var category = $(restaurant).find("#meal_food_item :selected").parent().attr('label')
-      //
-      //   var options = $(sides).filter("optgroup[label="+category+"]").html()
-      //    if (typeof options !== 'undefined') {
-      //      $(restaurant).find("#meal_side").html(options)
-      //    }
-      //    else {
-      //      $(restaurant).find("#meal_side").empty()
-      //    }
-      // });
-
-      // var locations = {}
-      //
-      // $(".new_meal #meal_side").each(function(){
-      //   var test = $(this).closest("form").attr('id')
-      //   locations[test] = $('optgroup').each(function() {
-      //     locations[test][this.label] = $(this).find('option').map(function() {
-      //       return $(this).text();
-      //     }).get();
-      //   });
-      //
-      // })
-      // console.log(locations);
-
       $(".new_meal #meal_food_item").change(function(){
         var entree_id = $(this).val()
         var restaurant_id = $(this).closest("form").attr('id');
@@ -282,7 +254,6 @@
           },
           success: function(data){
             var category_id = data.category_id;
-            console.log($(restaurant_id+"sides"));
             $.ajax({
                 dataType: "json",
                 cache: false,
@@ -299,8 +270,6 @@
                   $(row).appendTo("#"+restaurant_id+"sides");
                   // Fill sub category select
                   $.each(side_data, function(i, j){
-                    console.log(j.id);
-                    console.log(j.side_item);
                     row = "<option value=\"" + j.id + "\">" + j.side_item + "</option>";
                     $(row).appendTo("#"+restaurant_id+"sides");
                   });
@@ -311,37 +280,6 @@
           })
         });
 
-        // if (id_value_string === "") {
-        //   // if the id is empty remove all the sub_selection options from being selectable and do not do any ajax
-        //   $("select#gallery_sub_section_id option").remove();
-        //   var row = "<option value=\"" + "" + "\">" + "" + "</option>";
-        //   $(row).appendTo("select#gallery_sub_section_id");
-        // }
-        // else {
-        //   // Send the request and update sub category dropdown
-        //   $.ajax({
-        //     dataType: "json",
-        //     cache: false,
-        //     url: '/sub_sections/for_sectionid/' + id_value_string,
-        //     timeout: 2000,
-        //     error: function(XMLHttpRequest, errorTextStatus, error){
-        //       alert("Failed to submit : "+ errorTextStatus+" ;"+error);
-        //     },
-        //     success: function(data){
-        //       // Clear all options from sub category select
-        //       $("select#gallery_sub_section_id option").remove();
-        //       //put in a empty default line
-        //       var row = "<option value=\"" + "" + "\">" + "" + "</option>";
-        //       $(row).appendTo("select#gallery_sub_section_id");
-        //       // Fill sub category select
-        //       $.each(data, function(i, j){
-        //         row = "<option value=\"" + j.sub_section.id + "\">" + j.sub_section.name + "</option>";
-        //         $(row).appendTo("select#gallery_sub_section_id");
-        //       });
-        //     }
-        //   });
-        // }
-      // });
 
 
     });

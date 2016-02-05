@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'admin'
     end
     resources :menus
+    resources :sides
     resources :categories do
       resources :menus
       resources :sides
@@ -23,7 +24,7 @@ Rails.application.routes.draw do
     resources :menus
     resources :sides
   end
-  
+
   resources :customers do
     resources :meals
   end
