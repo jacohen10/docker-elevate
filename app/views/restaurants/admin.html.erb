@@ -39,7 +39,7 @@
           <tr>
             <td>#<%=t.label t.object.id%></td>
             <td><%= t.label Customer.find(t.object.customer_id).name %></td>
-            <td>  <%= t.label t.object.food_item %></td>
+            <td>  <%= t.label Restaurant.find(t.object.restaurant_id).menus.find(t.object.food_item).name  %></td>
             <td>  <%= t.label t.object.created_at.strftime("%m/%d/%y %I:%M%p") %></td>
             <td>  <%= t.label t.object.status %></td>
             <td>  <%= t.label t.object.payment %></td>
@@ -81,7 +81,7 @@
           <tr>
             <td><%=meal.id%></td>
             <td><%=Customer.find(meal.customer_id).name%></td>
-            <td><%=meal.food_item%></td>
+            <td><%=Restaurant.find(meal.restaurant_id).menus.find(meal.food_item).name%></td>
             <td><%=meal.comment%></td>
             <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
             <td><%=meal.status%></td>

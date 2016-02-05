@@ -29,8 +29,8 @@
       <%category.sides.each do |side| %>
         <li>
           <%=side.side_item%>: <%=side.details%>
-          <%=link_to "Edit", edit_restaurant_category_menu_path(@restaurant, category, side),class:"btn btn-default" %>
-          <%= link_to "Delete", restaurant_category_menu_path(@restaurant, category, side),class: "btn btn-default", method: :delete%>
+          <%=link_to "Edit", edit_restaurant_category_side_path(@restaurant, category, side),class:"btn btn-default" %>
+          <%= link_to "Delete", restaurant_category_side_path(@restaurant, category, side),class: "btn btn-default", method: :delete%>
         </li>
       <%end%>
     </div>

@@ -32,13 +32,13 @@ class SidesController < ApplicationController
   def edit
     @restaurant = Restaurant.find(params[:restaurant_id])
     @category = Category.find(params[:category_id])
-    @side = @restaurant.sides.find(params[:id])
+    @side = @category.sides.find(params[:id])
   end
 
   def update
     @restaurant = Restaurant.find(params[:restaurant_id])
     @category = Category.find(params[:category_id])
-    @side = @restaurant.sides.find(params[:id])
+    @side = @category.sides.find(params[:id])
     @side.update(side_params)
 
     redirect_to restaurant_categories_path(@restaurant)
@@ -46,7 +46,8 @@ class SidesController < ApplicationController
 
   def destroy
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @side = @restaurant.sides.find(params[:id])
+    @category = Category.find(params[:category_id])
+    @side = @category.sides.find(params[:id])
     @side.destroy
     redirect_to restaurant_categories_path(@restaurant)
   end

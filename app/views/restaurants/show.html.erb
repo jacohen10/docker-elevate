@@ -25,7 +25,7 @@
               <tr>
                 <td>#<%=meal.id%></td>
                 <td><%=Customer.find(meal.customer_id).name%></td>
-                <td><%=meal.food_item%> (<%=meal.comment%>)</td>
+                <td><%=Restaurant.find(meal.restaurant_id).menus.find(meal.food_item).name%> (<%=meal.comment%>)</td>
                 <td><%=meal.created_at.strftime("%-m/%d/%y %l:%M%p")%></td>
                 <td><%=(meal.created_at + 25.minutes).strftime("%-m/%d/%y %l:%M%p")%></td>
                 <td><%=meal.status%></td>
