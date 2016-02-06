@@ -17,8 +17,9 @@ class MealsController < ApplicationController
     @meal = @customer.meals.create(meal_params)
     @restaurant = Restaurant.find(@meal.restaurant_id)
     @entree = @restaurant.menus.find(@meal.food_item)
+    if @meal.side?
     @side = Side.find(@meal.side)
-
+    end
     if @meal.order_ahead === "order_ahead"
       UserMailer.order_ahead_email(User.find(@restaurant.user_id), @customer, @meal, @entree, @side).deliver_now
       @meal.send_call(@restaurant.phone)

@@ -15,6 +15,9 @@ class Ability
         can :manage, [Category]
         can :manage, [OpenTime]
       elsif user.role == "customer"
+        can :read, [Category]
+        can :read, [Menu]
+        can :read, [Side]
         can [:update, :read, :create], [Customer]
         can [:update, :read, :create], [Meal]
       else
