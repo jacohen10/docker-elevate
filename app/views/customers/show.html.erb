@@ -45,8 +45,8 @@
               <div class="row">
                 <%= form_for [@customer,@meal], html: {id: "#{restaurant.id}"} do |f| %>
                   <div class="col-xs-12 col-md-6-offset-1">
-                  <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :id, :name) %>
-                  <%= f.select(:side, {},{}, {id:(restaurant.id.to_s + "sides")} )%>
+                  <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :id, :name, { :include_blank => '-- Entree --' }, :required => true) %>
+                  <%= f.select(:side, {},{ :include_blank => '-- Side --' }, {id:(restaurant.id.to_s + "sides"), :required => true} )%>
                   <%= f.text_field :comment, placeholder: "meal requests..." %>
                   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                   </div>
@@ -59,7 +59,11 @@
                   <div class="order_ahead col-xs-12 col-sm-12">
                     <%if restaurant.order_ahead === true%>
                       <%= f.label :order_ahead, 'Order in advance', value: 'order_ahead' %>
+                      <%if restaurant.in_restaurant_payment === false%>
+                        <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead', checked: true %>
+                      <%else%>
                       <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
+                      <%end%>
                     <%end%>
                   </div>
                   <%= f.hidden_field :status, value: "open" %>
@@ -89,8 +93,8 @@
               <div class="row">
                 <%= form_for [@customer,@meal] do |f| %>
                   <div class="col-xs-12 col-md-6-offset-1">
-                  <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :name, :name) %>
-                  <%= f.select(:side, {},{}, {id:(restaurant.id.to_s + "sides")} )%>
+                  <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :name, :name, { :include_blank => '-- Entree --' }, :required => true) %>
+                  <%= f.select(:side, {},{ :include_blank => '-- Side --' }, {id:(restaurant.id.to_s + "sides"), :required => true} )%>
                   <%= f.text_field :comment, placeholder: "meal requests..." %>
                   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
                   </div>
