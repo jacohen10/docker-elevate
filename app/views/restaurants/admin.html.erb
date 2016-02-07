@@ -88,7 +88,7 @@
             <td><%=Customer.find(meal.customer_id).name%></td>
             <td>
 
-              <%if t.label Restaurant.find(meal.restaurant_id).menus.exists?(meal.food_item) %>
+              <%if Restaurant.find(meal.restaurant_id).menus.exists?(meal.food_item) %>
               <%=Restaurant.find(meal.restaurant_id).menus.find(meal.food_item).name%>
               <%end%>
             </td>
