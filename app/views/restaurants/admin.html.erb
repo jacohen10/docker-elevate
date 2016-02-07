@@ -40,7 +40,7 @@
             <td>#<%=t.label t.object.id%></td>
             <td><%= t.label Customer.find(t.object.customer_id).name %></td>
             <td>
-              <%if t.label Restaurant.find(t.object.restaurant_id).menus.exists?(t.object.food_item) %>
+              <%if Restaurant.find(t.object.restaurant_id).menus.exists?(t.object.food_item) %>
               <%= t.label Restaurant.find(t.object.restaurant_id).menus.find(t.object.food_item).name  %>
               <%end%>
 
