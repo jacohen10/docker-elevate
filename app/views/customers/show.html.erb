@@ -91,7 +91,7 @@
 
             <div class="container">
               <div class="row">
-                <%= form_for [@customer,@meal] do |f| %>
+                <%= form_for [@customer,@meal], html: {id: "#{restaurant.id}"} do |f| %>
                   <div class="col-xs-12 col-md-6-offset-1">
                   <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :name, :name, { :include_blank => '-- Entree --' }, :required => true) %>
                   <%= f.select(:side, {},{ :include_blank => '-- Side --' }, {id:(restaurant.id.to_s + "sides"), :required => true} )%>
