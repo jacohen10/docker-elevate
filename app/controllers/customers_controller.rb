@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_customer, only: [:show,:edit,:update]
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :show]
   load_and_authorize_resource
 
   def index
