@@ -23,19 +23,19 @@
 <!-- First set of business hours -->
     <%if @meals_remaining > 0 && @customer.verification === "true"%>
       <%@restaurants.each do |restaurant| %>
-        <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count >0 && ((restaurant.open_times.where(day:Time.now.strftime("%A"))[0].opening.strftime("%H.%M") <= Time.now.strftime("%H.%M")) && (restaurant.open_times.where(day:Time.now.strftime("%A"))[0].closing.strftime("%H.%M") > Time.now.strftime("%H.%M")) )  )%>
+        <%if restaurant.is_open_one || restaurant.is_open_two%>
           <div class="restaurant">
             <h3><%=restaurant.name%></h3>
             <div id="hours" >
               <p>Today's Hours:
-                <%=restaurant.open_times.where(day:Time.now.strftime("%A"))[0].opening.strftime("%l:%M%p")%>-<%=restaurant.open_times.where(day:Time.now.strftime("%A"))[0].closing.strftime("%l:%M%p")%>
-                <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===2)%>
-                & <%=restaurant.open_times.where(day:Time.now.strftime("%A"))[1].opening.strftime("%l:%M%p")%>-<%=restaurant.open_times.where(day:Time.now.strftime("%A"))[1].closing.strftime("%l:%M%p")%>
+                <%=restaurant.opening_time_view(0)%>-<%=restaurant.closing_time_view(0)%>
+                <%if (restaurant.has_two_business_hours)%>
+                & <%=restaurant.opening_time_view(1)%>-<%=restaurant.closing_time_view(1)%>
                 <%end%>
               </p>
             </div>
             <div id="phone" class="btn btn-primary">
-              <a  href="tel:<%=restaurant.phone%>">Call: <%=restaurant.phone%></a>
+              <a href="tel:<%=restaurant.phone%>">Call: <%=restaurant.phone%></a>
             </div>
             <div id="scroll_to_menu" class="btn btn-primary">
               <a href="#menu">Full menu</a>
@@ -64,48 +64,6 @@
                       <%else%>
                       <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
                       <%end%>
-                    <%end%>
-                  </div>
-                  <%= f.hidden_field :status, value: "open" %>
-                  <div id="submit_btn">
-                    <%= f.submit "Submit meal", class: "btn btn-primary", data: { confirm: 'Are you sure you want to submit this meal?' } %>
-                  </div>
-                <%end%>
-              </div>
-            </div>
-          </div>
-        <%end%>
-<!-- 2nd set of business hours -->
-        <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===2 && ((restaurant.open_times.where(day:Time.now.strftime("%A"))[1].opening.strftime("%H.%M") <= Time.now.strftime("%H.%M")) && (restaurant.open_times.where(day:Time.now.strftime("%A"))[1].closing.strftime("%H.%M") > Time.now.strftime("%H.%M")) )  )%>
-          <div class="restaurant">
-            <h3><%=restaurant.name%></h3>
-            <div id="hours" >
-              <p>Today's Hours: <%=restaurant.open_times.where(day:Time.now.strftime("%A"))[0].opening.strftime("%l:%M%p")%>-<%=restaurant.open_times.where(day:Time.now.strftime("%A"))[0].closing.strftime("%l:%M%p")%> & <%=restaurant.open_times.where(day:Time.now.strftime("%A"))[1].opening.strftime("%l:%M%p")%>-<%=restaurant.open_times.where(day:Time.now.strftime("%A"))[1].closing.strftime("%l:%M%p")%></p>
-            </div>
-            <div id="phone" class="btn btn-primary">
-              <a  href="tel:<%=restaurant.phone%>">Call: <%=restaurant.phone%></a>
-            </div>
-            <div id="scroll_to_menu" class="btn btn-primary">
-              <a href="#menu">Full menu</a>
-            </div>
-
-            <div class="container">
-              <div class="row">
-                <%= form_for [@customer,@meal], html: {id: "#{restaurant.id}"} do |f| %>
-                  <div class="col-xs-12 col-md-6-offset-1">
-                  <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :id, :name, { :include_blank => '-- Entree --' }, :required => true) %>
-                  <%= f.select(:side, {},{ :include_blank => '-- Side --' }, {id:(restaurant.id.to_s + "sides"), :required => true} )%>
-                  <%= f.text_field :comment, placeholder: "meal requests..." %>
-                  <%= f.hidden_field :restaurant_id, value: restaurant.id %>
-                  </div>
-                  <div class="order_ahead col-xs-12 col-sm-12">
-                    <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
-                    <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
-                  </div>
-                  <div class="order_ahead col-xs-12 col-sm-12">
-                    <%if restaurant.order_ahead === true%>
-                      <%= f.label :order_ahead, 'Order in advance', value: 'order_ahead' %>
-                      <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
                     <%end%>
                   </div>
                   <%= f.hidden_field :status, value: "open" %>
