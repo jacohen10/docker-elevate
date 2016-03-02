@@ -12,7 +12,7 @@ module Meals
 
     def call
       meal = customer.meals.build(meal_params)
-      Meals::Notifier.call(meal) if meal.save
+      Meals::Notifier.call(meal) if meal.save && meal.order_ahead == 'order_ahead'
       meal
     end
 

@@ -23,10 +23,8 @@ module Meals
       end
 
       # Call restaurant about the new order
-      if meal.order_ahead == 'order_ahead'
         restaurant_number = restaurant.phone
         initiate_call(restaurant_number)
-      end
     end
     handle_asynchronously :call
 
