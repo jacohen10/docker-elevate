@@ -42,7 +42,7 @@ class MealConfirmationsController < ApplicationController
   end
 
   def complete
-    Meals::Notifier.delay(run_at: 2.minutes.from_now).call(@meal) unless @meal.is_cooking? || @meal.created_at < 10.minutes.ago
+    Meals::Notifier.delay(run_at: 2.minutes.from_now).call(@meal, is_retry: true) unless @meal.is_cooking? || @meal.created_at < 10.minutes.ago
 
     render nothing: true
   end

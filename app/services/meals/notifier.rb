@@ -5,8 +5,9 @@ module Meals
       new(*args).call
     end
 
-    def initialize(meal)
+    def initialize(meal, is_retry = false)
       @meal = meal
+      @is_retry = is_retry
     end
 
     def call
@@ -15,9 +16,11 @@ module Meals
       customer = meal.customer
 
       # Send email
-      entree = restaurant.menus.find(meal.food_item)
-      side = Side.find(meal.side) # perhaps we should have an association between Meal and Side?
-      UserMailer.order_ahead_email(restaurant.user, customer, meal, entree, side).deliver_now
+      unless is_retry
+        entree = restaurant.menus.find(meal.food_item)
+        side = Side.find(meal.side) # perhaps we should have an association between Meal and Side?
+        UserMailer.order_ahead_email(restaurant.user, customer, meal, entree, side).deliver_now
+      end
 
       # Call restaurant about the new order
       restaurant_number = restaurant.phone
@@ -27,7 +30,7 @@ module Meals
 
     private
 
-      attr_reader :meal
+      attr_reader :meal, :is_retry
 
       def initiate_call(restaurant_number)
         twilio_client = Twilio::REST::Client.new
@@ -35,10 +38,9 @@ module Meals
         twilio_client.account.calls.create({
          from: "+1#{Rails.application.secrets.twilio_phone_number}",
          to: restaurant_number,
-         #url: Rails.application.routes.url_helpers.new_order_confirmation_url(format: :xml),
-         url: "http://90cc02ea.ngrok.io/meal_confirmations/#{meal.id}/call",
+         url: Rails.application.routes.url_helpers.call_meal_confirmation_url(id: @meal.id, format: :xml),
          :method => 'GET',
-         :status_callback => "http://90cc02ea.ngrok.io/meal_confirmations/#{meal.id}/complete",
+         :status_callback => Rails.application.routes.url_helpers.complete_meal_confirmation_url(id: @meal.id, format: :xml),
          :status_callback_method => "GET"
         })
       end
