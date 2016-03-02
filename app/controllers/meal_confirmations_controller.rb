@@ -23,6 +23,8 @@ class MealConfirmationsController < ApplicationController
   end
 
   def acknowledge
+    entree = @meal.restaurant.menus.find(@meal.food_item)
+    side = Side.find(@meal.side)
     pressed_number = params['Digits']
 
     response = Twilio::TwiML::Response.new do |r|
@@ -32,6 +34,7 @@ class MealConfirmationsController < ApplicationController
         r.Hangup
       else
         r.Gather numDigits: '1', action: acknowledge_meal_confirmation_path(id: @meal.id), method: 'get' do |g|
+          g.Say "An order was received for #{entree.name} and #{side.side_item}", voice: 'woman'
           g.Say "Please press 1 to let us know you received the order", voice: 'woman'
         end
         r.Redirect call_meal_confirmation_path
