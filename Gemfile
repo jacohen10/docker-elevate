@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+ruby "2.3.0"
+
 gem 'pry'
 gem 'cancancan', '~> 1.10'
 gem 'bootstrap-sass'
