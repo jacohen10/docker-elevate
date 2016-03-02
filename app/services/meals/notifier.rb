@@ -23,7 +23,7 @@ module Meals
       end
 
       # Call restaurant about the new order
-      if restaurant.order_ahead?
+      if meal.order_ahead == 'order_ahead'
         restaurant_number = restaurant.phone
         initiate_call(restaurant_number)
       end
