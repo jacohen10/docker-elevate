@@ -20,7 +20,7 @@
         <th>Status</th>
         <th>confirm</th>
         <%@meals.each do |meal| %>
-          <%if meal.status === "open" || meal.status === "cooking"%>
+          <%if meal.status === "open" || meal.is_cooking? %>
             <%if meal.order_ahead === "order_ahead"%>
               <tr>
                 <td>#<%=meal.id%></td>
@@ -43,7 +43,7 @@
                     <%if meal.status === "open"%>
                       <%= hidden_field_tag :status, "cooking" %>
                       <%= f.submit "Order Received"%>
-                    <%elsif meal.status === "cooking"%>
+                    <%elsif meal.is_cooking? %>
                       <%= hidden_field_tag :status, "closed" %>
                       <%= f.submit "Order Completed"%>
                     <%end%>

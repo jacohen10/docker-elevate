@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+ruby "2.3.0"
+
 gem 'pry'
 gem 'cancancan', '~> 1.10'
 gem 'bootstrap-sass'
@@ -38,6 +40,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use Unicorn as the app server
 # gem 'unicorn'
+gem 'puma'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

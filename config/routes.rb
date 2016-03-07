@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  get 'meals/call'
   get 'welcome/index'
   get 'welcome/new_restaurant'
 
-
   devise_for :users, controllers: { registrations: "registrations" }
+
   root to: 'welcome#index'
+
   resources :restaurants do
     member do
       get 'admin'
@@ -32,6 +32,14 @@ Rails.application.routes.draw do
   resources :users do
     resources :customers
     resources :restaurants
+  end
+
+  resources :meal_confirmations, only: [] do
+    member do
+      get 'call'
+      get 'acknowledge'
+      get 'complete'
+    end
   end
 
 end
