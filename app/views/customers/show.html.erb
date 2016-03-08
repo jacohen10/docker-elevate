@@ -23,13 +23,13 @@
 <!-- First set of business hours -->
     <%if @meals_remaining > 0 && @customer.verification === "true"%>
       <%@restaurants.each do |restaurant| %>
-        <%if restaurant.is_open_one || restaurant.is_open_two%>
+        <%if restaurant.is_open_one? || restaurant.is_open_two?%>
           <div class="restaurant">
             <h3><%=restaurant.name%></h3>
             <div id="hours" >
               <p>Today's Hours:
                 <%=restaurant.opening_time_view(0)%>-<%=restaurant.closing_time_view(0)%>
-                <%if (restaurant.has_two_business_hours)%>
+                <%if (restaurant.check_business_hours_count_equals(2))%>
                 & <%=restaurant.opening_time_view(1)%>-<%=restaurant.closing_time_view(1)%>
                 <%end%>
               </p>
@@ -84,14 +84,14 @@
 
     <h3>Closed Restaurants:</h3>
     <%@restaurants.each do |restaurant| %>
-      <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===0 || ((restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%H.%M") >= Time.now.strftime("%H.%M")) || (restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%H.%M") < Time.now.strftime("%H.%M")) )   ) %>
+      <%if restaurant.is_closed?%>
         <div id="closed_restaurants">
-          <%if restaurant.open_times.find_by(day:Time.now.strftime("%A")).nil?%>
+          <%unless restaurant.has_business_hours?%>
             <p><%=restaurant.name %>: Unavailable Right Now</p>
-          <%elsif restaurant.open_times.find_by(day:Time.now.strftime("%A"))%>
-            <p><%=restaurant.name %> Hours Today: <%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).opening.strftime("%l:%M%p")%>-<%=restaurant.open_times.find_by(day:Time.now.strftime("%A")).closing.strftime("%l:%M%p")%>
-              <%if (restaurant.open_times.where(day: Time.now.strftime("%A")).count ===2)%>
-              & <%=restaurant.open_times.where(day:Time.now.strftime("%A"))[1].opening.strftime("%l:%M%p")%>-<%=restaurant.open_times.where(day:Time.now.strftime("%A"))[1].closing.strftime("%l:%M%p")%>
+          <%else%>
+            <p><%=restaurant.name %> Hours Today: <%=restaurant.opening_time_view(0)%>-<%=restaurant.closing_time_view(0)%>
+              <%if (restaurant.check_business_hours_count_equals(2))%>
+              & <%=restaurant.opening_time_view(1)%>-<%=restaurant.closing_time_view(1)%>
               <%end%>
             </p>
           <%end%>
@@ -243,16 +243,12 @@
         });
 
         $("form").submit(function(e) {
-
           var ref = $(this).find("[required]");
-
           $(ref).each(function(){
             if ( $(this).val() == '' )
             {
               alert("Required field should not be blank.");
-
               $(this).focus();
-
               e.preventDefault();
               return false;
             }
