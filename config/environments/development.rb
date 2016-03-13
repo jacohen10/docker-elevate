@@ -52,6 +52,14 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   routes.default_url_options = {
     host: Rails.application.secrets.host_name || 'localhost',
-    port: Rails.application.secrets.host_port || 3000 
+    port: Rails.application.secrets.host_port || 3000
   }
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+
+  end
+
 end
