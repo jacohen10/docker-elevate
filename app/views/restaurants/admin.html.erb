@@ -1,3 +1,4 @@
+
 <div class="jumbotron vertical-center">
   <div id="admin_meals">
     <table class="table">
@@ -38,8 +39,12 @@
         <%= f.fields_for :meals, @unpaid_meals do |t| %>
           <tr>
             <td>#<%=t.label t.object.id%></td>
-            <td><%= t.label Customer.find(t.object.customer_id).name %></td>
-            <td>  <%= t.label Restaurant.find(t.object.restaurant_id).menus.exists?(t.object.food_item)%> </td>
+            <td><%= t.label t.object.customer.name %></td>
+            <td>
+              <%if  t.object.restaurant.menus.exists?(t.object.food_item)%>
+                <%= t.label t.object.restaurant.menus.find(t.object.food_item).name%>
+              <% end %>
+            </td>
             <td>  <%= t.label t.object.created_at.strftime("%m/%d/%y %I:%M%p") %></td>
             <td>  <%= t.label t.object.status %></td>
             <td>  <%= t.label t.object.payment %></td>
@@ -68,9 +73,6 @@
   <h3>Paid Meals</h3>
   <table class="table">
     <th>Meal#</th>
-    <th>Customer</th>
-    <th>Meal</th>
-    <th>Meal requests</th>
     <th>Received</th>
     <th>Status</th>
     <th>Paid?</th>
@@ -80,9 +82,6 @@
         <%if meal.payment === true%>
           <tr>
             <td><%=meal.id%></td>
-            <td><%=Customer.find(meal.customer_id).name%></td>
-            <td>  <%Restaurant.find(meal.restaurant_id).menus.exists?(meal.food_item) %> </td>
-            <td><%=meal.comment%></td>
             <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
             <td><%=meal.status%></td>
             <td><%=meal.payment%></td>

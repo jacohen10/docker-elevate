@@ -11,17 +11,17 @@ class RestaurantsController < ApplicationController
   end
 
   def admin
-    # @meals_current_month =  @restaurant.meals.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month, payment: true).count
-    # @first_half_current_month =  @restaurant.meals.where(created_at: Time.now.beginning_of_month..(Time.now.beginning_of_month + 14.day), payment: true).count
-    # @second_half_current_month = @restaurant.meals.where(created_at: (Time.now.beginning_of_month + 15.day)..Time.now.end_of_month, payment: true).count
-    # @meals_previous_month =  @restaurant.meals.where(created_at: (1.month.ago.beginning_of_month)..(1.month.ago.end_of_month), payment: true).count
-    # @first_half_previous_month =  @restaurant.meals.where(created_at: (1.month.ago.beginning_of_month)..(1.month.ago.beginning_of_month + 14.day), payment: true).count
-    # @second_half_previous_month =  @restaurant.meals.where(created_at: (1.month.ago.beginning_of_month + 15.day)..(1.month.ago.end_of_month), payment: true).count
-    @unpaid_meals = @restaurant.meals.where(status: "closed", payment: false).order(created_at: :desc)
-    # @paid_meals = @restaurant.meals.where(status: "closed", payment: true).count
+    @meals_current_month =  @restaurant.meals.where(created_at: Time.now.beginning_of_month..Time.now.end_of_month, payment: true).count
+    @first_half_current_month =  @restaurant.meals.where(created_at: Time.now.beginning_of_month..(Time.now.beginning_of_month + 14.day), payment: true).count
+    @second_half_current_month = @restaurant.meals.where(created_at: (Time.now.beginning_of_month + 15.day)..Time.now.end_of_month, payment: true).count
+    @meals_previous_month =  @restaurant.meals.where(created_at: (1.month.ago.beginning_of_month)..(1.month.ago.end_of_month), payment: true).count
+    @first_half_previous_month =  @restaurant.meals.where(created_at: (1.month.ago.beginning_of_month)..(1.month.ago.beginning_of_month + 14.day), payment: true).count
+    @second_half_previous_month =  @restaurant.meals.where(created_at: (1.month.ago.beginning_of_month + 15.day)..(1.month.ago.end_of_month), payment: true).count
+    @unpaid_meals = @restaurant.meals.includes(:customer, :restaurant).where(status: "closed", payment: false).order(created_at: :desc)
+    @paid_meals = @restaurant.meals.where(status: "closed", payment: true).count
     # @meals = @restaurant.meals.all.order(created_at: :desc)
-    # @unpaid_meal_count = @unpaid_meals.count
-    # @amount_owed = (@unpaid_meal_count * 8.70)
+    @unpaid_meal_count = @unpaid_meals.count
+    @amount_owed = (@unpaid_meal_count * 8.70)
   end
 
   def show
