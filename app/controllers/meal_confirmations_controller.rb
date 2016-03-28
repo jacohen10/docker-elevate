@@ -1,5 +1,4 @@
 class MealConfirmationsController < ApplicationController
-
   before_action :set_meal
 
   def call
@@ -7,10 +6,10 @@ class MealConfirmationsController < ApplicationController
     side = Side.find(@meal.side)
 
     response = Twilio::TwiML::Response.new do |r|
-      r.Say "This is Elevate alerting you of an advance order for take-out.", voice: 'woman'
+      r.Say 'This is Elevate alerting you of an advance order for take-out.', voice: 'woman'
       r.Say "An order was received for #{entree.name} and #{side.side_item}", voice: 'woman'
       r.Gather numDigits: '1', action: acknowledge_meal_confirmation_path(id: @meal.id), method: 'get' do |g|
-        g.Say "Please press 1 to let us know you received the order", voice: 'woman'
+        g.Say 'Please press 1 to let us know you received the order', voice: 'woman'
       end
       r.Gather numDigits: '1', action: acknowledge_meal_confirmation_path(id: @meal.id), method: 'get' do |g|
         g.Say "We didn't receive any input. Please press 1 to let us know you received the order", voice: 'woman'
@@ -30,12 +29,12 @@ class MealConfirmationsController < ApplicationController
     response = Twilio::TwiML::Response.new do |r|
       if pressed_number == '1'
         Meals::Approver.call(@meal, 'cooking', false)
-        r.Say "Thanks for confirming the order", voice: 'woman'
+        r.Say 'Thanks for confirming the order', voice: 'woman'
         r.Hangup
       else
         r.Gather numDigits: '1', action: acknowledge_meal_confirmation_path(id: @meal.id), method: 'get' do |g|
           g.Say "An order was received for #{entree.name} and #{side.side_item}", voice: 'woman'
-          g.Say "Please press 1 to let us know you received the order", voice: 'woman'
+          g.Say 'Please press 1 to let us know you received the order', voice: 'woman'
         end
         r.Redirect call_meal_confirmation_path
       end
@@ -52,7 +51,7 @@ class MealConfirmationsController < ApplicationController
 
   private
 
-    def set_meal
-      @meal = Meal.find(params[:id])
-    end
+  def set_meal
+    @meal = Meal.find(params[:id])
+  end
 end

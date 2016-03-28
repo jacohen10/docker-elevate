@@ -2,19 +2,19 @@ class SidesController < ApplicationController
   load_and_authorize_resource
 
   def for_sectionid
-    @subsections = SubSection.find( :all, :conditions => [" category_id = ?", params[:id]]  ).sort_by{ |k| k['name'] }
+    @subsections = SubSection.find(:all, conditions: [' category_id = ?', params[:id]]).sort_by { |k| k['name'] }
     respond_to do |format|
-      format.json  { render :json => @subsections }
+      format.json { render json: @subsections }
     end
   end
+
   def index
     @category = Category.find(params[:category_id])
     @sides = @category.sides
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @sides }
-
-     end
+    end
   end
 
   def new
@@ -53,7 +53,8 @@ class SidesController < ApplicationController
   end
 
   private
+
   def side_params
-    params.require(:side).permit(:side_item,:details, :category_id)
+    params.require(:side).permit(:side_item, :details, :category_id)
   end
 end

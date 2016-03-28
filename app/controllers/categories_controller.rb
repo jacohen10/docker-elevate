@@ -1,7 +1,6 @@
 class CategoriesController < ApplicationController
   load_and_authorize_resource
 
-
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
     @categories = @restaurant.categories
@@ -41,6 +40,7 @@ class CategoriesController < ApplicationController
   end
 
   private
+
   def category_params
     params.require(:category).permit(:name, :comment)
   end

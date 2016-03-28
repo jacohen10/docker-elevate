@@ -1,14 +1,13 @@
 class MenusController < ApplicationController
   load_and_authorize_resource
 
-
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
     @menus = @restaurant.menus
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @menus }
-     end
+    end
   end
 
   def show
@@ -52,7 +51,8 @@ class MenusController < ApplicationController
   end
 
   private
+
   def menu_params
-    params.require(:menu).permit(:name,:meal_type,:details, :restaurant_id)
+    params.require(:menu).permit(:name, :meal_type, :details, :restaurant_id)
   end
 end

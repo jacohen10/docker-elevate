@@ -1,10 +1,9 @@
 class OpenTimesController < ApplicationController
-  before_action :set_open_time, only: [:index,:show,:edit,:update,:destroy,:new,:create]
+  before_action :set_open_time, only: [:index, :show, :edit, :update, :destroy, :new, :create]
   load_and_authorize_resource
 
-
   def index
-      @open_times = @restaurant.open_times.order(created_at: :asc)
+    @open_times = @restaurant.open_times.order(created_at: :asc)
   end
 
   def new
@@ -34,14 +33,15 @@ class OpenTimesController < ApplicationController
   end
 
   private
+
   def open_time_params
-    params.require(:open_time).permit(:day,:opening,:closing)
+    params.require(:open_time).permit(:day, :opening, :closing)
   end
 
   def set_open_time
-    if current_user.role === "admin"
+    if current_user.role == 'admin'
       @restaurant = Restaurant.find(params[:restaurant_id])
-    elsif current_user.role === "restaurant"
+    elsif current_user.role == 'restaurant'
       @restaurant = current_user.restaurants.find(params[:restaurant_id])
     end
   end
