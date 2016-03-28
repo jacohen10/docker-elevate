@@ -6,7 +6,5 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-
-  ROLES = %w[admin restaurant customer]
-
+  ROLES = %w(admin restaurant customer).freeze
 end
