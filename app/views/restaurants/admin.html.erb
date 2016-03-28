@@ -41,9 +41,7 @@
             <td>#<%=t.label t.object.id%></td>
             <td><%= t.label t.object.customer.name %></td>
             <td>
-              <%if  t.object.restaurant.menus.exists?(t.object.food_item)%>
-                <%= t.label t.object.restaurant.menus.find(t.object.food_item).name%>
-              <% end %>
+              <%= t.label t.object.restaurant.menus.find(t.object.food_item).name if t.object.restaurant.menus.exists?(t.object.food_item)%>
             </td>
             <td>  <%= t.label t.object.created_at.strftime("%m/%d/%y %I:%M%p") %></td>
             <td>  <%= t.label t.object.status %></td>

@@ -79,20 +79,21 @@
   <%end%>
   <h3>Closed Restaurants:</h3>
   <%@restaurants.each do |restaurant| %>
-    <div class="restaurant">
-      <div id="closed_restaurants">
-        <%unless restaurant.has_business_hours?%>
-          <p><%=restaurant.name %>: Unavailable Right Now</p>
-        <%else%>
-          <p><%=restaurant.name %> Hours Today: <%=restaurant.opening_time_view(0)%>-<%=restaurant.closing_time_view(0)%>
-            <%if (restaurant.check_business_hours_count_equals(2))%>
-              & <%=restaurant.opening_time_view(1)%>-<%=restaurant.closing_time_view(1)%>
-            <%end%>
-          </p>
-        <%end%>
+    <% if restaurant.active == true%>
+      <div class="restaurant">
+        <div id="closed_restaurants">
+          <%unless restaurant.has_business_hours?%>
+            <p><%=restaurant.name %>: Unavailable Right Now</p>
+          <%else%>
+            <p><%=restaurant.name %> Hours Today: <%=restaurant.opening_time_view(0)%>-<%=restaurant.closing_time_view(0)%>
+              <%if (restaurant.check_business_hours_count_equals(2))%>
+                & <%=restaurant.opening_time_view(1)%>-<%=restaurant.closing_time_view(1)%>
+              <%end%>
+            </p>
+          <%end%>
+        </div>
       </div>
-
-  </div>
+    <%end%>  
 <%end%>
 <h3>Meals:</h3>
 <div class="table-responsive">
