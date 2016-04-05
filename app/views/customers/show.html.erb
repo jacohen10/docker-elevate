@@ -1,6 +1,6 @@
 <div class="jumbotron vertical-center">
   <h2>
-    <%=@customer.name%>
+    <%="#{@customer.first_name} #{@customer.last_name}"%>
     <% if current_user.role === "admin" %>
       <%= link_to "Edit", edit_customer_path(@customer), class:  "btn btn-default"%>
     <%end%>
@@ -93,7 +93,7 @@
           <%end%>
         </div>
       </div>
-    <%end%>  
+    <%end%>
 <%end%>
 <h3>Meals:</h3>
 <div class="table-responsive">
