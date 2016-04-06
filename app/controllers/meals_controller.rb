@@ -19,9 +19,9 @@ class MealsController < ApplicationController
 
     case meal.order_ahead
     when 'order_ahead'
-      flash[:notice] = "#{@customer.name}, your meal has been submitted. Waiting for #{restaurant.name} to confirm! Your meal should be ready for pickup at #{(meal.created_at + 25.minutes).strftime('%I:%M%p')}. Please call #{restaurant.name} if you don’t receive an email confirmation within 10 minutes (check your ‘update’s’ folder in gmail)."
+      flash[:notice] = "#{@customer.first_name}, your meal has been submitted. Waiting for #{restaurant.name} to confirm! Your meal should be ready for pickup at #{(meal.created_at + 25.minutes).strftime('%I:%M%p')}. Please call #{restaurant.name} if you don’t receive an email confirmation within 10 minutes (check your ‘update’s’ folder in gmail)."
     when 'swipe'
-      flash[:notice] = "#{@customer.name}, enjoy your #{entree.name}! If dining in please remember to tip your waiter."
+      flash[:notice] = "#{@customer.first_name}, enjoy your #{entree.name}! If dining in please remember to tip your waiter."
     end
 
     redirect_to user_customer_path(current_user, @customer)
