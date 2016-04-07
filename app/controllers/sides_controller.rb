@@ -55,6 +55,6 @@ class SidesController < ApplicationController
   private
 
   def side_params
-    params.require(:side).permit(:side_item, :details, :category_id)
+    params.require(:side).permit(:side_item, :details, :category_id, :restaurant_id)
   end
 end

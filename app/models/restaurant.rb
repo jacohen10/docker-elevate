@@ -3,6 +3,7 @@ class Restaurant < ActiveRecord::Base
   accepts_nested_attributes_for :meals
   has_many :customers, through: :meals
   has_many :menus, dependent: :destroy
+  has_many :sides, dependent: :destroy
   has_many :categories, dependent: :destroy
   has_many :open_times, dependent: :destroy
   belongs_to :user
