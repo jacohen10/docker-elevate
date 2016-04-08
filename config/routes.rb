@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get 'welcome/index'
   get 'welcome/new_restaurant'
 
-  devise_for :users, controllers: { registrations: "registrations" }
+  devise_for :users, controllers: { registrations: 'registrations' }
 
   root to: 'welcome#index'
 
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       resources :sides
     end
     resources :open_times
-    resources :meals, collection: {complete: :put}
+    resources :meals, collection: { complete: :put }
   end
 
   resources :categories do
@@ -41,5 +41,4 @@ Rails.application.routes.draw do
       get 'complete'
     end
   end
-
 end

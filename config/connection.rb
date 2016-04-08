@@ -1,4 +1,4 @@
 ActiveRecord::Base.establish_connection(
-  :adapter => "postgresql",
-  :database => "elevate_rspec"
+  adapter: 'postgresql',
+  database: 'elevate_rspec'
 )
