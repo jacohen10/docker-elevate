@@ -1,6 +1,5 @@
 module Meals
   class Creator
-
     def self.call(*args)
       new(*args).call
     end
@@ -18,7 +17,6 @@ module Meals
 
     private
 
-      attr_reader :meal_params, :customer
-
+    attr_reader :meal_params, :customer
   end
 end

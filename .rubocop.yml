@@ -1,0 +1,23 @@
+# Common configuration.
+AllCops:
+  # Include gemspec and Rakefile
+  Include:
+    - '**/*.gemspec'
+    - '.pipeline/deployment/**/*.rb'
+  Exclude:
+    - 'Gemfile'
+    - 'bin/**'
+    - 'tmp/**/*'
+    - 'db/**/*.rb'
+Rails:
+  Enabled: true
+Documentation: # http://www.rubydoc.info/github/bbatsov/rubocop/Rubocop/Cop/Style/Documentation
+  Enabled: false
+LineLength: # http://www.rubydoc.info/github/bbatsov/rubocop/Rubocop/Cop/Style/LineLength
+  Enabled: false
+MethodLength: # http://www.rubydoc.info/github/bbatsov/rubocop/Rubocop/Cop/Style/MethodLength
+  Max: 15
+ClassAndModuleChildren: # http://www.rubydoc.info/github/bbatsov/rubocop/Rubocop/Cop/Style/ClassAndModuleChildren
+  Enabled: false
+EndOfLine:
+  Enabled: false

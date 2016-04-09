@@ -9,7 +9,7 @@
   <th>Verify</th>
   <%@customers.each do |customer| %>
     <tr>
-      <td><%=link_to customer.name, customer_path(customer) %></td>
+      <td><%=link_to "#{customer.first_name} #{customer.last_name}", customer_path(customer) %></td>
       <td><%=User.find(customer.user_id).email %></td>
       <td><%=customer.plan %></td>
       <td><%=((customer.plan)-customer.meals.where(status: "closed").count) %></td>

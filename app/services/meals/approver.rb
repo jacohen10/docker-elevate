@@ -1,6 +1,5 @@
 module Meals
   class Approver
-
     def self.call(*args)
       new(*args).call
     end
@@ -23,7 +22,7 @@ module Meals
     end
 
     private
-      attr_reader :meal, :status, :payment
 
+    attr_reader :meal, :status, :payment
   end
 end

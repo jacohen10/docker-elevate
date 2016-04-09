@@ -1,5 +1,5 @@
 <p>
-  <%=@customer.name%>, <%=@restaurant.name%> has confirmed that they received your order: <%=@meal.name %>
+  <%=@customer.first_name%>, <%=@restaurant.name%> has confirmed that they received your order: <%=@meal.name %>
 </p>
 <p>
   Your meal will be ready for pickup by: <%=(Time.now + 25.minutes).strftime("%I:%M%p")%>

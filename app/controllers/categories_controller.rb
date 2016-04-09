@@ -3,7 +3,7 @@ class CategoriesController < ApplicationController
 
   def index
     @restaurant = Restaurant.find(params[:restaurant_id])
-    @categories = @restaurant.categories
+    @categories = @restaurant.categories.includes([:menus, :sides])
     @menu = Menu.new
     @side = Side.new
   end

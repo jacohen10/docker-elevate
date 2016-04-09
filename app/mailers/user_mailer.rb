@@ -10,7 +10,7 @@ class UserMailer < ApplicationMailer
     @meal = meal
     @entree = entree
     @side = side
-    mail to: restaurant.email, subject: "Advance #order " + Time.now.strftime("%I:%M%p %A %m/%d/%y ")
+    mail to: restaurant.email, subject: 'Advance #order ' + Time.now.strftime('%I:%M%p %A %m/%d/%y ')
   end
 
   def order_ahead_customer(user, restaurant, customer, meal)
@@ -18,6 +18,6 @@ class UserMailer < ApplicationMailer
     @restaurant = restaurant
     @customer = customer
     @meal = meal
-    mail to: user.email, subject: "Advance order confirmed " + Time.now.strftime("%I:%M%p %A %m/%d/%y ")
+    mail to: user.email, subject: 'Advance order confirmed ' + Time.now.strftime('%I:%M%p %A %m/%d/%y ')
   end
 end

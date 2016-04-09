@@ -24,13 +24,13 @@
             <%if meal.order_ahead === "order_ahead"%>
               <tr>
                 <td>#<%=meal.id%></td>
-                <td><%=Customer.find(meal.customer_id).name%></td>
+                <td><%=meal.customer.first_name%></td>
                 <td>
-                  <%if Menu.exists?(meal.food_item) %>
-                  <%=Menu.find(meal.food_item).name%>
+                  <%if meal.restaurant.menus.exists?(meal.food_item) %>
+                  <%=meal.restaurant.menus.find(meal.food_item).name%>
                   <%end%>
-                  <%if meal.side !=nil && meal.side != "" && Side.exists?(meal.side) %>
-                  (<%=Side.find(meal.side).side_item%>)
+                  <%if meal.side !=nil && meal.side != "" && meal.restaurant.sides.exists?(meal.side) %>
+                  (<%=meal.restaurant.sides.find(meal.side).side_item%>)
                   <%end%>
                 </td>
                 <td><%=meal.comment%></td>
@@ -72,13 +72,13 @@
           <%if meal.order_ahead == "swipe" %>
             <tr>
               <td>#<%=meal.id%></td>
-              <td><%=Customer.find(meal.customer_id).name%></td>
+              <td><%=meal.customer.first_name%></td>
               <td>
-                <%if Menu.exists?(meal.food_item) %>
-                <%=Menu.find(meal.food_item).name%>
+                <%if meal.restaurant.menus.exists?(meal.food_item) %>
+                <%=meal.restaurant.menus.find(meal.food_item).name%>
                 <%end%>
-                <%if meal.side !=nil && meal.side != "" && Side.exists?(meal.side) %>
-                (<%=Side.find(meal.side).side_item%>)
+                <%if meal.side !=nil && meal.side != "" && meal.restaurant.sides.exists?(meal.side) %>
+                (<%=meal.restaurant.sides.find(meal.side).side_item%>)
                 <%end%>
               </td>
               <td>(<%=meal.comment%>)</td>
