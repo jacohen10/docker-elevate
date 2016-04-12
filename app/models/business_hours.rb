@@ -11,9 +11,9 @@ module BusinessHours
     # check if restaurant has business hours for today
     (has_business_hours? &&
     # opening time is less than or equal to current time
-    ((opening_time(0).to_i <= current_time) &&
+    ((opening_time(0).to_f <= current_time) &&
     # closing time is greater than current time
-    (closing_time(0).to_i > current_time)))
+    (closing_time(0).to_f > current_time)))
   end
 
   def is_open_two?
@@ -35,11 +35,11 @@ module BusinessHours
   end
 
   def opening_time(set_of_hours)
-    open_times.where(day: current_day)[set_of_hours].opening.strftime('%H.%M').to_i
+    open_times.where(day: current_day)[set_of_hours].opening.strftime('%H.%M').to_f
   end
 
   def closing_time(set_of_hours)
-    open_times.where(day: current_day)[set_of_hours].closing.strftime('%H.%M').to_i
+    open_times.where(day: current_day)[set_of_hours].closing.strftime('%H.%M').to_f
   end
 
   def opening_time_view(set_of_hours)
@@ -51,7 +51,7 @@ module BusinessHours
   end
 
   def current_time
-    Time.now.strftime('%H.%M').to_i
+    Time.now.strftime('%H.%M').to_f
   end
 
   def current_day
