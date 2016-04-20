@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant, only: [:admin, :show, :edit, :update, :destroy]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_restaurant, only: [:admin, :show, :edit, :update, :destroy]
   load_and_authorize_resource
 
   def index
