@@ -11,8 +11,8 @@
     <tr>
       <td><%=link_to restaurant.name, restaurant_path(restaurant) %></td>
       <td><%=restaurant.meals.all.count %></td>
-      <td><%=restaurant.meals.where("DATE(created_at) = ?", Date.today).count %></td>
-      <td><%=restaurant.meals.where("DATE(created_at) = ?", Date.today-1).count %></td>
+      <td><%=restaurant.meals.where("created_at >= ?", Time.zone.now.beginning_of_day).count %></td>
+      <td><%=restaurant.meals.where("created_at >= ?", Time.zone.now.beginning_of_day - 1.day).count %></td>
       <td><%=restaurant.meals.where("created_at >= ?", 1.week.ago).count %></td>
     </tr>
     <%end%>
