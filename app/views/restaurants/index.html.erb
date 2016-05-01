@@ -17,10 +17,10 @@
     </tr>
     <%end%>
   <th></th>
-  <th>Total Meals: <%=@meals%> </th>
-  <th></th>
-  <th></th>
-  <th></th>
+  <th>Total Meals: <%=@meals.all.count%> </th>
+  <th>Today: <%=@meals.where("created_at >= ?", Time.zone.now.beginning_of_day).count%> </th>
+  <th>Yesterday <%=@meals.where("created_at >= ?", Time.zone.now.beginning_of_day - 1.day).count%></th>
+  <th>Past 7 days: <%=@meals.where("created_at >= ?", 1.week.ago).count%></th>
 
 
   </table>

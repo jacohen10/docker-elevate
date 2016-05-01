@@ -6,7 +6,7 @@ class RestaurantsController < ApplicationController
   def index
     if current_user.role == 'admin'
       @restaurants = Restaurant.all.order(created_at: :asc)
-      @meals = Meal.all.count
+      @meals = Meal.all
     end
   end
 
