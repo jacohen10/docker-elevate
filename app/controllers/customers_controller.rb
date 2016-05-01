@@ -12,9 +12,9 @@ class CustomersController < ApplicationController
   end
 
   def show
-    @restaurants = Restaurant.all.includes([:categories, { categories: :menus }])
+    @restaurants = Restaurant.all.includes([:categories, { categories: :menus }, { categories: :sides }])
     @meal = Meal.new
-    @meals = @customer.meals.all.order(created_at: :desc)
+    @meals = @customer.meals.all.order(created_at: :desc).limit(10)
     @plan = @customer.plan
     @meals_remaining = (@customer.plan - @customer.meals.count)
   end
