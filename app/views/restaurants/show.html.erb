@@ -8,7 +8,7 @@
   <% if current_user.role == "admin"%>
     <%= link_to "Delete", restaurant_path(@restaurant),class: "btn btn-default", data: { confirm: 'Are you sure you want to submit this meal?' }, method: :delete%>
   <%end%>
-
+    <div class="alert alert-info">PLEASE CLOSE OUT ALL MEALS BY CLOSE OF BUSINESS EACH DAY. NO MEALS WILL REMAIN ON THIS PAGE AS A RESULT. THANKS!</div>
     <h3>Take Out Meals Ordered Ahead</h3>
     <div class="table-responsive">
       <table class="table">
@@ -45,7 +45,7 @@
                       <%= f.submit "Order Received"%>
                     <%elsif meal.is_cooking? %>
                       <%= hidden_field_tag :status, "closed" %>
-                      <%= f.submit "Order Completed"%>
+                      <%= f.submit "Close Order"%>
                     <%end%>
                   <%end%>
                 </td>
@@ -88,7 +88,7 @@
                   <%= hidden_field_tag :meal_id, meal.id %>
                   <%= hidden_field_tag :payment, meal.payment %>
                   <%= hidden_field_tag :status, "closed" %>
-                  <%= f.submit "Confirm meal"%>
+                  <%= f.submit "Close Order"%>
                 <%end%>
               </td>
             </tr>
