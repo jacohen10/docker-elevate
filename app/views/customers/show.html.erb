@@ -19,7 +19,7 @@
   <%end%>
   <!-- Business Hours -->
   <h3>Restaurants</h3>
-  <div class="alert alert-info">Launching our referral program! Get $10 for each friend that signs up. Click link to get your unique code - <%= link_to "http://bit.ly/23sf3s", "http://bit.ly/23sf3s"%></div>
+  <div class="alert alert-info">Launching our referral program! Get $10 for each friend that signs up. Click link to get your unique code - <%= link_to "http://bit.ly/23sf3s", "http://bit.ly/23sf3s", target: "_blank"%></div>
   <%if @meals_remaining > 0 && @customer.verification === "true"%>
     <%@restaurants.each do |restaurant| %>
       <%if restaurant.active == true && (restaurant.is_open_one? || restaurant.is_open_two?)%>
