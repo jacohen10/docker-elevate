@@ -22,6 +22,8 @@ class RestaurantsController < ApplicationController
     # @meals = @restaurant.meals.all.order(created_at: :desc)
     @unpaid_meal_count = @unpaid_meals.count
     @amount_owed = (@unpaid_meal_count * 8.70)
+    @today = (Time.zone.now).beginning_of_day
+    @yesterday = (Time.zone.now - 1.day).beginning_of_day
   end
 
   def show
