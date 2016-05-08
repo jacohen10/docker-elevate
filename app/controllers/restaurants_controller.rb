@@ -7,6 +7,8 @@ class RestaurantsController < ApplicationController
     if current_user.role == 'admin'
       @restaurants = Restaurant.all.order(created_at: :asc)
       @meals = Meal.all
+      @today = (Time.zone.now).beginning_of_day
+      @yesterday = (Time.zone.now - 1.day).beginning_of_day
     end
   end
 
