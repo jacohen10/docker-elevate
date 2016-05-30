@@ -81,7 +81,7 @@
   <h3>Closed Restaurants:</h3>
   <%@restaurants.each do |restaurant| %>
     <% if restaurant.active == true && restaurant.is_closed?%>
-      <div class="restaurant">
+      <div class="closed-restaurant">
         <div id="closed_restaurants">
           <%unless restaurant.has_business_hours?%>
             <p><%=restaurant.name %>: Unavailable Right Now</p>

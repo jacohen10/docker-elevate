@@ -1,18 +1,18 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the bottom of the
+* compiled file so the styles you add here take precedence over styles defined in any styles
+* defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+* file per style scope.
+*
+*= require_tree .
+*= require_self
+*/
 
 $navbar-default-bg: #18519A;
 $navbar-default-link-color: white;
@@ -73,6 +73,20 @@ $jumbotron-bg: white;
   margin-bottom: 5px;
   padding: 5px;
   border-radius: 3px;
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.closed-restaurant {
+  background: #eeeeee;
+  margin: auto;
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 3px;
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
 }
 
 .restaurant h3 {
@@ -81,7 +95,7 @@ $jumbotron-bg: white;
 }
 
 .restaurant select {
--webkit-appearance: menulist-button;
+  -webkit-appearance: menulist-button;
   height: 30px;
   margin-bottom: 3px;
   font-weight: bold;
