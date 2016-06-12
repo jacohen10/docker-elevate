@@ -1,5 +1,6 @@
 $(document).ready ->
   $('.restaurant_menu').hide()
+  $("select[name='meal[food_item]'] option:eq(0)").attr("disabled", "disabled");
 
   $('.menu-header a').click (e) ->
     e.preventDefault()
