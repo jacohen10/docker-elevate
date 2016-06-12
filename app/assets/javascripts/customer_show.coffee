@@ -1,5 +1,7 @@
 $(document).ready ->
-  $('.menu_header a').click (e) ->
+  $('.restaurant_menu').hide()
+
+  $('.menu-header a').click (e) ->
     e.preventDefault()
     restaurant_name = $(this).text().replace(/\s+/g, '').replace(/['"]+/g, '').replace(/[{()}]/g, '')
     $('.restaurant_menu').hide()

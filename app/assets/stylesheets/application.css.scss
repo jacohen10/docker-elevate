@@ -12,8 +12,10 @@
 *
 *= require_tree .
 *= require_self
+*= require font-awesome
 */
 
+@import "font-awesome";
 $navbar-default-bg: #18519A;
 $navbar-default-link-color: white;
 $navbar-height: 75px;
@@ -27,12 +29,12 @@ body {
 
 $jumbotron-bg: white;
 
-.jumbotron {
-  width: 85%;
-  text-align: center;
-  margin: 0 auto;
-  border-radius: 6px;
-}
+// .jumbotron {
+//   width: 85%;
+//   text-align: center;
+//   margin: 0 auto;
+//   border-radius: 6px;
+// }
 
 .jumbotron li {
   list-style-type: none;
@@ -44,13 +46,13 @@ $jumbotron-bg: white;
   padding-left: 0;
 }
 
-.jumbotron a:link {
-  color: black;
-}
-
-.jumbotron a:visited {
-  color: black;
-}
+// .jumbotron a:link {
+//   color: black;
+// }
+//
+// .jumbotron a:visited {
+//   color: black;
+// }
 
 .jumbotron a:active {
   color: white;
@@ -58,58 +60,18 @@ $jumbotron-bg: white;
 
 // customer show page
 
-.mealPlan {
-  background: white;
-  width: 50%;
-  margin: auto;
-  border-radius: 5px;
-  padding: 1%;
-  font-weight: bold;
-}
+// .mealPlan {
+//   background: white;
+//   width: 50%;
+//   margin: auto;
+//   border-radius: 5px;
+//   padding: 1%;
+//   font-weight: bold;
+// }
 
-.restaurant {
-  background: #eeeeee;
-  margin: auto;
-  margin-bottom: 5px;
-  padding: 5px;
-  border-radius: 3px;
-  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
-}
-
-.closed-restaurant {
-  background: #eeeeee;
-  margin: auto;
-  margin-bottom: 5px;
-  padding: 5px;
-  border-radius: 3px;
-  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
-  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
-  box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
-}
-
-.restaurant h3 {
-  color: black;
-  margin: 5px 0 5px 0;
-}
-
-.restaurant select {
-  -webkit-appearance: menulist-button;
-  height: 30px;
-  margin-bottom: 3px;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-#hours p {
-  margin: 0 0 3px 0;
-  font-size: 1.2em;
-}
-
-#submit_btn .btn {
-  border-radius: 4px;
-}
+// #submit_btn .btn {
+//   border-radius: 4px;
+// }
 
 $btn-font-weight: bold;
 
@@ -132,11 +94,6 @@ $btn-font-weight: bold;
   margin-bottom: 5px;
 }
 
-// meals
-tbody tr th {
-  text-align: center;
-}
-
 // alert
 .notice {
   color: #3C763D;
@@ -146,61 +103,56 @@ tbody tr th {
   padding: 15px;
 }
 
-
-.restaurant_menu {
-  display: none;
-  background: #eeeeee;
-  padding: 5px;
-  border-radius: 3px;
-}
-
-.restaurant_menu li {
-  text-align: left;
-  margin-left: 15px;
-}
-
-#scroll_to_menu {
-  background: #f8f8f8;
-  border-radius: 4px;
-  margin: auto;
-  color: #333333;
-  border: solid #333333 1px;
-  margin-bottom: 2px;
-}
-
-#phone {
-  background: #f8f8f8;
-  border-radius: 4px;
-  border: solid #333333 1px;
-  margin-bottom: 2px;
-}
-
-#back_to_top {
-  background: #f8f8f8;
-  border-radius: 4px;
-  border: solid #333333 1px;
-  margin: 0 0 5px 0;
-}
-
-
-.restaurant_menus {
-  margin: 10px 0 0 0;
-}
-
-
 // menus
-.full_menu_food_item {
-  font-weight: bold;
+.menu-header {
+  text-align: center;
 }
 
-.menu_titles {
+.menu-titles {
   padding: 5px;
+
+  a {
+    margin-right: 25px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 }
 
 // RESTAURANT SHOW
 .restaurant-helper-text {
   border-radius: 3px;
   padding: 5px;
+}
+
+// GLOBAL
+.main-container {
+  background: white;
+  margin: auto;
+  margin-bottom: 5px;
+  padding: 15px 5px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 27px 0px rgba(0, 0, 0, 0.25) inset;
+  -moz-box-shadow:0px 0px 27px 0px rgba(0, 0, 0, 0.25) inset;
+  box-shadow: 0px 0px 27px 0px rgba(0, 0, 0, 0.25);
+  text-align: center;
+
+  ul {
+    list-style-type: none;
+  }
+}
+
+.divider {
+  border-bottom: solid 1px #D3D3D3;
+  padding: 7px;
+  margin: 0 10%;
+}
+
+.spacer {
+  margin: 3px;
+  display:block;
+}
+.admin {
+  text-align: center;
 }
 
 @import "bootstrap";

@@ -36,9 +36,9 @@ $(document).ready(function() {
     return confirm('Are you sure?');
   });
 
-  $('#menu_form').click(function(e) {
-    e.preventDefault();
-    $(".new_menu").show();
-  });
+  // $('#menu_form').click(function(e) {
+  //   e.preventDefault();
+  //   $(".new_menu").show();
+  // });
 
 });

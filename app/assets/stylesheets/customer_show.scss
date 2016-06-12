@@ -1,0 +1,135 @@
+.closed-restaurant {
+  background: #eeeeee;
+  margin: auto;
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 3px;
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
+}
+
+.meal-options select {
+  -webkit-appearance: menulist-button;
+  -webkit-appearance: none;
+  height: 40px;
+  margin-bottom: 3px;
+  font-weight: bold;
+  font-size: 1.5rem;
+  border-radius: 29.5px;
+  text-indent: 4px;
+  padding: 8px;
+  color: white;
+  background: url(down-arrow.png) no-repeat 93% #0c8bc6;
+  background-size: 20px;
+}
+
+.meal-options {
+  background: transparent;
+  margin-bottom: 10px;
+}
+
+.meal-entree {
+  width: 49%;
+}
+
+.meal-side {
+  width: 47%;
+}
+
+.full-menu {
+  background: transparent;
+  background: url(side-arrow.png) no-repeat 92% #0c8bc6;
+  background-size: 10%;
+}
+
+.phone {
+  background: url(phone.png) no-repeat center white;
+  box-shadow: none;
+  background-size: 100%;
+}
+
+.hours {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+}
+
+.restaurant-title {
+  font-size: 3rem;
+  text-align: center;
+  margin: auto;
+}
+
+.meal-form {
+  margin-top: 10px;
+}
+
+.meal-request input[type=text],
+.meal-request textarea {
+  border: none;
+  border-radius: 2px;
+  padding: 3px;
+  background-color: #f8f8f8;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.24);
+}
+
+.meal-request {
+  margin-bottom: 10px;
+
+  ::-webkit-input-placeholder {
+    color: #b0b0b0;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #b0b0b0;
+   opacity:  1;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color:    #b0b0b0;
+     opacity:  1;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+     color:    #b0b0b0;
+  }
+}
+
+.order-type {
+  margin-bottom: 10px;
+  margin-left: 3%;
+}
+
+.user-info {
+  width: 75%;
+  text-align: center;
+  background: white;
+  margin: auto;
+  margin-bottom: 5px;
+  padding: 15px 5px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 27px 0px rgba(0, 0, 0, 0.25) inset;
+  -moz-box-shadow:0px 0px 27px 0px rgba(0, 0, 0, 0.25) inset;
+  box-shadow: 0px 0px 27px 0px rgba(0, 0, 0, 0.25);
+
+  ul {
+    list-style-type: none;
+  }
+}
+
+.menu-entrees {
+  text-align: left;
+
+  h4 {
+    text-align: center;
+  }
+}
+
+.menu-sides {
+  text-align: left;
+
+  h4 {
+    text-align: center;
+  }
+}
+
+.entree-item {
+  font-weight: bold;
+}

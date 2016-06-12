@@ -20,6 +20,7 @@ gem 'minitest-spec-rails', '~> 5.2.0'
 gem 'minitest-reporters', '>= 0.5.0'
 gem 'minitest-rails', '~> 2.1.1'
 gem 'factory_girl_rails'
+gem "font-awesome-rails"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use postgresql as the database for Active Record
