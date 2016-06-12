@@ -25,11 +25,10 @@
   input {
     color: white;
   }
+}
 
-  input[type="submit"] {
-    background-color: #0c8bc6;
-    border: none;
-  }
+.bold {
+  font-weight: bold;
 }
 
 // RADIO BUTTONS
@@ -67,6 +66,7 @@
   -ms-transition:     all 0.1s ease-in-out;
   -o-transition:      all 0.1s ease-in-out;
   transition:         all 0.1s ease-in-out;
+  font-weight: normal;
 }
 
 .switch-field label:hover {

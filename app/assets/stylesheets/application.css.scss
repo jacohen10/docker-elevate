@@ -16,46 +16,15 @@
 */
 
 @import "font-awesome";
-$navbar-default-bg: #18519A;
+$navbar-default-bg: #1e55b0;
 $navbar-default-link-color: white;
 $navbar-height: 75px;
 
 $border-radius-base: 0;
 
 body {
-  background-color: black;
-  background: black;
-}
-
-$jumbotron-bg: white;
-
-// .jumbotron {
-//   width: 85%;
-//   text-align: center;
-//   margin: 0 auto;
-//   border-radius: 6px;
-// }
-
-.jumbotron li {
-  list-style-type: none;
-  text-align: center;
-  color: black;
-}
-
-.jumbotron ul {
-  padding-left: 0;
-}
-
-// .jumbotron a:link {
-//   color: black;
-// }
-//
-// .jumbotron a:visited {
-//   color: black;
-// }
-
-.jumbotron a:active {
-  color: white;
+  background-color: #f4f8fb !important;
+  font-family: "Roboto Condensed", Helvetica, Arial, sans-serif !important;
 }
 
 // customer show page

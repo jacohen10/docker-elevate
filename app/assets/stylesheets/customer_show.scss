@@ -14,14 +14,13 @@
   -webkit-appearance: none;
   height: 40px;
   margin-bottom: 3px;
-  font-weight: bold;
-  font-size: 1.5rem;
   border-radius: 29.5px;
   text-indent: 4px;
   padding: 8px;
   color: white;
   background: url(down-arrow.png) no-repeat 93% #0c8bc6;
-  background-size: 20px;
+  background-size: 13px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.24);
 }
 
 .meal-options {
@@ -40,7 +39,7 @@
 .full-menu {
   background: transparent;
   background: url(side-arrow.png) no-repeat 92% #0c8bc6;
-  background-size: 10%;
+  background-size: 8%;
 }
 
 .phone {
@@ -50,18 +49,20 @@
 }
 
 .hours {
-  margin: 0 0 10px 0;
-  font-size: 1.2em;
+  margin: 10px 0 20px 0;
+  font-size: 1.1em;
+  color: #11516f;
 }
 
 .restaurant-title {
   font-size: 3rem;
   text-align: center;
-  margin: auto;
+  color: #09384d;
+  font-weight: bold;
 }
 
 .meal-form {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .meal-request input[type=text],
