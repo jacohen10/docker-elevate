@@ -48,14 +48,14 @@
               <%= f.grouped_collection_select(:food_item, restaurant.categories, :menus, :name, :id, :name, { :include_blank => 'Entree' }, class:"meal-entree", :required => true) %>
               <%= f.select(:side, {},{ :include_blank => 'Side' }, {id:(restaurant.id.to_s + "sides"), class:"meal-side", :required => true} )%>
             </div>
-            <div class="order-type switch-field">
+            <div class="order-type">
               <%if restaurant.in_restaurant_payment === true%>
-              <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
               <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
+              <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
               <%end%>
               <%if restaurant.order_ahead === true%>
-              <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
               <%= f.label :order_ahead, 'Order in advance', value: 'order_ahead' %>
+              <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
               <%end%>
               <%= f.hidden_field :status, value: "open" %>
             </div>
