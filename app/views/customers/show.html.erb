@@ -53,10 +53,7 @@
               <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
               <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
               <%end%>
-              <%if restaurant.in_restaurant_payment === false%>
-              <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead', checked: true %>
-              <%= f.label :order_ahead, 'Order in advance', value: 'order_ahead' %>
-              <%else%>
+              <%if restaurant.order_ahead === true%>
               <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
               <%= f.label :order_ahead, 'Order in advance', value: 'order_ahead' %>
               <%end%>
