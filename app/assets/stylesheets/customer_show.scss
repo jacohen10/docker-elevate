@@ -1,12 +1,11 @@
-.closed-restaurant {
-  background: #eeeeee;
-  margin: auto;
-  margin-bottom: 5px;
-  padding: 5px;
-  border-radius: 3px;
-  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
-  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
-  box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
+@media (min-width: 992px) {
+  .container.larger-screen {
+    width: 50%;
+  }
+
+  .menu-spacer {
+    height: 23px;
+  }
 }
 
 .meal-options select {
@@ -21,6 +20,11 @@
   background: url(down-arrow.png) no-repeat 93% #0c8bc6;
   background-size: 13px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.24);
+  border: 0;
+}
+
+.meal-options select:focus{
+  border-radius:29.5px;
 }
 
 .meal-options {
@@ -54,7 +58,7 @@
   color: #11516f;
 }
 
-.restaurant-title {
+.section-title {
   font-size: 3rem;
   text-align: center;
   color: #09384d;
@@ -109,6 +113,11 @@
   -webkit-box-shadow: 0px 0px 27px 0px rgba(0, 0, 0, 0.25) inset;
   -moz-box-shadow:0px 0px 27px 0px rgba(0, 0, 0, 0.25) inset;
   box-shadow: 0px 0px 27px 0px rgba(0, 0, 0, 0.25);
+  color: #09384d;
+
+  p {
+    color: #11516f;
+  }
 
   ul {
     list-style-type: none;
@@ -132,5 +141,43 @@
 }
 
 .entree-item {
-  font-weight: bold;
+  display: block;
+  padding: 0 10px;
+}
+
+.section-header {
+  margin: 25px 0 10px 0;
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 600;
+  color: #09384d;
+}
+
+.section-subtitle {
+  font-size: 1.33em;
+  text-align: center;
+  font-weight: 600;
+  color: #09384d;
+}
+
+.section--sml-subtitle {
+  font-size: 1.20em;
+  text-align: center;
+  font-weight: 600;
+  color: #09384d;
+}
+
+.closed-restaurant {
+  background: #FCFCFC;
+  margin: auto;
+  margin-bottom: 5px;
+  padding: 10px;
+  border-radius: 3px;
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.1), 0 0 7px rgba(0, 0, 0, 0.1) inset;
+
+  span {
+    color: #11516f;
+  }
 }

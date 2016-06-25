@@ -1,8 +1,9 @@
-<div class="container">
+<div class="container larger-screen">
+  <div class="alert alert-info">Launching our referral program! Get $10 for each friend that signs up. Click link to get your unique code - <%= link_to "http://bit.ly/23sf3s", "http://bit.ly/23sf3s", target: "_blank"%></div>
   <div class="user-info">
-    <h2>
+    <span class="section-title">
       <%="#{@customer.first_name} #{@customer.last_name}"%>
-    </h2>
+    </span>
       <p>Plan selected: <%=@customer.plan %></p>
       <p class="meals_remaining">Meals remaining: <%=@meals_remaining %></p>
   </div>
@@ -11,25 +12,22 @@
     <p class="<%= type %>"><%= message %></p>
   <% end %>
   <div class="admin">
-    <% if current_user.role === "admin" %>
-      <%= link_to "Edit", edit_customer_path(@customer), class:  "btn btn-default"%>
-    <%end%>
     <% if current_user.role === "admin"%>
+      <%= link_to "Edit", edit_customer_path(@customer), class:  "btn btn-default"%>
       <%= link_to "Delete", customer_path(@customer), class: "btn btn-default", data: { confirm: 'Are you sure you want to submit this meal?' }, method: :delete%>
     <%end%>
   </div>
 
   <!-- Restaurants -->
-  <div class="alert alert-info">Launching our referral program! Get $10 for each friend that signs up. Click link to get your unique code - <%= link_to "http://bit.ly/23sf3s", "http://bit.ly/23sf3s", target: "_blank"%></div>
   <%if @meals_remaining > 0 && @customer.verification === "true"%>
     <%@restaurants.each do |restaurant| %>
       <%if restaurant.active == true && (restaurant.is_open_one? || restaurant.is_open_two?)%>
         <div class="main-container">
-          <span class="restaurant-title"><%=restaurant.name%></span>
+          <span class="section-title"><%=restaurant.name%></span>
           <div class="hours" >
             <span>Open <%=restaurant.opening_time_view(0)%> to <%=restaurant.closing_time_view(0)%>
               <%if (restaurant.check_business_hours_count_equals(2))%>
-                & <%=restaurant.opening_time_view(1)%>-<%=restaurant.closing_time_view(1)%>
+                & <%=restaurant.opening_time_view(1)%> to <%=restaurant.closing_time_view(1)%>
               <%end%>
             </span>
             <div class="main-button phone">
@@ -50,7 +48,7 @@
             </div>
             <div class="order-type">
               <%if restaurant.in_restaurant_payment === true%>
-              <%= f.label :order_ahead, 'Pay in restaurant', value: 'swipe' %>
+              <%= f.label :order_ahead, 'Order in restaurant', value: 'swipe' %>
               <%= f.radio_button :order_ahead, 'swipe',value: 'swipe', checked: true %>
               <%end%>
               <%if restaurant.order_ahead === true%>
@@ -60,10 +58,10 @@
               <%= f.hidden_field :status, value: "open" %>
             </div>
             <div class="meal-request">
-              <%= f.text_field :comment, placeholder: "meal requests..." %>
+              <%= f.text_field :comment, placeholder: "special requests..." %>
               <%= f.hidden_field :restaurant_id, value: restaurant.id %>
             </div>
-            <%= f.submit "Submit meal", data: { confirm: 'Are you sure you want to submit this meal?' }, class: 'main-button bold' %>
+            <%= f.submit "Place Order", data: { confirm: 'Are you sure you want to submit this meal?' }, class: 'main-button bold' %>
           </div>
 
 
@@ -76,25 +74,23 @@
   <%else%>
     <%="You're out of meals, please purchase more in order to continue"%>
   <%end%>
-  <h3>Closed Restaurants:</h3>
+  <div class="section-header">Closed Restaurants</div>
   <%@restaurants.each do |restaurant| %>
     <% if restaurant.active == true && restaurant.is_closed?%>
       <div class="closed-restaurant">
-        <div id="closed_restaurants">
-          <%unless restaurant.has_business_hours?%>
-            <p><%=restaurant.name %>: Unavailable Right Now</p>
-          <%else%>
-            <p><%=restaurant.name %> Hours Today: <%=restaurant.opening_time_view(0)%>-<%=restaurant.closing_time_view(0)%>
-              <%if (restaurant.check_business_hours_count_equals(2))%>
-                & <%=restaurant.opening_time_view(1)%>-<%=restaurant.closing_time_view(1)%>
-              <%end%>
-            </p>
-          <%end%>
-        </div>
+        <%unless restaurant.has_business_hours?%>
+          <span><strong><%=restaurant.name %></strong>: Unavailable Right Now</span>
+        <%else%>
+          <span><strong><%=restaurant.name %></strong> Hours Today: <%=restaurant.opening_time_view(0)%> to <%=restaurant.closing_time_view(0)%>
+            <%if (restaurant.check_business_hours_count_equals(2))%>
+              & <%=restaurant.opening_time_view(1)%> to <%=restaurant.closing_time_view(1)%>
+            <%end%>
+          </span>
+        <%end%>
       </div>
     <%end%>
 <%end%>
-<h3>Meal History (Last 10):</h3>
+<div class="section-header">Meal History (Last 10)</div>
 <div class="table-responsive">
   <table class="table table-striped">
     <th>Meal #</th>
@@ -102,7 +98,6 @@
     <th>Status</th>
     <th>Restaurant</th>
     <th>Meal</th>
-    <th>Type</th>
     <%if current_user.role === "admin"%>
       <th>Cancel if open</th>
     <%end%>
@@ -117,13 +112,6 @@
             <%=Menu.find(meal.food_item).name%>
           <%end%>
         </td>
-        <td>
-          <% if meal.order_ahead === "swipe"%>
-            In Restaurant
-          <% elsif meal.order_ahead === "order_ahead"%>
-            Ordered Ahead
-          <%end%>
-        </td>
         <% if current_user.role === "admin"%>
           <td>
             <%= link_to "Cancel", customer_meal_path(@customer, meal), class: "btn btn-default", method: :delete%>
@@ -134,7 +122,7 @@
   </table>
 </div>
 <div class="menu-header">
-  <h3>Full Menus:</h3>
+  <div class="section-header">Full Menus</div>
   <div class="main-button">
     <a id="back_to_top" href="#top">Back to restaurants</a>
   </div>
@@ -151,21 +139,23 @@
   <%@restaurants.each do |restaurant| %>
     <div class="main-container restaurant_menu" id="<%=restaurant.name.delete(?').tr(' ','').delete('()')%>_menu">
       <a name="menu"></a>
-      <h3><%=restaurant.name%><a name="<%=restaurant.name%>"></a></h3>
+      <div class="section-title"><%=restaurant.name%><a name="<%=restaurant.name%>"></a></div>
       <%restaurant.categories.each do |category| %>
         <div class="row">
           <div class="col-md-6 menu-entrees">
-            <h4><%=category.name%> <%=category.comment%></h4>
-              <%category.menus.each do |menu| %>
-                <span class="entree-item"><%=menu.name%>: </span><span class="side-item"><%=menu.details%></span>
-              <%end%>
+            <div class="section-subtitle"><%=category.name%></div>
+            <div class="section--sml-subtitle"><%=category.comment%></div>
+                <%category.menus.each do |menu| %>
+                  <div class="entree-item"><strong><%=menu.name%>:</strong> <%=menu.details%></div>
+                <%end%>
           </div>
 
 
           <div class="col-md-6 menu-sides">
-            <h4>Sides for <%=category.name%></h4>
+            <div class="section-subtitle">Sides for <%=category.name%></div>
+            <div class="menu-spacer"></div>
             <%category.sides.each do |side| %>
-              <span class="entree-item"><%=side.side_item%>: </span><span class="side-item"><%=side.details%></span>
+              <div class="entree-item"><strong><%=side.side_item%>:</strong> <%=side.details%></div>
             <%end%>
           </div>
         </div>
