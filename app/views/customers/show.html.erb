@@ -1,9 +1,9 @@
 <div class="container larger-screen">
   <div class="alert alert-info">Launching our referral program! Get $10 for each friend that signs up. Click link to get your unique code - <%= link_to "http://bit.ly/23sf3s", "http://bit.ly/23sf3s", target: "_blank"%></div>
   <div class="user-info">
-    <span class="section-title">
+    <div class="section-title">
       <%="#{@customer.first_name} #{@customer.last_name}"%>
-    </span>
+    </div>
       <p>Plan selected: <%=@customer.plan %></p>
       <p class="meals_remaining">Meals remaining: <%=@meals_remaining %></p>
   </div>
@@ -23,7 +23,7 @@
     <%@restaurants.each do |restaurant| %>
       <%if restaurant.active == true && (restaurant.is_open_one? || restaurant.is_open_two?)%>
         <div class="main-container">
-          <span class="section-title"><%=restaurant.name%></span>
+          <div class="section-title"><%=restaurant.name%></div>
           <div class="hours" >
             <span>Open <%=restaurant.opening_time_view(0)%> to <%=restaurant.closing_time_view(0)%>
               <%if (restaurant.check_business_hours_count_equals(2))%>
@@ -74,7 +74,7 @@
   <%else%>
     <%="You're out of meals, please purchase more in order to continue"%>
   <%end%>
-  <div class="section-header">Closed Restaurants</div>
+  <div class="section-title">Closed Restaurants</div>
   <%@restaurants.each do |restaurant| %>
     <% if restaurant.active == true && restaurant.is_closed?%>
       <div class="closed-restaurant">
@@ -90,7 +90,7 @@
       </div>
     <%end%>
 <%end%>
-<div class="section-header">Meal History (Last 10)</div>
+<div class="section-title">Meal History (Last 10)</div>
 <div class="table-responsive">
   <table class="table table-striped">
     <th>Meal #</th>
@@ -122,7 +122,7 @@
   </table>
 </div>
 <div class="menu-header">
-  <div class="section-header">Full Menus</div>
+  <div class="section-title">Full Menus</div>
   <div class="main-button">
     <a id="back_to_top" href="#top">Back to restaurants</a>
   </div>
@@ -144,7 +144,7 @@
         <div class="row">
           <div class="col-md-6 menu-entrees">
             <div class="section-subtitle"><%=category.name%></div>
-            <div class="section--sml-subtitle"><%=category.comment%></div>
+            <div class="section-sml-subtitle"><%=category.comment%></div>
                 <%category.menus.each do |menu| %>
                   <div class="entree-item"><strong><%=menu.name%>:</strong> <%=menu.details%></div>
                 <%end%>

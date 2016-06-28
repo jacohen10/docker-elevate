@@ -4,7 +4,7 @@
   }
 
   .menu-spacer {
-    height: 23px;
+    height: 30px;
   }
 }
 
@@ -59,10 +59,12 @@
 }
 
 .section-title {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif !important;
   font-size: 3rem;
   text-align: center;
   color: #09384d;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .meal-form {
@@ -145,14 +147,6 @@
   padding: 0 10px;
 }
 
-.section-header {
-  margin: 25px 0 10px 0;
-  font-size: 3rem;
-  text-align: center;
-  font-weight: 600;
-  color: #09384d;
-}
-
 .section-subtitle {
   font-size: 1.33em;
   text-align: center;
@@ -160,11 +154,12 @@
   color: #09384d;
 }
 
-.section--sml-subtitle {
-  font-size: 1.20em;
+.section-sml-subtitle {
+  font-size: 1.05em;
   text-align: center;
   font-weight: 600;
   color: #09384d;
+  margin-bottom: 10px;
 }
 
 .closed-restaurant {
