@@ -1,4 +1,5 @@
 class UserMailer < ApplicationMailer
+   default from: 'Elevate Meal Plan <hello@elevatemealplan.com>'
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -19,5 +20,13 @@ class UserMailer < ApplicationMailer
     @customer = customer
     @meal = meal
     mail to: user.email, subject: 'Advance order confirmed ' + Time.now.strftime('%I:%M%p %A %m/%d/%y ')
+  end
+
+  def plan_renewal(user, plan, amountCharged)
+    @user = user
+    @customer = user.customers.first
+    @plan = plan
+    @amountCharged = amountCharged
+    mail to: user.email, subject: 'Order Confirmation'
   end
 end

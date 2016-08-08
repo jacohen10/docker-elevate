@@ -1,0 +1,195 @@
+<div id="loader"></div>
+
+<div class="modal fade" id="payByCard" tabindex="-1" role="dialog" aria-labelledby="payByCard">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="payByCardPlan"></h4>
+      </div>
+      <div class="modal-body">
+          <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                  <div class="panel panel-default credit-card-box">
+                    <div class="panel-heading" >
+                        <div class="row display-tr" >
+                            <h3 class="panel-title display-td" >Payment Details</h3>
+                            <div class="display-td" >
+                                <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
+                            </div>
+                        </div>
+                    </div>
+                      <div class="panel-body">
+                        <%= form_tag customer_charges_path, id:"payment-form" do %>
+                          <%= hidden_field_tag :amountToCharge, 0 %>
+                          <%= hidden_field_tag :selectedPlan, 0 %>
+                          <script>
+                            Stripe.setPublishableKey("<%=Rails.configuration.stripe[:publishable_key]%>");
+                          </script>
+                          <span class="payment-errors alert-danger"></span>
+                              <div class="row">
+                                  <div class="col-xs-12">
+                                      <div class="form-group">
+                                          <label for="cardNumber">CARD NUMBER</label>
+                                          <div class="input-group">
+                                            <input type="text" class="form-control" size="20" placeholder="Valid Card Number" data-stripe="number">
+                                            <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-xs-8 col-md-8">
+                                  <div class="form-group">
+                                    <label>EXPIRATION DATE</label>
+                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                      <input type="text" class="form-control" size="2" placeholder="MM" data-stripe="exp_month">
+                                    </div>
+                                    <div class="col-xs-6 col-lg-6 pl-ziro">
+                                      <input type="text" class="form-control" size="2" placeholder="YY" data-stripe="exp_year">
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="col-xs-4 col-md-4 pull-right">
+                                <div class="form-group">
+                                  <label>CVC</label>
+                                  <input type="text" size="4" class="form-control" placeholder="CVC" data-stripe="cvc">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                              <input type="submit" class="btn btn-success btn-lg btn-block" value="Submit Payment">
+                            </div>
+                        </div>
+
+                      <% end %>
+                    </div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="container">
+  <div class="main-container">
+    <div class="section-title">Meal Plans</div>
+    <div class="section-subtitle">Save 2.5% when you pay by check</div>
+    <div class="section-subtitle">Payment plans available. Total meal plan price includes meal tax.</div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 col-sm-12">
+      <div class="payment-container">
+        <label class="amount">
+          <div class="section-title">15 Meals</div>
+          <div class="section-subtitle">$163</div>
+          <div class="section-sml-subtitle">9.99/meal + tax</div>
+          <div>Payment by check: $9.74/meal</div>
+        </label>
+        <button type="button" class="main-button pay-by-card" data-toggle="modal" data-target="#payByCard" data-amounttocharge="16300" data-plan="15">
+          Pay by Card
+        </button>
+        <button type="button" class="main-button pay-by-check" data-toggle="modal" data-target="#payByCheck" data-meals="15" data-base="163" data-price='158.93'>
+          Pay by Check
+        </button>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12">
+      <div class="payment-container">
+        <label class="amount">
+          <div class="section-title">45 Meals</div>
+          <div class="section-subtitle">$467</div>
+          <div class="section-sml-subtitle">9.50/meal + tax</div>
+          <div>Payment by check: $9.26/meal</div>
+        </label>
+        <button type="button" class="main-button pay-by-card" data-toggle="modal" data-target="#payByCard" data-amounttocharge="46700" data-plan="45">
+          Pay by Card
+        </button>
+        <button type="button" class="main-button pay-by-check" data-toggle="modal" data-target="#payByCheck" data-meals="45" data-base="467" data-price='455.33'>
+          Pay by Check
+        </button>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12">
+      <div class="payment-container">
+        <label class="amount">
+          <div class="section-title">75 Meals</div>
+          <div class="section-subtitle">$758</div>
+          <div class="section-sml-subtitle">9.25/meal + tax</div>
+          <div>Payment by check: $9.02/meal</div>
+        </label>
+        <button type="button" class="main-button pay-by-card" data-toggle="modal" data-target="#payByCard" data-amounttocharge="75800" data-plan="75">
+          Pay by Card
+        </button>
+        <button type="button" class="main-button pay-by-check" data-toggle="modal" data-target="#payByCheck" data-meals='75' data-base='758' data-price='739.05'>
+          Pay by Check
+        </button>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12">
+      <div class="payment-container">
+        <label class="amount">
+          <div class="section-title">105 Meals</div>
+          <div class="section-subtitle">$1045</div>
+          <div class="section-sml-subtitle">9.10/meal + tax</div>
+          <div>Payment by check: $8.87/meal</div>
+        </label>
+        <button type="button" class="main-button pay-by-card" data-toggle="modal" data-target="#payByCard" data-amounttocharge="104500" data-plan="105">
+          Pay by Card
+        </button>
+        <button type="button" class="main-button pay-by-check" data-toggle="modal" data-target="#payByCheck" data-meals='105' data-base='1045' data-price='1,018.88'>
+          Pay by Check
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="payByCheck" tabindex="-1" role="dialog" aria-labelledby="payByCheck">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Pay By Check</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          Please email us at hello@elevatemealplan.com if you're sending a check so we can keep an eye out for it and also let you know when we receive it. Once we do we will send a link for your son or daughter to create their account on Elevate
+        </p>
+        <p>2.5% discount from paying by check:</p>
+        <div>
+          <span id="check-meals"></span><span> Meals</span>
+        </div>
+        <div>
+          <span>Base price: $</span><span id="check-base"></span>
+        </div>
+        <div>
+          <span>With 2.5% discount: $</span><span class="check-price"></span>
+        </div>
+
+        <p>Total due: $<strong class="check-price"></strong></p>
+        <p>Please include your son/daughter's name, email address, and year at UVa with the check. The check can be made out to FlashCater LLC (The catering company Elevate is a part of). </p>
+        <p>You can send the check to: </p>
+        <span class="block">Josh Cohen </span>
+        <span class="block">851 N Glebe Rd </span>
+        <span class="block">PH 07 </span>
+        <span class="block">Arlington, Va 22203 </span>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="main-button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

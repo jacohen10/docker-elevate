@@ -7,6 +7,7 @@
   <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Roboto', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Montserrat', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "https://js.stripe.com/v2/" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -29,41 +30,32 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <% if current_user%>
-          <% if current_user.role === "restaurant"%>
-          <% if current_user.restaurants.count ===0%>
-          <li><%=link_to "New Restaurant", new_user_restaurant_path(current_user, @restaurant)%></li>
-          <%end%>
-          <%end%>
+          <% if current_user && current_user.role === "restaurant" && current_user.restaurants.count ===0 %>
+            <li><%=link_to "New Restaurant", new_user_restaurant_path(current_user, @restaurant)%></li>
           <%end%>
 
-            <% if current_user%>
-            <% if current_user.role === "restaurant"%>
-            <% if current_user.restaurants.count >0%>
+          <% if current_user && current_user.role === "restaurant" && current_user.restaurants.count >0%>
             <li><%=link_to "Restaurant Profile", user_restaurant_path(current_user, current_user.restaurants[0])%></li>
-            <%end%>
-            <%end%>
-            <%end%>
-
-          <% if current_user%>
-          <% if current_user.role == "admin" %>
-          <li><%= link_to "Restaurants", restaurants_path%></li>
           <%end%>
+
+          <% if current_user && current_user.role == "admin"%>
+            <li><%= link_to "Restaurants", restaurants_path%></li>
           <%end%>
 
           <% if current_user %>
-          <% if current_user.role == "admin"%>
-          <li><%= link_to "Customers", customers_path%></li>
-          <% elsif current_user.role == "customer"%>
-          <% if current_user.customers.count >0%>
-          <li><%= link_to "Order", user_customer_path(current_user, current_user.customers[0])%></li>
-          <%end%>
-          <%end%>
+            <% if current_user.role == "admin"%>
+              <li><%= link_to "Customers", customers_path%></li>
+            <% elsif current_user.role == "customer"%>
+              <% if current_user.customers.count >0%>
+                <li><%= link_to "Order", user_customer_path(current_user, current_user.customers[0])%></li>
+                <li><%= link_to "Add Meals", new_customer_charge_path(current_user.customers[0])%></li>
+              <%end%>
+            <%end%>
           <%end%>
 
           <% if current_user %>
-          <li><%= link_to 'Signout', destroy_user_session_path, :method => :delete %></li>
           <li><%= link_to "Account Settings", edit_user_registration_path(current_user) %></li>
+          <li><%= link_to 'Signout', destroy_user_session_path, :method => :delete %></li>
           <% else %>
           <li><%= link_to 'Signup', new_user_registration_path %></li>
           <li><%= link_to 'Login', new_user_session_path %></li>

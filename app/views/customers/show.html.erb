@@ -127,10 +127,10 @@
     <a id="back_to_top" href="#top">Back to restaurants</a>
   </div>
   <div class="spacer"></div>
-  <div class="menu-titles">
+  <div class="spacer">
     <%@restaurants.each do |restaurant| %>
       <% if restaurant.active == true%>
-        <a href="#<%=restaurant.name.delete(?').tr(' ','').delete('()')%>" ><%=restaurant.name%></a>
+        <a href="#<%=restaurant.name.delete(?').tr(' ','').delete('()')%>" class="btn btn-default"><%=restaurant.name%></a>
       <%end%>
     <%end%>
   </div>

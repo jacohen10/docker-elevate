@@ -1,0 +1,16 @@
+<h1>Order Confirmation</h1>
+
+<p>
+  Thank you for your purchase <%=@customer.first_name%>!
+</p>
+
+<p>
+  If you have any questions or issues please don't hesitate to email us or use our chat feature on elevatemealplan.com!
+</p>
+
+<h2>Order Details</h2>
+<p>Meals added: <%=@plan%></p>
+
+<p>
+  $<%= @amountCharged.to_i/100 %>
+</p>

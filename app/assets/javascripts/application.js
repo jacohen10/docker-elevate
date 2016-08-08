@@ -36,9 +36,54 @@ $(document).ready(function() {
     return confirm('Are you sure?');
   });
 
-  // $('#menu_form').click(function(e) {
-  //   e.preventDefault();
-  //   $(".new_menu").show();
-  // });
+  $('.payment-errors').bind("DOMSubtreeModified",function(){
+    $('#loader').hide()
+  });
+
+  $('.pay-by-card').on('click', function(e){
+    $('#amountToCharge').val($(this).data('amounttocharge'))
+    $('#selectedPlan').val($(this).data('plan'))
+    $('#payByCardPlan').text($(this).data('plan') + ' Meals')
+
+  })
+
+  $('.pay-by-check').on('click', function(e){
+    $('#check-meals').text($(this).data('meals'))
+    $('#check-base').text($(this).data('base'))
+    $('.check-price').text($(this).data('price'))
+  })
+
+
+  $('#payment-form').submit(function(event) {
+      $('#loader').show()
+      var $form = $(this);
+
+      // Disable the submit button to prevent repeated clicks
+      $form.find('button').prop('disabled', true);
+
+      Stripe.card.createToken($form, stripeResponseHandler);
+
+      // Prevent the form from submitting with the default action
+      return false;
+      $('#loader').hide()
+      $('#payByCard15').modal('hide')
+    });
+
+  function stripeResponseHandler(status, response) {
+    var $form = $('#payment-form');
+
+    if (response.error) {
+      // Show the errors on the form
+      $form.find('.payment-errors').text(response.error.message);
+      $form.find('button').prop('disabled', false);
+    } else {
+      // response contains id and card, which contains additional card details
+      var token = response.id;
+      // Insert the token into the form so it gets submitted to the server
+      $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+      // and submit
+      $form.get(0).submit();
+    }
+  };
 
 });
