@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: 'registrations' }
 
-  root to: 'welcome#index'
+  devise_scope :user do
+    root to: "devise/sessions#new"
+  end
 
   resources :restaurants do
     member do

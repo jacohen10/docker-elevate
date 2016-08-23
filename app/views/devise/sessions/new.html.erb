@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container larger-screen main-container">
   <h2>Log in</h2>
 
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -14,13 +14,13 @@
 
   <% if devise_mapping.rememberable? -%>
   <div class="field">
-    <%= f.check_box :remember_me %>
+    <%= f.check_box :remember_me, {checked: true} %>
     <%= f.label :remember_me %>
   </div>
   <% end -%>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+  <div>
+    <%= f.submit "Log in", class: "main-button" %>
   </div>
   <% end %>
 
