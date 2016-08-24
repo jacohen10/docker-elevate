@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
       user_customer_path(current_user, current_user.customers[0].id)
     elsif current_user.role == 'restaurant'
       user_restaurant_path(current_user, current_user.restaurants[0].id)
+    elsif current_user.role == 'admin'
+      user_restaurants_path(current_user)
     else
       super
     end
