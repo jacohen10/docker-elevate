@@ -53,7 +53,11 @@
               <%end%>
               <%if restaurant.order_ahead === true%>
               <%= f.label :order_ahead, 'Order in advance', value: 'order_ahead' %>
-              <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
+                <%if restaurant.in_restaurant_payment === false%>
+                  <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead', checked: true %>
+                <%else%>
+                  <%= f.radio_button :order_ahead, 'order_ahead',value: 'order_ahead' %>
+                <%end%>
               <%end%>
               <%= f.hidden_field :status, value: "open" %>
             </div>
