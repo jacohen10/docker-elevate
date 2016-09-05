@@ -20,7 +20,7 @@
         <th>Customer</th>
         <th>Meal (Side)</th>
         <th>Meal Requests</th>
-        <th>Received</th>
+        <th>Phone #</th>
         <th>Pickup Time</th>
         <th>Status</th>
         <th>confirm</th>
@@ -39,7 +39,7 @@
                   <%end%>
                 </td>
                 <td class="meal-requests"><%=meal.comment%></td>
-                <td><%=meal.created_at.strftime("%-m/%d/%y %l:%M%p")%></td>
+                <td><%=meal.customer.phone%></td>
                 <td><%=(meal.created_at + 20.minutes).strftime("%-m/%d/%y %l:%M%p")%></td>
                 <td><%=meal.status%></td>
                 <td>  <%= form_for [@restaurant, meal] do |f| %>

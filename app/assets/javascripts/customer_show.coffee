@@ -1,6 +1,7 @@
 $(document).ready ->
   $('.restaurant_menu').hide()
   $("select[name='meal[food_item]'] option:eq(0)").attr("disabled", "disabled");
+  $("#customer_phone").mask("(000) 000-0000", {placeholder: '(___) ___-____'})
 
   $('.menu-header a').click (e) ->
     e.preventDefault()
