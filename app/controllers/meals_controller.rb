@@ -16,10 +16,11 @@ class MealsController < ApplicationController
     meal = Meals::Creator.call(meal_params, @customer)
     restaurant = meal.restaurant
     entree = restaurant.menus.find(meal.food_item)
+    cookTime = restaurant.cook_time
 
     case meal.order_ahead
     when 'order_ahead'
-      flash[:notice] = "#{@customer.first_name}, your meal has been submitted. Waiting for #{restaurant.name} to confirm! Your meal should be ready for pickup at #{(meal.created_at + 20.minutes).strftime('%I:%M%p')}. Please call #{restaurant.name} if you don’t receive an email confirmation within 10 minutes (check your ‘update’s’ folder in gmail)."
+      flash[:notice] = "#{@customer.first_name}, your meal has been submitted. Waiting for #{restaurant.name} to confirm! Your meal should be ready for pickup at #{(meal.created_at + cookTime.minutes).strftime('%I:%M%p')}. Please call #{restaurant.name} if you don’t receive an email confirmation within 10 minutes (check your ‘update’s’ folder in gmail)."
     when 'swipe'
       flash[:notice] = "#{@customer.first_name}, enjoy your #{entree.name}! If dining in please remember to tip your waiter."
     end

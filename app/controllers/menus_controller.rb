@@ -37,7 +37,7 @@ class MenusController < ApplicationController
   def update
     @restaurant = Restaurant.find(params[:restaurant_id])
     @category = Category.find(params[:category_id])
-    @menu = @category.menus.find(params[:id])
+    @menu = @restaurant.menus.find(params[:id])
     @menu.update(menu_params)
 
     redirect_to restaurant_categories_path(@restaurant)
