@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405135329) do
+ActiveRecord::Schema.define(version: 20160910214900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20160405135329) do
     t.string  "details"
     t.integer "restaurant_id"
     t.integer "category_id"
+    t.boolean "available",     default: true
   end
 
   add_index "menus", ["category_id"], name: "index_menus_on_category_id", using: :btree
@@ -104,6 +105,7 @@ ActiveRecord::Schema.define(version: 20160405135329) do
     t.boolean  "order_ahead",           default: false
     t.boolean  "in_restaurant_payment", default: true
     t.boolean  "active",                default: true
+    t.integer  "cook_time",             default: 20
   end
 
   add_index "restaurants", ["user_id"], name: "index_restaurants_on_user_id", using: :btree

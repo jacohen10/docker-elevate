@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container categories">
   <h2>Categories <%= link_to "(+)", new_restaurant_category_path(@restaurant) %></h2>
 
 <!-- Categories -->
@@ -19,6 +19,16 @@
           <%=menu.name%>: <%=menu.details%>
           <%=link_to "Edit", edit_restaurant_category_menu_path(@restaurant, category, menu),class:"btn btn-default" %>
           <%= link_to "Delete", restaurant_category_menu_path(@restaurant, category, menu),class: "btn btn-default", method: :delete%>
+          <%= form_for [@restaurant, category, menu] do |f| %>
+            <%= f.hidden_field :restaurant_id, value: @restaurant.id %>
+            <%if menu.available%>
+              <%= f.hidden_field :available, value: false %>
+              <%= f.submit "Mark Out", class: "btn btn-default" %>
+            <%else%>
+              <%= f.hidden_field :available, value: true %>
+              <%= f.submit "Mark Available", class: "btn btn-default" %>
+            <%end%>
+          <%end%>
         </li>
           </ul>
       <%end%>

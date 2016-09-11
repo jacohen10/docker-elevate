@@ -12,7 +12,7 @@ class CustomersController < ApplicationController
   end
 
   def show
-    @restaurants = Restaurant.all.includes([:categories, { categories: :menus }, { categories: :sides }]).order(name: :asc)
+    @restaurants = Restaurant.all.includes([:categories, { categories: :menus }, { categories: :sides }]).where(menus: {available: true}).order(name: :asc)
     @meal = Meal.new
     @meals = @customer.meals.all.order(created_at: :desc).limit(10)
     @plan = @customer.plan

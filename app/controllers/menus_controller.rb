@@ -37,7 +37,7 @@ class MenusController < ApplicationController
   def update
     @restaurant = Restaurant.find(params[:restaurant_id])
     @category = Category.find(params[:category_id])
-    @menu = @restaurant.menus.find(params[:id])
+    @menu = @category.menus.find(params[:id])
     @menu.update(menu_params)
 
     redirect_to restaurant_categories_path(@restaurant)
@@ -53,6 +53,6 @@ class MenusController < ApplicationController
   private
 
   def menu_params
-    params.require(:menu).permit(:name, :meal_type, :details, :restaurant_id)
+    params.require(:menu).permit(:name, :meal_type, :details, :restaurant_id, :available)
   end
 end
