@@ -40,7 +40,7 @@
                 </td>
                 <td class="meal-requests"><%=meal.comment%></td>
                 <td><%=meal.customer.phone%></td>
-                <td><%=(meal.created_at + 20.minutes).strftime("%-m/%d/%y %l:%M%p")%></td>
+                <td><%=(meal.created_at + @restaurant.cook_time.minutes).strftime("%-m/%d/%y %l:%M%p")%></td>
                 <td><%=meal.status%></td>
                 <td>  <%= form_for [@restaurant, meal] do |f| %>
                     <%= hidden_field_tag :meal_id, meal.id %>

@@ -4,7 +4,7 @@
 <ul>
   <li>Entree: <%=@entree.name %></li>
   <li>Side: <%=@side.side_item %></li>
-  <li>Customer pickup time: <%=(@meal.created_at + 20.minutes).strftime("%I:%M%p")%></li>
+  <li>Customer pickup time: <%=(@meal.created_at + @meal.restaurant.cook_time.minutes).strftime("%I:%M%p")%></li>
 </ul>
 <p>
   Please mark the meal as received.
