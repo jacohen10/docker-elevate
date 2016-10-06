@@ -20,7 +20,7 @@ class RestaurantsController < ApplicationController
     @first_half_previous_month = @restaurant.meals.where(created_at: (1.month.ago.beginning_of_month)..(1.month.ago.beginning_of_month + 14.days), payment: true).count
     @second_half_previous_month = @restaurant.meals.where(created_at: (1.month.ago.beginning_of_month + 15.days)..(1.month.ago.end_of_month), payment: true).count
     @unpaid_meals = @restaurant.meals.includes(:customer, :restaurant).where(status: 'closed', payment: false).order(created_at: :desc)
-    @paid_meals = @restaurant.meals.where(status: 'closed', payment: true).count
+    @paid_meals = @restaurant.meals.where(status: 'closed', payment: true).order(created_at: :desc)
     # @meals = @restaurant.meals.all.order(created_at: :desc)
     @unpaid_meal_count = @unpaid_meals.count
     @amount_owed = (@unpaid_meal_count * 8.70)

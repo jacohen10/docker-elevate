@@ -15,7 +15,7 @@
               <td><%=@meals_previous_month%></td>
               <td><%=@first_half_previous_month%></td>
               <td><%=@second_half_previous_month%></td>
-              <td><%=@paid_meals%></td>
+              <td><%=@paid_meals.count%></td>
             </tr>
     </table>
 
@@ -72,18 +72,13 @@
     <th>Meal#</th>
     <th>Received</th>
     <th>Status</th>
-    <th>Paid?</th>
     <th></th>
-    <%@restaurant.meals.each do |meal| %>
-      <%if meal.status === "closed"%>
-        <%if meal.payment === true%>
-          <tr>
-            <td><%=meal.id%></td>
-            <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
-            <td><%=meal.status%></td>
-            <td><%=meal.payment%></td>
-          <%end%>
-        <%end%>
-      <%end%>
-    </table>
+    <%@paid_meals.each do |meal| %>
+      <tr>
+        <td><%=meal.id%></td>
+        <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
+        <td><%=Menu.find(meal.food_item).name%></td>
+      </tr>  
+    <%end%>
+  </table>
   </div>
