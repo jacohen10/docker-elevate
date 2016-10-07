@@ -77,8 +77,8 @@
       <tr>
         <td><%=meal.id%></td>
         <td><%=meal.created_at.strftime("%m/%d/%y %I:%M%p")%></td>
-        <td><%=Menu.find(meal.food_item).name%></td>
-      </tr>  
+        <td><%=Menu.find(meal.food_item).name rescue nil%></td>
+      </tr>
     <%end%>
   </table>
   </div>
