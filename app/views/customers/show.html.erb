@@ -1,5 +1,4 @@
 <div class="container larger-screen">
-  <div class="alert alert-info"><strong>Just a Reminder:</strong>Unlike Advance Orders, <strong>Order in Restaurant</strong> meals don't begin cooking until you notify the hostess of your order in person. Thanks!</div>
   <div class="user-info">
     <div class="section-title">
       <%="#{@customer.first_name} #{@customer.last_name}"%>
@@ -17,7 +16,7 @@
       <%= link_to "Delete", customer_path(@customer), class: "btn btn-default", data: { confirm: 'Are you sure you want to submit this meal?' }, method: :delete%>
     <%end%>
   </div>
-
+  <div class="alert alert-danger"><strong>Reminder: </strong>Unlike Advance Orders, <strong>Order in Restaurant</strong> meals don't begin cooking until you notify the hostess of your order in person. Thanks!</div>
   <!-- Restaurants -->
   <%if @meals_remaining > 0 && @customer.verification === "true"%>
     <%@restaurants.each do |restaurant| %>
